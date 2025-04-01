@@ -54,7 +54,6 @@ const FloatingText = ({ text, position, color = "#4deeea", size = 0.8, rotation 
           bevelThickness={0.02}
           bevelSize={0.02}
           bevelSegments={5}
-          // Convert array to a proper THREE.Euler object
           rotation={new THREE.Euler(rotation[0], rotation[1], rotation[2])}
         >
           {text}
@@ -74,8 +73,8 @@ const FloatingText = ({ text, position, color = "#4deeea", size = 0.8, rotation 
 const SceneObjects = () => {
   const isMobile = useIsMobile();
   
-  // Adjust positions and scales based on screen size
-  const objectScale = isMobile ? 0.7 : 1;
+  // Adjust scales based on screen size
+  const objectScale = isMobile ? 0.5 : 1;
   
   return (
     <>
@@ -86,7 +85,7 @@ const SceneObjects = () => {
         speed={0.7} 
       />
       
-      {/* Only render these objects on larger screens to avoid duplication and clutter on mobile */}
+      {/* Only render these objects on larger screens */}
       {!isMobile && (
         <>
           <FloatingObject 
@@ -116,21 +115,42 @@ const SceneObjects = () => {
         </>
       )}
       
-      {/* Adjust text positions based on screen size */}
-      <FloatingText 
-        text="Hello" 
-        position={isMobile ? [-2, 0, -2] : [-4, 0, -2]} 
-        color="#4deeea" 
-        size={isMobile ? 0.7 : 1} 
-        rotation={[0, Math.PI * 0.1, 0]} 
-      />
-      <FloatingText 
-        text="World" 
-        position={isMobile ? [2, 1, -3] : [3, 1, -3]} 
-        color="#ff00e0" 
-        size={isMobile ? 0.7 : 1} 
-        rotation={[0, -Math.PI * 0.1, 0]} 
-      />
+      {/* Adjust text positions for mobile */}
+      {isMobile ? (
+        <>
+          <FloatingText 
+            text="Hello" 
+            position={[-1.5, 0, -2]} 
+            color="#4deeea" 
+            size={0.6} 
+            rotation={[0, Math.PI * 0.05, 0]} 
+          />
+          <FloatingText 
+            text="World" 
+            position={[1.5, 0.6, -2.5]} 
+            color="#ff00e0" 
+            size={0.6} 
+            rotation={[0, -Math.PI * 0.05, 0]} 
+          />
+        </>
+      ) : (
+        <>
+          <FloatingText 
+            text="Hello" 
+            position={[-4, 0, -2]} 
+            color="#4deeea" 
+            size={1} 
+            rotation={[0, Math.PI * 0.1, 0]} 
+          />
+          <FloatingText 
+            text="World" 
+            position={[3, 1, -3]} 
+            color="#ff00e0" 
+            size={1} 
+            rotation={[0, -Math.PI * 0.1, 0]} 
+          />
+        </>
+      )}
     </>
   );
 };
@@ -142,8 +162,8 @@ const Experience = () => {
     <Canvas className="fixed top-0 left-0 w-full h-full" dpr={[1, 2]}>
       <PerspectiveCamera 
         makeDefault 
-        position={[0, 0, isMobile ? 12 : 10]} 
-        fov={isMobile ? 65 : 75}
+        position={[0, 0, isMobile ? 8 : 10]} 
+        fov={isMobile ? 60 : 75}
       >
         <ambientLight intensity={0.3} />
         <directionalLight position={[10, 10, 5]} intensity={1} />
@@ -152,7 +172,7 @@ const Experience = () => {
       <Stars 
         radius={50} 
         depth={50} 
-        count={isMobile ? 3000 : 5000} 
+        count={isMobile ? 2000 : 5000} 
         factor={4} 
         fade 
         speed={1} 
