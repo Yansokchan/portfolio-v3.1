@@ -73,19 +73,21 @@ const FloatingText = ({ text, position, color = "#4deeea", size = 0.8, rotation 
 const SceneObjects = () => {
   const isMobile = useIsMobile();
   
-  // Adjust scales based on screen size
-  const objectScale = isMobile ? 0.5 : 1;
+  // Drastically reduce scales for mobile
+  const objectScale = isMobile ? 0.3 : 1;
+  const textScale = isMobile ? 0.4 : 1;
   
   return (
     <>
+      {/* Central object - smaller on mobile */}
       <FloatingObject 
         position={[0, 0, 0]} 
-        scale={[2 * objectScale, 2 * objectScale, 2 * objectScale]} 
+        scale={[1.5 * objectScale, 1.5 * objectScale, 1.5 * objectScale]} 
         color="#8b5cf6" 
         speed={0.7} 
       />
       
-      {/* Only render these objects on larger screens */}
+      {/* Only render additional objects on desktop */}
       {!isMobile && (
         <>
           <FloatingObject 
@@ -115,21 +117,21 @@ const SceneObjects = () => {
         </>
       )}
       
-      {/* Adjust text positions for mobile */}
+      {/* Different text positioning and size based on device */}
       {isMobile ? (
         <>
           <FloatingText 
             text="Hello" 
-            position={[-1.5, 0, -2]} 
+            position={[-1, 1.2, -1.5]} 
             color="#4deeea" 
-            size={0.6} 
+            size={textScale} 
             rotation={[0, Math.PI * 0.05, 0]} 
           />
           <FloatingText 
             text="World" 
-            position={[1.5, 0.6, -2.5]} 
+            position={[1, -0.5, -1.5]} 
             color="#ff00e0" 
-            size={0.6} 
+            size={textScale} 
             rotation={[0, -Math.PI * 0.05, 0]} 
           />
         </>
@@ -162,17 +164,17 @@ const Experience = () => {
     <Canvas className="fixed top-0 left-0 w-full h-full" dpr={[1, 2]}>
       <PerspectiveCamera 
         makeDefault 
-        position={[0, 0, isMobile ? 8 : 10]} 
-        fov={isMobile ? 60 : 75}
+        position={[0, 0, isMobile ? 6 : 10]} 
+        fov={isMobile ? 50 : 75}
       >
         <ambientLight intensity={0.3} />
         <directionalLight position={[10, 10, 5]} intensity={1} />
         <directionalLight position={[-10, -10, -5]} intensity={0.5} color="#4deeea" />
       </PerspectiveCamera>
       <Stars 
-        radius={50} 
-        depth={50} 
-        count={isMobile ? 2000 : 5000} 
+        radius={isMobile ? 30 : 50} 
+        depth={isMobile ? 30 : 50} 
+        count={isMobile ? 1000 : 5000} 
         factor={4} 
         fade 
         speed={1} 
@@ -186,7 +188,7 @@ const Experience = () => {
         minPolarAngle={Math.PI / 3}
         maxPolarAngle={Math.PI / 1.8}
       />
-      <fog attach="fog" args={['#0a192f', 5, 30]} />
+      <fog attach="fog" args={['#0a192f', isMobile ? 3 : 5, isMobile ? 15 : 30]} />
     </Canvas>
   );
 };
