@@ -29,6 +29,7 @@ const FloatingObject = ({ position, scale, color, speed = 1, rotationFactor = 0.
 };
 
 const FloatingText = ({ text, position, color = "#4deeea", size = 0.8, rotation = [0, 0, 0] }) => {
+  // Change the type from useRef<THREE.Mesh> to useRef<THREE.Group> to match Text3D's type
   const textRef = useRef<THREE.Group>(null!);
   
   useFrame((state) => {
@@ -53,7 +54,8 @@ const FloatingText = ({ text, position, color = "#4deeea", size = 0.8, rotation 
         bevelThickness={0.02}
         bevelSize={0.02}
         bevelSegments={5}
-        rotation={rotation}
+        // Convert array to a proper THREE.Euler object
+        rotation={new THREE.Euler(rotation[0], rotation[1], rotation[2])}
       >
         {text}
         <meshStandardMaterial 
