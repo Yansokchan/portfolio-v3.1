@@ -44,28 +44,29 @@ const FloatingText = ({ text, position, color = "#4deeea", size = 0.8, rotation 
       floatIntensity={1.5}
       position={position}
     >
-      <Text3D 
-        ref={textRef}
-        font="/fonts/Inter_Regular.json"
-        size={size}
-        height={0.1}
-        curveSegments={12}
-        bevelEnabled
-        bevelThickness={0.02}
-        bevelSize={0.02}
-        bevelSegments={5}
-        // Convert array to a proper THREE.Euler object
-        rotation={new THREE.Euler(rotation[0], rotation[1], rotation[2])}
-      >
-        {text}
-        <meshStandardMaterial 
-          color={color} 
-          emissive={color} 
-          emissiveIntensity={0.4} 
-          metalness={0.3}
-          roughness={0.2}
-        />
-      </Text3D>
+      <group ref={textRef}>
+        <Text3D 
+          font="/fonts/Inter_Regular.json"
+          size={size}
+          height={0.1}
+          curveSegments={12}
+          bevelEnabled
+          bevelThickness={0.02}
+          bevelSize={0.02}
+          bevelSegments={5}
+          // Convert array to a proper THREE.Euler object
+          rotation={new THREE.Euler(rotation[0], rotation[1], rotation[2])}
+        >
+          {text}
+          <meshStandardMaterial 
+            color={color} 
+            emissive={color} 
+            emissiveIntensity={0.4} 
+            metalness={0.3}
+            roughness={0.2}
+          />
+        </Text3D>
+      </group>
     </Float>
   );
 };
