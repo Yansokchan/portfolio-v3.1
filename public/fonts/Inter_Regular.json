@@ -1,0 +1,88 @@
+
+{
+  "glyphs": {
+    "H": {
+      "x_min": 156,
+      "x_max": 768,
+      "y_min": 0,
+      "y_max": 714,
+      "ha": 924,
+      "o": "m 156 714 l 318 714 l 318 438 l 606 438 l 606 714 l 768 714 l 768 0 l 606 0 l 606 298 l 318 298 l 318 0 l 156 0 l 156 714 z "
+    },
+    "e": {
+      "x_min": 50,
+      "x_max": 750,
+      "y_min": -12,
+      "y_max": 542,
+      "ha": 800,
+      "o": "m 400 -12 q 292 -12 205 33 q 118 78 67 158 q 15 239 15 335 q 54 494 160 611 q 266 728 442 728 q 603 683 707 558 q 812 287 812 82 l 170 82 q 217 44 182 66 q 291 23 252 23 q 371 38 335 23 q 432 84 408 54 l 773 84 q 580 -12 709 -12 l 400 -12 m 401 632 q 293 568 340 632 q 246 429 246 505 l 588 429 q 548 568 580 505 q 401 632 516 632 z "
+    },
+    "l": {
+      "x_min": 142,
+      "x_max": 304,
+      "y_min": 0,
+      "y_max": 714,
+      "ha": 446,
+      "o": "m 142 0 l 142 714 l 304 714 l 304 0 l 142 0 z "
+    },
+    "o": {
+      "x_min": 44,
+      "x_max": 756,
+      "y_min": -12,
+      "y_max": 542,
+      "ha": 800,
+      "o": "m 400 -12 q 198 71 121 185 q 44 387 44 542 q 198 728 121 614 q 400 843 276 843 q 602 728 524 843 q 680 387 680 614 q 602 71 680 185 q 400 -12 524 -12 m 400 105 q 518 184 475 105 q 562 401 562 262 q 518 618 562 541 q 400 696 475 696 q 282 618 325 696 q 238 401 238 541 q 282 184 238 262 q 400 105 325 105 z "
+    },
+    "W": {
+      "x_min": 10,
+      "x_max": 1156,
+      "y_min": 0,
+      "y_max": 714,
+      "ha": 1166,
+      "o": "m 343 0 l 10 714 l 186 714 l 383 236 l 583 714 l 781 714 l 983 236 l 1175 714 l 1156 714 l 975 0 l 781 0 l 583 484 l 377 0 l 343 0 z "
+    },
+    "r": {
+      "x_min": 142,
+      "x_max": 600,
+      "y_min": 0,
+      "y_max": 530,
+      "ha": 642,
+      "o": "m 142 0 l 142 530 l 292 530 l 292 440 l 296 440 q 382 525 334 497 q 475 553 429 553 q 590 526 548 553 l 528 389 q 454 411 497 411 q 374 366 408 411 q 340 224 340 322 l 340 0 l 142 0 z "
+    },
+    "d": {
+      "x_min": 48,
+      "x_max": 760,
+      "y_min": -12,
+      "y_max": 714,
+      "ha": 802,
+      "o": "m 760 0 l 598 0 l 598 68 l 594 68 q 428 -12 527 -12 q 230 91 297 -12 q 164 365 164 194 q 294 636 164 556 q 456 716 424 716 q 552 686 510 716 q 621 608 594 656 l 624 608 l 624 714 l 760 714 l 760 0 m 596 358 q 558 514 596 461 q 444 568 520 568 q 330 513 369 568 q 292 358 292 458 q 330 201 292 258 q 444 144 369 144 q 558 200 520 144 q 596 358 596 256 z "
+    }
+  },
+  "familyName": "Inter",
+  "ascender": 970,
+  "descender": -318,
+  "underlinePosition": -100,
+  "underlineThickness": 50,
+  "boundingBox": {
+    "yMin": -600,
+    "xMin": -2950,
+    "yMax": 1828,
+    "xMax": 4970
+  },
+  "resolution": 1000,
+  "original_font_information": {
+    "format": 0,
+    "copyright": "Copyright 2020 The Inter Project Authors (https://github.com/rsms/inter)",
+    "fontFamily": "Inter",
+    "fontSubfamily": "Regular",
+    "uniqueID": "3.019;RSMS;Inter-Regular",
+    "fullName": "Inter Regular",
+    "version": "3.019;RSMS;Inter-Regular",
+    "postScriptName": "Inter-Regular",
+    "trademark": "Inter is a trademark of rsms.",
+    "preferredFamily": "Inter",
+    "preferredSubfamily": "Regular"
+  },
+  "cssFontWeight": "normal",
+  "cssFontStyle": "normal"
+}
