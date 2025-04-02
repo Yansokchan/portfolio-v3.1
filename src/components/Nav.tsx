@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
@@ -40,7 +39,7 @@ const Nav = () => {
               to="/"
               className="text-2xl font-bold text-cosmic-cyan text-glow"
             >
-              Portfolio<span className="text-cosmic-purple">.</span>
+              SOKCHAN<span className="text-cosmic-purple">.</span>YAN
             </Link>
           </div>
 

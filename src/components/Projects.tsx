@@ -1,4 +1,3 @@
-
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 
@@ -8,89 +7,156 @@ interface Project {
   description: string;
   tags: string[];
   imageUrl: string;
+  link: string;
 }
 
 const projects: Project[] = [
   {
     id: 1,
-    title: "Cosmic Dashboard",
-    description: "A stunning admin dashboard with 3D data visualizations and interactive charts.",
-    tags: ["React", "Three.js", "Tailwind CSS"],
-    imageUrl: "https://images.unsplash.com/photo-1545569341-9eb8b30979d9?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    title: "Calculator",
+    description: "Simple Calculator using HTML, CSS and JAVASCRIPT.",
+    tags: ["HTML", "CSS", "JavaScript"],
+    imageUrl:
+      "https://images.pexels.com/photos/6963017/pexels-photo-6963017.jpeg?cs=srgb&dl=pexels-mikhail-nilov-6963017.jpg&fm=jpg",
+    link: "https://yansokchan.github.io/calculator/calculator.html",
   },
   {
     id: 2,
-    title: "Galaxy Explorer",
-    description: "Interactive WebGL-based space visualization with realistic physics simulation.",
-    tags: ["WebGL", "JavaScript", "Physics"],
-    imageUrl: "https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    title: "E-Commerce Platform",
+    description: "Static E-commerce solution with HTML, CSS and JAVASCRIPT.",
+    tags: ["HTML", "CSS", "JavaScript"],
+    imageUrl:
+      "https://portfolio-v3-seven-kappa.vercel.app/assets/ecom-Bd2l15qF.png",
+    link: "https://yansokchan.github.io/semicolon/home.html",
   },
   {
     id: 3,
-    title: "Nebula UI Kit",
-    description: "A comprehensive UI library for building space-themed web applications.",
-    tags: ["UI/UX", "Design System", "React"],
-    imageUrl: "https://images.unsplash.com/photo-1581822261290-991b38693d1b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-  }
+    title: "Rock Paper Scissor",
+    description: "Rock Paper Scissor game using HTML, CSS and JAVASCRIPT.",
+    tags: ["HTML", "CSS", "Javascript"],
+    imageUrl:
+      "https://remptongames.com/wp-content/uploads/2024/08/rock-paper-scissors-1.png?w=1200",
+    link: "https://yansokchan.github.io/RPS/rock-paper-scissors.html",
+  },
+  {
+    id: 4,
+    title: "Portfolio V1",
+    description: "Portfolio V1 using React Vite and Tailwind CSS.",
+    tags: ["Vite", "Tailwind"],
+    imageUrl:
+      "https://portfolio-v3-seven-kappa.vercel.app/assets/pfl1-BhNu1Ovl.png",
+    link: "https://yansokchan.github.io/my-portfolio/",
+  },
+  {
+    id: 5,
+    title: "Portfolio V2",
+    description: "Portfolio V2 using React Vite, Tailwind CSS, GSAP, Daisy UI.",
+    tags: ["Vite", "Tailwind", "GSAP", "Daisy UI"],
+    imageUrl:
+      "https://portfolio-v3-seven-kappa.vercel.app/assets/pfl2-DxOFezEw.png",
+    link: "https://yansokchan.github.io/portfolio/",
+  },
 ];
 
-const ProjectCard = ({ project, index }: { project: Project; index: number }) => {
+const ProjectCard = ({
+  project,
+  index,
+}: {
+  project: Project;
+  index: number;
+}) => {
   const [isHovered, setIsHovered] = useState(false);
   const cardRef = useRef(null);
   const isInView = useInView(cardRef, { once: true, amount: 0.3 });
-  
+
   return (
     <motion.div
       ref={cardRef}
       initial={{ opacity: 0, y: 50 }}
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
       transition={{ duration: 0.5, delay: index * 0.2 }}
-      className="relative glass rounded-xl overflow-hidden"
+      className="relative glass rounded-xl overflow-hidden group"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       style={{
         transformStyle: "preserve-3d",
-        perspective: "1000px"
+        perspective: "1000px",
       }}
     >
-      <div 
+      <motion.div
         className="h-72 w-full relative overflow-hidden"
-        style={{
-          transform: isHovered ? "translateZ(20px) scale(1.03)" : "translateZ(0) scale(1)",
-          transition: "transform 0.3s ease-out"
+        animate={{
+          scale: isHovered ? 1.03 : 1,
+          translateZ: isHovered ? "20px" : "0px",
         }}
+        transition={{ duration: 0.3, ease: "easeOut" }}
       >
-        <img 
-          src={project.imageUrl} 
+        <motion.img
+          src={project.imageUrl}
           alt={project.title}
-          className="w-full h-full object-cover transition-transform duration-500"
-          style={{
-            transform: isHovered ? "scale(1.1)" : "scale(1)"
+          className="w-full h-full object-cover"
+          animate={{
+            scale: isHovered ? 1.1 : 1,
           }}
+          transition={{ duration: 0.5 }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-      </div>
-      
-      <div 
+      </motion.div>
+
+      <motion.div
         className="p-6"
-        style={{
-          transform: isHovered ? "translateZ(30px)" : "translateZ(0)",
-          transition: "transform 0.3s ease-out"
+        animate={{
+          translateZ: isHovered ? "30px" : "0px",
         }}
+        transition={{ duration: 0.3, ease: "easeOut" }}
       >
-        <h3 className="text-xl font-semibold text-white mb-2">{project.title}</h3>
+        <motion.h3
+          className="text-xl font-semibold text-white mb-2"
+          animate={{
+            y: isHovered ? -5 : 0,
+            color: isHovered ? "rgb(77, 238, 234)" : "rgb(255, 255, 255)",
+          }}
+          transition={{ duration: 0.3 }}
+        >
+          {project.title}
+        </motion.h3>
         <p className="text-gray-300 mb-4">{project.description}</p>
-        <div className="flex flex-wrap gap-2">
-          {project.tags.map(tag => (
-            <span 
-              key={tag} 
+        <div className="flex flex-wrap gap-2 mb-4">
+          {project.tags.map((tag) => (
+            <motion.span
+              key={tag}
               className="px-3 py-1 text-xs rounded-full bg-cosmic-purple/20 text-cosmic-cyan"
+              whileHover={{
+                scale: 1.05,
+                backgroundColor: "rgba(147, 51, 234, 0.3)",
+              }}
+              transition={{ duration: 0.2 }}
             >
               {tag}
-            </span>
+            </motion.span>
           ))}
         </div>
-      </div>
+        <motion.a
+          target="_blank"
+          href={project.link}
+          className="inline-block px-6 py-2 rounded-full bg-cosmic-purple/20 text-cosmic-cyan border border-cosmic-cyan/20 hover:border-cosmic-cyan transition-colors duration-300"
+          whileHover={{
+            scale: 1.05,
+            backgroundColor: "rgba(147, 51, 234, 0.3)",
+          }}
+          whileTap={{ scale: 0.95 }}
+        >
+          View Project
+        </motion.a>
+      </motion.div>
+
+      <motion.div
+        className="absolute inset-0 rounded-xl opacity-0 ring-2 ring-cosmic-cyan pointer-events-none"
+        animate={{
+          opacity: isHovered ? 0.2 : 0,
+        }}
+        transition={{ duration: 0.3 }}
+      />
     </motion.div>
   );
 };
@@ -98,7 +164,7 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
 const Projects = () => {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
-  
+
   return (
     <section id="projects" className="section py-20" ref={sectionRef}>
       <div className="max-w-7xl mx-auto">
@@ -113,10 +179,11 @@ const Projects = () => {
             <span className="text-white">Projects</span>
           </h2>
           <p className="text-gray-300 max-w-2xl mx-auto">
-            Explore some of my latest work showcasing creative solutions and cutting-edge technologies.
+            Explore some of my latest work showcasing creative solutions and
+            cutting-edge technologies.
           </p>
         </motion.div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (
             <ProjectCard key={project.id} project={project} index={index} />
