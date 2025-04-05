@@ -79,12 +79,12 @@ const Hero = () => {
               onHoverEnd={() => setImageHovered(false)}
             >
               <motion.div
-                className="w-full h-full relative rounded-full overflow-hidden shadow-[0_0_30px_rgba(6,182,212,0.3)]"
+                className="w-full h-full relative rounded-full overflow-hidden "
                 animate={{
                   scale: imageHovered ? 1.05 : 1,
-                  boxShadow: imageHovered
-                    ? "0 0 40px rgba(6, 182, 212, 0.4)"
-                    : "0 0 30px rgba(6, 182, 212, 0.3)",
+                  filter: imageHovered
+                    ? "drop-shadow(0 0 40px rgba(6, 182, 212, 0.5)) drop-shadow(0 0 25px rgba(126, 34, 206, 0.4))"
+                    : "drop-shadow(0 0 25px rgba(6, 182, 212, 0.4)) drop-shadow(0 0 20px rgba(126, 34, 206, 0.3))",
                 }}
                 transition={{
                   duration: 0.3,
@@ -92,7 +92,7 @@ const Hero = () => {
                 }}
               >
                 {/* Main image container */}
-                <div className="w-full h-full rounded-full overflow-hidden relative bg-[#1a1625] p-[5px]">
+                <div className="w-full h-full rounded-full overflow-hidden relative bg-gradient-to-r from-cosmic-cyan to-cosmic-purple p-[4px] z-10">
                   {/* Image */}
                   <img
                     src={pf}
@@ -188,12 +188,12 @@ const Hero = () => {
             onHoverEnd={() => setImageHovered(false)}
           >
             <motion.div
-              className="w-full h-full relative rounded-full overflow-hidden shadow-[0_0_30px_rgba(6,182,212,0.3)]"
+              className="w-full h-full relative rounded-full overflow-hidden"
               animate={{
                 scale: imageHovered ? 1.05 : 1,
-                boxShadow: imageHovered
-                  ? "0 0 40px rgba(6, 182, 212, 0.4)"
-                  : "0 0 30px rgba(6, 182, 212, 0.3)",
+                filter: imageHovered
+                  ? "drop-shadow(0 0 40px rgba(6, 182, 212, 0.5)) drop-shadow(0 0 25px rgba(126, 34, 206, 0.4))"
+                  : "drop-shadow(0 0 25px rgba(6, 182, 212, 0.4)) drop-shadow(0 0 20px rgba(126, 34, 206, 0.3))",
               }}
               transition={{
                 duration: 0.3,
@@ -201,7 +201,7 @@ const Hero = () => {
               }}
             >
               {/* Main image container */}
-              <div className="w-full h-full rounded-full overflow-hidden relative bg-[#1a1625] p-[5px]">
+              <div className="w-full h-full rounded-full overflow-hidden relative bg-gradient-to-r from-cosmic-cyan to-cosmic-purple p-[4px] z-10">
                 {/* Image */}
                 <img
                   src={pf}

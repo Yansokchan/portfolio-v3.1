@@ -101,3 +101,21 @@
   min-height: 100vh;
   isolation: isolate;
 }
+
+@keyframes border-spin {
+  0% {
+    transform: rotate(0deg);
+    filter: hue-rotate(0deg) brightness(1);
+  }
+  50% {
+    filter: hue-rotate(180deg) brightness(1.2);
+  }
+  100% {
+    transform: rotate(360deg);
+    filter: hue-rotate(360deg) brightness(1);
+  }
+}
+
+.animate-border-spin {
+  animation: border-spin 12s linear infinite;
+}
