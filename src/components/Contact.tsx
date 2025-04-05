@@ -253,7 +253,7 @@ const Contact = () => {
             initial={{ opacity: 0, y: 50 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="bg-gradient-to-r from-cyan-500/10 to-purple-400/10 p-4 md:p-8 rounded-2xl"
+            className="bg-gradient-to-r from-cyan-500/20 to-purple-400/20 p-4 md:p-8 rounded-2xl"
           >
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-[24px] text-cosmic-cyan font-semibold">
@@ -508,7 +508,7 @@ const Contact = () => {
             initial={{ opacity: 0, y: 50 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="bg-gradient-to-r from-cyan-500/10 to-purple-400/10 md:p-8 p-4 rounded-2xl flex flex-col h-[950px]"
+            className="bg-gradient-to-r from-cyan-500/20 to-purple-400/20 md:p-8 p-4 rounded-2xl flex flex-col h-[950px]"
           >
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-[24px] text-cosmic-cyan font-semibold">

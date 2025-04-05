@@ -85,7 +85,7 @@ const ProjectCard = ({
       initial={{ opacity: 0, y: 50 }}
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
       transition={{ duration: 0.5, delay: index * 0.2 }}
-      className="relative bg-gradient-to-r from-cyan-500/10 to-purple-400/10 rounded-xl overflow-hidden group"
+      className="relative bg-gradient-to-r from-cyan-500/20 to-purple-400/20 rounded-xl overflow-hidden group"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       style={{
