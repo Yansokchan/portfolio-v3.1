@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 import { motion, useInView } from "framer-motion";
 import { useToast } from "@/hooks/use-toast";
 import { createClient } from "@supabase/supabase-js";
@@ -43,9 +43,41 @@ const Contact = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [timeAgoRefresh, setTimeAgoRefresh] = useState(0);
 
   // Add a ref for the file input
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const formatTimeAgo = useCallback((dateString: string) => {
+    const date = new Date(dateString);
+    const now = new Date();
+    const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
+    const diffInMinutes = Math.floor(diffInSeconds / 60);
+    const diffInHours = Math.floor(diffInMinutes / 60);
+    const diffInDays = Math.floor(diffInHours / 24);
+    const diffInMonths = Math.floor(diffInDays / 30);
+
+    if (diffInSeconds < 60) {
+      return "just now";
+    } else if (diffInMinutes < 60) {
+      return `${diffInMinutes}m ago`;
+    } else if (diffInHours < 24) {
+      return `${diffInHours}h ago`;
+    } else if (diffInDays < 30) {
+      return `${diffInDays}d ago`;
+    } else {
+      return `${diffInMonths}mo ago`;
+    }
+  }, []);
+
+  // Update times every minute
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTimeAgoRefresh((prev) => prev + 1);
+    }, 60000); // Update every minute
+
+    return () => clearInterval(interval);
+  }, []);
 
   // Fetch comments on component mount
   useEffect(() => {
@@ -74,28 +106,6 @@ const Contact = () => {
         description: "Failed to load comments. Please try again later.",
         variant: "destructive",
       });
-    }
-  };
-
-  const formatTimeAgo = (dateString: string) => {
-    const date = new Date(dateString);
-    const now = new Date();
-    const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
-    const diffInMinutes = Math.floor(diffInSeconds / 60);
-    const diffInHours = Math.floor(diffInMinutes / 60);
-    const diffInDays = Math.floor(diffInHours / 24);
-    const diffInMonths = Math.floor(diffInDays / 30);
-
-    if (diffInSeconds < 60) {
-      return "just now";
-    } else if (diffInMinutes < 60) {
-      return `${diffInMinutes}m ago`;
-    } else if (diffInHours < 24) {
-      return `${diffInHours}h ago`;
-    } else if (diffInDays < 30) {
-      return `${diffInDays}d ago`;
-    } else {
-      return `${diffInMonths}mo ago`;
     }
   };
 
@@ -160,8 +170,19 @@ const Contact = () => {
       const result = await response.json();
       if (result.success) {
         toast({
-          title: "Success!",
-          description: "Your message has been sent successfully.",
+          title: "Message Sent Successfully! 🚀",
+          description: (
+            <div className="flex flex-col gap-1">
+              <p className="font-medium">
+                Thank you for reaching out, {formData.name}!
+              </p>
+              <p className="text-sm text-gray-400">
+                I'll get back to you as soon as possible.
+              </p>
+            </div>
+          ),
+          className:
+            "bg-gradient-to-r from-cyan-500/20 to-purple-400/20 border border-cyan-500/20 text-white",
         });
         setFormData({
           name: "",
@@ -174,9 +195,17 @@ const Contact = () => {
     } catch (error) {
       console.error("Error sending message:", error);
       toast({
-        title: "Error",
-        description: "Failed to send message. Please try again.",
+        title: "Oops! Something went wrong 😕",
+        description: (
+          <div className="flex flex-col gap-1">
+            <p className="font-medium">Failed to send your message.</p>
+            <p className="text-sm text-gray-400">
+              Please try again or contact me directly via email.
+            </p>
+          </div>
+        ),
         variant: "destructive",
+        className: "bg-red-500/20 border border-red-500/20",
       });
     } finally {
       setIsContactLoading(false);
@@ -188,24 +217,60 @@ const Contact = () => {
     setIsCommentLoading(true);
 
     try {
+      let profile_image_url = null;
+
+      // Upload image if one is selected
+      if (commentData.profilePhoto) {
+        const fileExt = commentData.profilePhoto.name.split(".").pop();
+        const fileName = `${Math.random()
+          .toString(36)
+          .substring(2)}.${fileExt}`;
+        const filePath = `${fileName}`;
+
+        const { data: uploadData, error: uploadError } = await supabase.storage
+          .from("profile-images")
+          .upload(filePath, commentData.profilePhoto);
+
+        if (uploadError) {
+          throw new Error(`Failed to upload image: ${uploadError.message}`);
+        }
+
+        const {
+          data: { publicUrl },
+        } = supabase.storage.from("profile-images").getPublicUrl(filePath);
+
+        profile_image_url = publicUrl;
+      }
+
       const { data: insertData, error: insertError } = await supabase
         .from("comments")
         .insert([
           {
             name: commentData.name,
             comment: commentData.comment,
+            profile_image: profile_image_url,
           },
         ])
         .select();
 
       if (insertError) {
-        console.error("Insert error:", insertError);
-        throw new Error(`Failed to insert comment: ${insertError.message}`);
+        throw new Error(`Failed to post comment: ${insertError.message}`);
       }
 
       toast({
-        title: "Success!",
-        description: "Your comment has been posted.",
+        title: "Comment Posted! ✨",
+        description: (
+          <div className="flex flex-col gap-1">
+            <p className="font-medium">
+              Thanks for sharing your thoughts, {commentData.name}!
+            </p>
+            <p className="text-sm text-gray-400">
+              Your comment is now live on the page.
+            </p>
+          </div>
+        ),
+        className:
+          "bg-gradient-to-r from-cyan-500/20 to-purple-400/20 border border-cyan-500/20 text-white",
       });
 
       setCommentData({
@@ -213,17 +278,25 @@ const Contact = () => {
         comment: "",
         profilePhoto: null,
       });
+      setPreviewUrl(null);
 
       fetchComments();
     } catch (error) {
       console.error("Error posting comment:", error);
       toast({
-        title: "Error",
-        description:
-          error instanceof Error
-            ? error.message
-            : "Failed to post comment. Please try again.",
+        title: "Comment Posting Failed 😔",
+        description: (
+          <div className="flex flex-col gap-1">
+            <p className="font-medium">Unable to post your comment.</p>
+            <p className="text-sm text-gray-400">
+              {error instanceof Error
+                ? error.message
+                : "Please try again later."}
+            </p>
+          </div>
+        ),
         variant: "destructive",
+        className: "bg-red-500/20 border border-red-500/20",
       });
     } finally {
       setIsCommentLoading(false);
@@ -385,7 +458,7 @@ const Contact = () => {
                     </div>
                     <div>
                       <h4 className="text-sm text-gray-400 mb-1">Phone</h4>
-                      <p className="text-white">+1 (123) 456-7890</p>
+                      <p className="text-white">+855| 97-5948-051</p>
                     </div>
                   </div>
 
@@ -409,7 +482,7 @@ const Contact = () => {
                     </div>
                     <div>
                       <h4 className="text-sm text-gray-400 mb-1">Email</h4>
-                      <p className="text-white">hello@example.com</p>
+                      <p className="text-white">yansokchan05@gmail.com</p>
                     </div>
                   </div>
 
@@ -433,11 +506,20 @@ const Contact = () => {
                     </div>
                     <div>
                       <h4 className="text-sm text-gray-400 mb-1">Location</h4>
-                      <p className="text-white">San Francisco, CA</p>
+                      <p className="text-white">Chbar Ompov, Phnom Penh</p>
                     </div>
                   </div>
-
-                  <div className="pt-6 mt-6 border-t border-gray-800">
+                  <div className="relative w-full">
+                    <div className="absolute left-0 right-0 top-0 h-px w-full">
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cosmic-cyan to-transparent h-[2px] w-full blur-sm opacity-50" />
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cosmic-cyan to-transparent h-px w-full" />
+                    </div>
+                    <div className="absolute left-1/4 right-1/4 top-0 h-px w-1/2">
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cosmic-purple to-transparent h-[3px] w-full blur-sm opacity-50" />
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cosmic-purple to-transparent h-px w-full" />
+                    </div>
+                  </div>
+                  <div className="pt-6 mt-6">
                     <h4 className="text-sm text-gray-400 mb-3">Find me on</h4>
                     <div className="flex space-x-4">
                       <a
@@ -511,9 +593,33 @@ const Contact = () => {
             className="bg-gradient-to-r from-cyan-500/20 to-purple-400/20 md:p-8 p-4 rounded-2xl flex flex-col h-[950px]"
           >
             <div className="flex items-center justify-between mb-6">
-              <h3 className="text-[24px] text-cosmic-cyan font-semibold">
-                Comments ({comments.length})
-              </h3>
+              <div className="flex items-center gap-2">
+                <div className="bg-cosmic-purple/20 p-2 rounded-lg">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="text-cosmic-cyan"
+                  >
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                    <path d="M8 10h.01" />
+                    <path d="M12 10h.01" />
+                    <path d="M16 10h.01" />
+                  </svg>
+                </div>
+                <h3 className="text-[24px] text-cosmic-cyan font-semibold flex items-center gap-2">
+                  Comments
+                  <span className="text-base font-normal text-cyan-400">
+                    ({comments.length})
+                  </span>
+                </h3>
+              </div>
             </div>
 
             <form onSubmit={handleCommentSubmit} className="mb-6">
@@ -610,14 +716,14 @@ const Contact = () => {
             </form>
 
             <div className={`flex-1 ${styles.custom_scrollbar}`}>
-              <div className="space-y-4 pr-2">
+              <div className="space-y-3 md:space-y-4 pr-2">
                 {comments.map((comment) => (
                   <div
                     key={comment.id}
-                    className="flex items-start gap-3 p-4 rounded-lg bg-gradient-to-r from-cyan-500/15 to-purple-400/15"
+                    className="flex items-start gap-3 p-3 md:p-4 rounded-lg bg-gradient-to-r from-cyan-500/15 to-purple-400/15"
                   >
                     {comment.profile_image ? (
-                      <div className="w-10 h-10 rounded-full overflow-hidden">
+                      <div className="w-11 h-11 border-[2px] border-cyan-600 rounded-full overflow-hidden">
                         <img
                           src={comment.profile_image}
                           alt={comment.name}
@@ -625,7 +731,7 @@ const Contact = () => {
                         />
                       </div>
                     ) : (
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-cosmic-purple/30 to-cosmic-cyan/30 flex items-center justify-center">
+                      <div className="w-11 h-11 border-[2px] border-cyan-600 rounded-full bg-gradient-to-br from-cosmic-purple/30 to-cosmic-cyan/30 flex items-center justify-center">
                         <svg
                           className="w-6 h-6 text-cosmic-cyan"
                           fill="none"
@@ -648,7 +754,7 @@ const Contact = () => {
                           {comment.name}
                         </h4>
                         <span className="text-gray-500 text-sm">
-                          {comment.time}
+                          {formatTimeAgo(comment.created_at)}
                         </span>
                       </div>
                       <p className="text-gray-400 mt-1">{comment.comment}</p>

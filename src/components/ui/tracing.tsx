@@ -17,29 +17,24 @@ export const Tracing = ({
   className?: string;
 }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"],
-  });
+  const { scrollYProgress } = useScroll();
 
   const contentRef = useRef<HTMLDivElement>(null);
   const [svgHeight, setSvgHeight] = useState(0);
 
   useEffect(() => {
-    if (contentRef.current) {
-      setSvgHeight(contentRef.current.offsetHeight);
-    }
+    setSvgHeight(window.innerHeight * 0.6);
   }, []);
 
   const y1 = useSpring(
-    useTransform(scrollYProgress, [0, 0.8], [50, svgHeight]),
+    useTransform(scrollYProgress, [0, 0.8], [0, svgHeight]),
     {
       stiffness: 500,
       damping: 90,
     }
   );
   const y2 = useSpring(
-    useTransform(scrollYProgress, [0, 1], [50, svgHeight - 200]),
+    useTransform(scrollYProgress, [0, 1], [0, svgHeight - 200]),
     {
       stiffness: 500,
       damping: 90,
@@ -49,9 +44,9 @@ export const Tracing = ({
   return (
     <motion.div
       ref={ref}
-      className={cn("relative mx-auto h-full w-full max-w-4xl", className)}
+      className={cn("relative mx-auto h-full w-full max-w-7xl px-4", className)}
     >
-      <div className="absolute top-3 -left-4 md:-left-20">
+      <div className="fixed -left-[5px] top-[20%] z-50 md:left-1 md:top-1/4">
         <motion.div
           transition={{
             duration: 0.2,
@@ -61,9 +56,9 @@ export const Tracing = ({
             boxShadow:
               scrollYProgress.get() > 0
                 ? "none"
-                : "rgba(0, 0, 0, 0.24) 0px 3px 8px",
+                : "0 0 15px rgba(34, 211, 238, 0.6)",
           }}
-          className="border-netural-200 ml-[27px] flex h-4 w-4 items-center justify-center rounded-full border shadow-sm"
+          className="ml-[27px] flex h-4 w-4 items-center justify-center rounded-full border border-cyan-400 bg-black/50 backdrop-blur-sm"
         >
           <motion.div
             transition={{
@@ -71,10 +66,11 @@ export const Tracing = ({
               delay: 0.5,
             }}
             animate={{
-              backgroundColor: scrollYProgress.get() > 0 ? "white" : "#10b981",
-              borderColor: scrollYProgress.get() > 0 ? "white" : "#059669",
+              backgroundColor:
+                scrollYProgress.get() > 0 ? "#22d3ee" : "#06b6d4",
+              borderColor: scrollYProgress.get() > 0 ? "#22d3ee" : "#0891b2",
             }}
-            className="h-2 w-2 rounded-full border border-neutral-300 bg-white"
+            className="h-2 w-2 rounded-full border border-cyan-500 bg-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.5)]"
           />
         </motion.div>
         <svg
@@ -83,11 +79,12 @@ export const Tracing = ({
           height={svgHeight}
           className="ml-4 block"
           aria-hidden="true"
+          preserveAspectRatio="none"
         >
           <motion.path
             d={`M 1 0V -36 l 18 24 V ${svgHeight * 0.8} l -18 24V ${svgHeight}`}
             fill="none"
-            stroke="#9091A0"
+            stroke="#22d3ee"
             strokeOpacity="0.16"
             transition={{
               duration: 10,
@@ -112,10 +109,10 @@ export const Tracing = ({
               y1={y1}
               y2={y2}
             >
-              <stop stopColor="#18CCFC" stopOpacity="0"></stop>
-              <stop stopColor="#18CCFC"></stop>
-              <stop offset="0.325" stopColor="#6344F5"></stop>
-              <stop offset="1" stopColor="#AE48FF" stopOpacity="0"></stop>
+              <stop stopColor="#22d3ee" stopOpacity="0"></stop>
+              <stop stopColor="#22d3ee"></stop>
+              <stop offset="0.325" stopColor="#7e22ce"></stop>
+              <stop offset="1" stopColor="#a855f7" stopOpacity="0"></stop>
             </motion.linearGradient>
           </defs>
         </svg>

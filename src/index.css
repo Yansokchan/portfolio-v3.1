@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -33,9 +33,9 @@
     --border: 217 33% 17%;
     --input: 217 33% 17%;
     --ring: 224 76% 48%;
-    
+
     --radius: 0.75rem;
-    
+
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -65,16 +65,16 @@
   .text-glow {
     text-shadow: 0 0 8px rgba(77, 238, 234, 0.6);
   }
-  
+
   .neon-border {
-    box-shadow: 0 0 5px rgba(77, 238, 234, 0.3), 
-                0 0 10px rgba(77, 238, 234, 0.2);
+    box-shadow: 0 0 5px rgba(77, 238, 234, 0.3),
+      0 0 10px rgba(77, 238, 234, 0.2);
   }
 
   .glass {
     @apply bg-white/5 backdrop-blur-lg border border-white/10 rounded-lg;
   }
-  
+
   .text-gradient {
     @apply bg-gradient-to-r from-cosmic-cyan via-cosmic-purple to-cosmic-pink bg-clip-text text-transparent;
   }
@@ -93,4 +93,11 @@
   z-index: 10;
   padding: 4rem 2rem;
   min-height: 100vh;
+}
+
+.fixed-tracing {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  isolation: isolate;
 }
