@@ -13,6 +13,16 @@ interface Project {
 const projects: Project[] = [
   {
     id: 1,
+    title: "Next-Gen",
+    description:
+      "Management System for a company using Next.js, Tailwind CSS, Supabase, and Cursor. Please use the password: Pa$$w0rd to login.",
+    tags: ["Next.js", "Tailwind CSS", "Supabase", "Cursor"],
+    imageUrl:
+      "https://khtkcvecjfjzmoormqjp.supabase.co/storage/v1/object/public/employee-profiles/e89f032a-c8f6-4dbc-9c28-ebaf7c6c556e/78556db8-f4cf-4034-89c1-81e4b3d6f2dc.png",
+    link: "https://next-gen-e4.vercel.app/",
+  },
+  {
+    id: 2,
     title: "Calculator",
     description: "Simple Calculator using HTML, CSS and JAVASCRIPT.",
     tags: ["HTML", "CSS", "JavaScript"],
@@ -21,7 +31,7 @@ const projects: Project[] = [
     link: "https://yansokchan.github.io/calculator/calculator.html",
   },
   {
-    id: 2,
+    id: 3,
     title: "E-Commerce Platform",
     description: "Static E-commerce solution with HTML, CSS and JAVASCRIPT.",
     tags: ["HTML", "CSS", "JavaScript"],
@@ -30,7 +40,7 @@ const projects: Project[] = [
     link: "https://yansokchan.github.io/semicolon/home.html",
   },
   {
-    id: 3,
+    id: 4,
     title: "Rock Paper Scissor",
     description: "Rock Paper Scissor game using HTML, CSS and JAVASCRIPT.",
     tags: ["HTML", "CSS", "Javascript"],
@@ -39,7 +49,7 @@ const projects: Project[] = [
     link: "https://yansokchan.github.io/RPS/rock-paper-scissors.html",
   },
   {
-    id: 4,
+    id: 5,
     title: "Portfolio V1",
     description: "Portfolio V1 using React Vite and Tailwind CSS.",
     tags: ["Vite", "Tailwind"],
@@ -48,7 +58,7 @@ const projects: Project[] = [
     link: "https://yansokchan.github.io/my-portfolio/",
   },
   {
-    id: 5,
+    id: 6,
     title: "Portfolio V2",
     description: "Portfolio V2 using React Vite, Tailwind CSS, GSAP, Daisy UI.",
     tags: ["Vite", "Tailwind", "GSAP", "Daisy UI"],
@@ -75,7 +85,7 @@ const ProjectCard = ({
       initial={{ opacity: 0, y: 50 }}
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
       transition={{ duration: 0.5, delay: index * 0.2 }}
-      className="relative glass rounded-xl overflow-hidden group"
+      className="relative bg-gradient-to-r from-cyan-500/10 to-purple-400/10 rounded-xl overflow-hidden group"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       style={{
@@ -139,11 +149,7 @@ const ProjectCard = ({
         <motion.a
           target="_blank"
           href={project.link}
-          className="inline-block px-6 py-2 rounded-full bg-cosmic-purple/20 text-cosmic-cyan border border-cosmic-cyan/20 hover:border-cosmic-cyan transition-colors duration-300"
-          whileHover={{
-            scale: 1.05,
-            backgroundColor: "rgba(147, 51, 234, 0.3)",
-          }}
+          className="inline-block px-6 py-2 rounded-sm bg-cosmic-purple/10 text-cosmic-cyan border border-cosmic-cyan/20 hover:border-cosmic-cyan transition-colors duration-300"
           whileTap={{ scale: 0.95 }}
         >
           View Project

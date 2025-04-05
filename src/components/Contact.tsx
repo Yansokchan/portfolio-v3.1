@@ -1,7 +1,24 @@
-
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
 import { useToast } from "@/hooks/use-toast";
+import { createClient } from "@supabase/supabase-js";
+import styles from "@/styles/Contact.module.css";
+
+// Initialize Supabase client
+const supabaseUrl = "https://vkxlcowblrveznxsradv.supabase.co";
+const supabaseAnonKey =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZreGxjb3dibHJ2ZXpueHNyYWR2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDMzMjA5NDAsImV4cCI6MjA1ODg5Njk0MH0.MEI4Bl7Ph_b1xJWkD5-Gq1zPEE9tx9pkwJahl3756J0";
+
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+interface Comment {
+  id: number;
+  name: string;
+  comment: string;
+  time: string;
+  created_at: string;
+  profile_image?: string;
+}
 
 const Contact = () => {
   const sectionRef = useRef(null);
@@ -11,206 +28,638 @@ const Contact = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    message: ""
+    message: "",
   });
-  
+
+  const [commentData, setCommentData] = useState({
+    name: "",
+    comment: "",
+    profilePhoto: null as File | null,
+  });
+
+  const [comments, setComments] = useState<Comment[]>([]);
+  const [isContactLoading, setIsContactLoading] = useState(false);
+  const [isCommentLoading, setIsCommentLoading] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
-  
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+
+  // Add a ref for the file input
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Fetch comments on component mount
+  useEffect(() => {
+    fetchComments();
+  }, []);
+
+  const fetchComments = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("comments")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+      if (error) throw error;
+
+      const formattedComments = data.map((comment) => ({
+        ...comment,
+        time: formatTimeAgo(comment.created_at),
+      }));
+
+      setComments(formattedComments);
+    } catch (error) {
+      console.error("Error fetching comments:", error);
+      toast({
+        title: "Error",
+        description: "Failed to load comments. Please try again later.",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const formatTimeAgo = (dateString: string) => {
+    const date = new Date(dateString);
+    const now = new Date();
+    const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
+    const diffInMinutes = Math.floor(diffInSeconds / 60);
+    const diffInHours = Math.floor(diffInMinutes / 60);
+    const diffInDays = Math.floor(diffInHours / 24);
+    const diffInMonths = Math.floor(diffInDays / 30);
+
+    if (diffInSeconds < 60) {
+      return "just now";
+    } else if (diffInMinutes < 60) {
+      return `${diffInMinutes}m ago`;
+    } else if (diffInHours < 24) {
+      return `${diffInHours}h ago`;
+    } else if (diffInDays < 30) {
+      return `${diffInDays}d ago`;
+    } else {
+      return `${diffInMonths}mo ago`;
+    }
+  };
+
   const handleMouseMove = (e: React.MouseEvent<HTMLFormElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
     setMousePosition({
       x: e.clientX - rect.left,
-      y: e.clientY - rect.top
+      y: e.clientY - rect.top,
     });
   };
-  
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
-  
-  const handleSubmit = (e: React.FormEvent) => {
+
+  const handleCommentChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setCommentData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      setCommentData((prev) => ({ ...prev, profilePhoto: file }));
+
+      // Create preview URL
+      const url = URL.createObjectURL(file);
+      setPreviewUrl(url);
+    }
+  };
+
+  // Add a click handler for the button
+  const handleChoosePhoto = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleContactSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would typically send the form data to your backend
-    toast({
-      title: "Message sent!",
-      description: "Thanks for reaching out. I'll get back to you soon.",
-    });
-    
-    // Reset form
-    setFormData({
-      name: "",
-      email: "",
-      message: ""
-    });
+    setIsContactLoading(true);
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: "68a4d70f-7e45-422f-bf56-42afeed37f1c",
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          subject: "New Contact Form Submission",
+        }),
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        toast({
+          title: "Success!",
+          description: "Your message has been sent successfully.",
+        });
+        setFormData({
+          name: "",
+          email: "",
+          message: "",
+        });
+      } else {
+        throw new Error("Failed to send message");
+      }
+    } catch (error) {
+      console.error("Error sending message:", error);
+      toast({
+        title: "Error",
+        description: "Failed to send message. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsContactLoading(false);
+    }
   };
-  
+
+  const handleCommentSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsCommentLoading(true);
+
+    try {
+      const { data: insertData, error: insertError } = await supabase
+        .from("comments")
+        .insert([
+          {
+            name: commentData.name,
+            comment: commentData.comment,
+          },
+        ])
+        .select();
+
+      if (insertError) {
+        console.error("Insert error:", insertError);
+        throw new Error(`Failed to insert comment: ${insertError.message}`);
+      }
+
+      toast({
+        title: "Success!",
+        description: "Your comment has been posted.",
+      });
+
+      setCommentData({
+        name: "",
+        comment: "",
+        profilePhoto: null,
+      });
+
+      fetchComments();
+    } catch (error) {
+      console.error("Error posting comment:", error);
+      toast({
+        title: "Error",
+        description:
+          error instanceof Error
+            ? error.message
+            : "Failed to post comment. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsCommentLoading(false);
+    }
+  };
+
   return (
     <section id="contact" className="section py-20" ref={sectionRef}>
-      <div className="max-w-7xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-16"
-        >
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+        transition={{ duration: 0.5 }}
+        className="max-w-7xl mx-auto"
+      >
+        <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            <span className="text-gradient">Get in </span>
-            <span className="text-white">Touch</span>
+            <span className="text-gradient">Contact</span> Me
           </h2>
-          <p className="text-gray-300 max-w-2xl mx-auto">
-            Have a project in mind or just want to say hello? Feel free to reach out!
+          <p className="text-gray-400">
+            Got a question? Send me a message, and I'll get back to you soon.
           </p>
-        </motion.div>
-        
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Left Side - Get in Touch Form */}
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="lg:col-span-2"
+            className="bg-gradient-to-r from-cyan-500/10 to-purple-400/10 p-4 md:p-8 rounded-2xl"
           >
-            <form 
-              onSubmit={handleSubmit}
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-[24px] text-cosmic-cyan font-semibold">
+                Get in Touch
+              </h3>
+              <button className="text-cosmic-cyan">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="25"
+                  height="25"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+              </button>
+            </div>
+
+            <p className="text-gray-400 text-sm mb-8">
+              Have something to discuss? Send me a message and let's talk.
+            </p>
+
+            <form
+              onSubmit={handleContactSubmit}
               onMouseMove={handleMouseMove}
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}
-              className="glass p-8 rounded-xl relative overflow-hidden"
+              className="relative"
             >
-              {/* Animated gradient background */}
-              <div 
-                className="absolute inset-0 opacity-20 pointer-events-none"
-                style={{
-                  background: isHovered 
-                    ? `radial-gradient(circle 200px at ${mousePosition.x}px ${mousePosition.y}px, rgba(77, 238, 234, 0.3), transparent)`
-                    : "none",
-                  transition: "opacity 0.3s ease"
-                }}
-              />
-              
               <div className="mb-6">
-                <label htmlFor="name" className="block text-cosmic-cyan mb-2">Name</label>
-                <input 
-                  type="text" 
-                  id="name" 
-                  name="name" 
+                <label
+                  htmlFor="name"
+                  className="block text-gray-400 text-sm mb-2"
+                >
+                  Name*
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
                   value={formData.name}
                   onChange={handleChange}
+                  placeholder="Enter your name"
                   className="w-full bg-black/30 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cosmic-cyan transition-colors"
                   required
                 />
               </div>
-              
+
               <div className="mb-6">
-                <label htmlFor="email" className="block text-cosmic-cyan mb-2">Email</label>
-                <input 
-                  type="email" 
-                  id="email" 
-                  name="email" 
+                <label
+                  htmlFor="email"
+                  className="block text-gray-400 text-sm mb-2"
+                >
+                  Email*
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
                   value={formData.email}
                   onChange={handleChange}
+                  placeholder="Enter your email"
                   className="w-full bg-black/30 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cosmic-cyan transition-colors"
                   required
                 />
               </div>
-              
+
               <div className="mb-6">
-                <label htmlFor="message" className="block text-cosmic-cyan mb-2">Message</label>
-                <textarea 
-                  id="message" 
-                  name="message" 
-                  rows={5}
+                <label
+                  htmlFor="message"
+                  className="block text-gray-400 text-sm mb-2"
+                >
+                  Message*
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows={4}
                   value={formData.message}
                   onChange={handleChange}
+                  placeholder="Write your message here..."
                   className="w-full bg-black/30 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cosmic-cyan transition-colors resize-none"
                   required
                 />
               </div>
-              
-              <button 
-                type="submit" 
-                className="px-8 py-3 bg-cosmic-purple text-white rounded-lg hover:bg-cosmic-purple/90 transition-all duration-300 hover:shadow-lg hover:shadow-cosmic-purple/20"
+
+              <button
+                type="submit"
+                disabled={isContactLoading}
+                className="w-full py-3 bg-gradient-to-r from-cyan-500 to-purple-400 text-white rounded-lg hover:opacity-90 transition-all duration-300 hover:shadow-lg hover:shadow-purple-700/20 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Send Message
+                {isContactLoading ? "Sending..." : "Send Message"}
               </button>
             </form>
+
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+            >
+              <div className="md:p-8 p-4 mt-5 bg-gradient-to-r from-cyan-500/15 to-purple-400/15 rounded-xl h-full">
+                <h3 className="text-xl font-semibold text-cosmic-cyan mb-6">
+                  Contact Info
+                </h3>
+
+                <div className="space-y-6">
+                  <div className="flex items-start">
+                    <div className="bg-cosmic-purple/20 p-3 rounded-lg mr-4">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="text-cosmic-cyan"
+                      >
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className="text-sm text-gray-400 mb-1">Phone</h4>
+                      <p className="text-white">+1 (123) 456-7890</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start">
+                    <div className="bg-cosmic-purple/20 p-3 rounded-lg mr-4">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="text-cosmic-cyan"
+                      >
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                        <polyline points="22,6 12,13 2,6" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className="text-sm text-gray-400 mb-1">Email</h4>
+                      <p className="text-white">hello@example.com</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start">
+                    <div className="bg-cosmic-purple/20 p-3 rounded-lg mr-4">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="text-cosmic-cyan"
+                      >
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                        <circle cx="12" cy="10" r="3" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className="text-sm text-gray-400 mb-1">Location</h4>
+                      <p className="text-white">San Francisco, CA</p>
+                    </div>
+                  </div>
+
+                  <div className="pt-6 mt-6 border-t border-gray-800">
+                    <h4 className="text-sm text-gray-400 mb-3">Find me on</h4>
+                    <div className="flex space-x-4">
+                      <a
+                        href="#"
+                        className="text-gray-400 hover:text-cosmic-cyan transition-colors"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                          <rect x="2" y="9" width="4" height="12" />
+                          <circle cx="4" cy="4" r="2" />
+                        </svg>
+                      </a>
+                      <a
+                        href="#"
+                        className="text-gray-400 hover:text-cosmic-cyan transition-colors"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+                        </svg>
+                      </a>
+                      <a
+                        href="#"
+                        className="text-gray-400 hover:text-cosmic-cyan transition-colors"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5 0-.29-.01-.58-.04-.87A7.72 7.72 0 0 0 23 3z" />
+                        </svg>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
           </motion.div>
-          
+
+          {/* Right Side - Comments Section */}
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
             transition={{ duration: 0.5, delay: 0.4 }}
+            className="bg-gradient-to-r from-cyan-500/10 to-purple-400/10 md:p-8 p-4 rounded-2xl flex flex-col h-[950px]"
           >
-            <div className="glass p-8 rounded-xl h-full">
-              <h3 className="text-xl font-semibold text-cosmic-cyan mb-6">Contact Info</h3>
-              
-              <div className="space-y-6">
-                <div className="flex items-start">
-                  <div className="bg-cosmic-purple/20 p-3 rounded-lg mr-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-cosmic-cyan">
-                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h4 className="text-sm text-gray-400 mb-1">Phone</h4>
-                    <p className="text-white">+1 (123) 456-7890</p>
-                  </div>
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-[24px] text-cosmic-cyan font-semibold">
+                Comments ({comments.length})
+              </h3>
+            </div>
+
+            <form onSubmit={handleCommentSubmit} className="mb-6">
+              <div className="mb-4">
+                <label
+                  htmlFor="comment-name"
+                  className="block text-gray-400 text-sm mb-2"
+                >
+                  Name*
+                </label>
+                <input
+                  type="text"
+                  id="comment-name"
+                  name="name"
+                  value={commentData.name}
+                  onChange={handleCommentChange}
+                  placeholder="Enter your name"
+                  className="w-full bg-black/30 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cosmic-cyan transition-colors"
+                  required
+                />
+              </div>
+
+              <div className="mb-4">
+                <label
+                  htmlFor="comment-text"
+                  className="block text-gray-400 text-sm mb-2"
+                >
+                  Comment*
+                </label>
+                <textarea
+                  id="comment-text"
+                  name="comment"
+                  rows={3}
+                  value={commentData.comment}
+                  onChange={handleCommentChange}
+                  placeholder="Write your comment here..."
+                  className="w-full bg-black/30 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cosmic-cyan transition-colors resize-none"
+                  required
+                />
+              </div>
+
+              <div className="mb-4">
+                <label className="block text-gray-400 text-sm mb-2">
+                  Profile Photo (optional)
+                </label>
+                <div
+                  onClick={handleChoosePhoto}
+                  className="w-full bg-black/30 border border-gray-700 rounded-lg px-4 py-3 flex items-center justify-center cursor-pointer hover:border-cosmic-cyan transition-colors"
+                >
+                  {previewUrl ? (
+                    <div className="relative w-20 h-20">
+                      <img
+                        src={previewUrl}
+                        alt="Preview"
+                        className="w-full h-full object-cover rounded-full"
+                      />
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setPreviewUrl(null);
+                          setCommentData((prev) => ({
+                            ...prev,
+                            profilePhoto: null,
+                          }));
+                        }}
+                        className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center hover:bg-red-600 transition-colors"
+                      >
+                        ×
+                      </button>
+                    </div>
+                  ) : (
+                    <span className="text-cosmic-cyan">
+                      📎 Choose Profile Photo
+                    </span>
+                  )}
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/*"
+                    onChange={handleFileChange}
+                    className="hidden"
+                  />
                 </div>
-                
-                <div className="flex items-start">
-                  <div className="bg-cosmic-purple/20 p-3 rounded-lg mr-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-cosmic-cyan">
-                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                      <polyline points="22,6 12,13 2,6" />
-                    </svg>
+                <p className="text-gray-500 text-xs mt-1">Max file size: 5MB</p>
+              </div>
+
+              <button
+                type="submit"
+                disabled={isCommentLoading}
+                className="w-full py-3 bg-gradient-to-r from-cyan-500 to-purple-400 text-white rounded-lg hover:opacity-90 transition-all duration-300 hover:shadow-lg hover:shadow-purple-700/20 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {isCommentLoading ? "Posting..." : "Post Comment"}
+              </button>
+            </form>
+
+            <div className={`flex-1 ${styles.custom_scrollbar}`}>
+              <div className="space-y-4 pr-2">
+                {comments.map((comment) => (
+                  <div
+                    key={comment.id}
+                    className="flex items-start gap-3 p-4 rounded-lg bg-gradient-to-r from-cyan-500/15 to-purple-400/15"
+                  >
+                    {comment.profile_image ? (
+                      <div className="w-10 h-10 rounded-full overflow-hidden">
+                        <img
+                          src={comment.profile_image}
+                          alt={comment.name}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    ) : (
+                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-cosmic-purple/30 to-cosmic-cyan/30 flex items-center justify-center">
+                        <svg
+                          className="w-6 h-6 text-cosmic-cyan"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                          />
+                        </svg>
+                      </div>
+                    )}
+                    <div className="flex-1">
+                      <div className="flex items-center justify-between">
+                        <h4 className="text-white font-medium">
+                          {comment.name}
+                        </h4>
+                        <span className="text-gray-500 text-sm">
+                          {comment.time}
+                        </span>
+                      </div>
+                      <p className="text-gray-400 mt-1">{comment.comment}</p>
+                    </div>
                   </div>
-                  <div>
-                    <h4 className="text-sm text-gray-400 mb-1">Email</h4>
-                    <p className="text-white">hello@example.com</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start">
-                  <div className="bg-cosmic-purple/20 p-3 rounded-lg mr-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-cosmic-cyan">
-                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                      <circle cx="12" cy="10" r="3" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h4 className="text-sm text-gray-400 mb-1">Location</h4>
-                    <p className="text-white">San Francisco, CA</p>
-                  </div>
-                </div>
-                
-                <div className="pt-6 mt-6 border-t border-gray-800">
-                  <h4 className="text-sm text-gray-400 mb-3">Find me on</h4>
-                  <div className="flex space-x-4">
-                    <a href="#" className="text-gray-400 hover:text-cosmic-cyan transition-colors">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-                        <rect x="2" y="9" width="4" height="12" />
-                        <circle cx="4" cy="4" r="2" />
-                      </svg>
-                    </a>
-                    <a href="#" className="text-gray-400 hover:text-cosmic-cyan transition-colors">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
-                      </svg>
-                    </a>
-                    <a href="#" className="text-gray-400 hover:text-cosmic-cyan transition-colors">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5 0-.29-.01-.58-.04-.87A7.72 7.72 0 0 0 23 3z" />
-                      </svg>
-                    </a>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
           </motion.div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 };

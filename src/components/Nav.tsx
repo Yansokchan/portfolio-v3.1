@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Nav = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
+  const [prevSection, setPrevSection] = useState("home");
 
   const menuItems = [
     { name: "Home", href: "#home" },
@@ -19,6 +22,21 @@ const Nav = () => {
     } else {
       setScrolled(false);
     }
+
+    // Update active section based on scroll position
+    const sections = menuItems.map((item) => item.href.replace("#", ""));
+    const currentSection = sections.find((section) => {
+      const element = document.getElementById(section);
+      if (element) {
+        const rect = element.getBoundingClientRect();
+        return rect.top <= 100 && rect.bottom >= 100;
+      }
+      return false;
+    });
+    if (currentSection) {
+      setPrevSection(activeSection);
+      setActiveSection(currentSection);
+    }
   };
 
   useEffect(() => {
@@ -26,68 +44,181 @@ const Nav = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const handleSectionClick = (section: string) => {
+    setPrevSection(activeSection);
+    setActiveSection(section);
+  };
+
   return (
-    <nav
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        scrolled ? "bg-black/20 backdrop-blur-lg" : "bg-transparent"
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          <div className="flex-shrink-0">
-            <Link
-              to="/"
-              className="text-2xl font-bold text-cosmic-cyan text-glow"
+    <>
+      <motion.nav
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{
+          type: "spring",
+          stiffness: 100,
+          damping: 20,
+          duration: 0.8,
+        }}
+        className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
+          scrolled ? "bg-black/20 backdrop-blur-lg" : "bg-transparent"
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <motion.div
+              className="flex-shrink-0"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
             >
-              SOKCHAN<span className="text-cosmic-purple">.</span>YAN
-            </Link>
-          </div>
-
-          {/* Desktop menu */}
-          <div className="hidden md:block">
-            <div className="ml-10 flex items-center space-x-8">
-              {menuItems.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className="text-gray-300 hover:text-cosmic-cyan transition-colors duration-300 font-medium text-sm"
-                >
-                  {item.name}
-                </a>
-              ))}
-            </div>
-          </div>
-
-          {/* Mobile menu button */}
-          <div className="md:hidden">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-400 hover:text-cosmic-cyan focus:outline-none"
-            >
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Mobile menu */}
-      {isOpen && (
-        <div className="md:hidden glass neon-border animate-fade-in">
-          <div className="px-2 pt-2 pb-3 space-y-1">
-            {menuItems.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                onClick={() => setIsOpen(false)}
-                className="block px-3 py-2 text-base font-medium text-gray-300 hover:text-cosmic-cyan hover:bg-gray-800/30 rounded-md"
+              <Link
+                to="/"
+                className="text-2xl font-bold text-cosmic-cyan text-glow"
               >
-                {item.name}
-              </a>
-            ))}
+                SOKCHAN<span className="text-cosmic-purple">.</span>YAN
+              </Link>
+            </motion.div>
+
+            {/* Desktop menu */}
+            <div className="hidden md:block">
+              <div className="ml-10 flex items-center space-x-8">
+                {menuItems.map((item) => (
+                  <motion.a
+                    key={item.name}
+                    href={item.href}
+                    className={`relative px-3 py-2 text-sm font-medium transition-colors duration-300 ${
+                      activeSection === item.href.replace("#", "")
+                        ? "text-cosmic-cyan"
+                        : "text-gray-300 hover:text-cosmic-cyan"
+                    }`}
+                    whileHover={{ y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                    onClick={() =>
+                      handleSectionClick(item.href.replace("#", ""))
+                    }
+                  >
+                    {item.name}
+                    <motion.div
+                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-cosmic-purple to-cosmic-cyan"
+                      initial={{ width: "0%" }}
+                      animate={{
+                        width:
+                          activeSection === item.href.replace("#", "")
+                            ? "100%"
+                            : "0%",
+                        transition: { duration: 0.3 },
+                      }}
+                    />
+                  </motion.a>
+                ))}
+              </div>
+            </div>
+
+            {/* Mobile menu button */}
+            <motion.div
+              className="md:hidden relative z-50"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
+            >
+              <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="text-gray-400 hover:text-cosmic-cyan focus:outline-none"
+              >
+                {isOpen ? <X size={24} /> : <Menu size={24} />}
+              </button>
+            </motion.div>
           </div>
         </div>
-      )}
-    </nav>
+      </motion.nav>
+
+      {/* Mobile menu overlay */}
+      <AnimatePresence mode="wait">
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{
+              duration: 0.2,
+              ease: "easeInOut",
+            }}
+            className="fixed inset-0 bg-black/90 backdrop-blur-lg z-40"
+            onClick={() => setIsOpen(false)}
+          >
+            <motion.div
+              initial={{ opacity: 0, y: 40, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 40, scale: 0.95 }}
+              transition={{
+                duration: 0.2,
+                ease: [0.23, 1, 0.32, 1], // Custom cubic bezier for smooth easing
+              }}
+              className="flex flex-col items-center justify-center min-h-screen px-4"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="w-full max-w-xs space-y-4">
+                {menuItems.map((item, index) => (
+                  <motion.a
+                    key={item.name}
+                    href={item.href}
+                    onClick={() => {
+                      setIsOpen(false);
+                      handleSectionClick(item.href.replace("#", ""));
+                    }}
+                    className={`block w-full px-6 py-4 text-lg font-medium rounded-xl transition-all duration-300 ${
+                      activeSection === item.href.replace("#", "")
+                        ? "text-cosmic-cyan bg-gradient-to-r from-cosmic-purple/20 to-cosmic-cyan/20 border border-cosmic-cyan/20"
+                        : "text-gray-300 hover:text-cosmic-cyan hover:bg-gray-800/30"
+                    }`}
+                    initial={{ opacity: 0, x: -40, scale: 0.9 }}
+                    animate={{ opacity: 1, x: 0, scale: 1 }}
+                    transition={{
+                      duration: 0.2,
+                      delay: index * 0.05,
+                      ease: [0.23, 1, 0.32, 1],
+                    }}
+                    whileHover={{
+                      x: 10,
+                      backgroundColor: "rgba(6, 182, 212, 0.1)",
+                      transition: {
+                        duration: 0.15,
+                        ease: "easeOut",
+                      },
+                    }}
+                    whileTap={{
+                      scale: 0.95,
+                      transition: {
+                        duration: 0.1,
+                        ease: "easeIn",
+                      },
+                    }}
+                  >
+                    <div className="flex items-center justify-between">
+                      <span>{item.name}</span>
+                      {activeSection === item.href.replace("#", "") && (
+                        <motion.div
+                          className="w-2 h-2 rounded-full bg-cosmic-cyan"
+                          initial={{ scale: 0, opacity: 0 }}
+                          animate={{ scale: 1, opacity: 1 }}
+                          transition={{
+                            duration: 0.3,
+                            delay: 0.2,
+                            ease: "backOut",
+                          }}
+                        />
+                      )}
+                    </div>
+                  </motion.a>
+                ))}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 
