@@ -2,6 +2,8 @@ import { TextHoverEffect } from "./ui/texthover";
 import pf from "../assets/pf.png";
 import { useState, useEffect } from "react";
 import { motion, useSpring, useTransform } from "framer-motion";
+import AOS from "aos";
+import "aos/dist/aos.css";
 const Hero = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [imageHovered, setImageHovered] = useState(false);
@@ -18,7 +20,14 @@ const Hero = () => {
     damping: 20,
     mass: 0.5,
   });
-
+  useEffect(() => {
+    AOS.init({
+      duration: 800,
+      easing: "ease-out",
+      once: true,
+      offset: 100,
+    });
+  }, []);
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       // Calculate mouse position relative to the center of the viewport
@@ -79,21 +88,21 @@ const Hero = () => {
               onHoverEnd={() => setImageHovered(false)}
             >
               <motion.div
-                className="w-full h-full relative rounded-full overflow-hidden "
+                className="w-full h-full relative rounded-full overflow-hidden"
                 animate={{
                   scale: imageHovered ? 1.05 : 1,
-                  filter: imageHovered
-                    ? "drop-shadow(0 0 40px rgba(6, 182, 212, 0.5)) drop-shadow(0 0 25px rgba(126, 34, 206, 0.4))"
-                    : "drop-shadow(0 0 25px rgba(6, 182, 212, 0.4)) drop-shadow(0 0 20px rgba(126, 34, 206, 0.3))",
                 }}
                 transition={{
                   duration: 0.3,
                   ease: "easeOut",
                 }}
               >
-                {/* Main image container */}
-                <div className="w-full h-full rounded-full overflow-hidden relative bg-gradient-to-r from-cosmic-cyan to-cosmic-purple p-[4px] z-10">
-                  {/* Image */}
+                {/* Background blur effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-cosmic-cyan to-cosmic-purple rounded-full blur-3xl" />
+                {/* Border gradient */}
+                <div className="absolute inset-0 bg-gradient-to-r from-cosmic-cyan to-cosmic-purple rounded-full" />
+                {/* Main image container with dark background */}
+                <div className="absolute inset-2 bg-gradient-to-br from-gray-900 to-gray-800 rounded-full overflow-hidden">
                   <img
                     src={pf}
                     alt="Profile"
@@ -108,7 +117,7 @@ const Hero = () => {
                     opacity: imageHovered ? [0, 0.15, 0] : 0,
                   }}
                   transition={{
-                    duration: 0.5,
+                    duration: 1,
                     ease: "easeInOut",
                   }}
                 />
@@ -134,6 +143,9 @@ const Hero = () => {
               className="text-5xl md:text-7xl font-bold mb-6 tracking-tight relative"
             >
               <motion.span
+                data-aos="fade-right"
+                data-aos-duration="800"
+                data-aos-delay="600"
                 className="text-gradient inline-block"
                 style={{
                   textShadow: useTransform(
@@ -149,6 +161,8 @@ const Hero = () => {
                 Creative{" "}
               </motion.span>
               <motion.span
+                data-aos="fade-right"
+                data-aos-delay="1200"
                 className="text-white inline-block"
                 style={{
                   textShadow: useTransform(
@@ -165,7 +179,11 @@ const Hero = () => {
               </motion.span>
             </motion.h1>
 
-            <motion.p className="text-lg md:text-xl text-gray-300 mb-8 max-w-2xl mx-auto lg:mx-0">
+            <motion.p
+              data-aos="fade-up"
+              data-aos-delay="1500"
+              className="text-lg md:text-xl text-gray-300 mb-8 max-w-2xl mx-auto lg:mx-0"
+            >
               I build immersive digital experiences with cutting-edge web
               technologies and creative design solutions.
             </motion.p>
@@ -186,18 +204,18 @@ const Hero = () => {
               className="w-full h-full relative rounded-full overflow-hidden"
               animate={{
                 scale: imageHovered ? 1.05 : 1,
-                filter: imageHovered
-                  ? "drop-shadow(0 0 40px rgba(6, 182, 212, 0.5)) drop-shadow(0 0 25px rgba(126, 34, 206, 0.4))"
-                  : "drop-shadow(0 0 25px rgba(6, 182, 212, 0.4)) drop-shadow(0 0 20px rgba(126, 34, 206, 0.3))",
               }}
               transition={{
                 duration: 0.3,
                 ease: "easeOut",
               }}
             >
-              {/* Main image container */}
-              <div className="w-full h-full rounded-full overflow-hidden relative bg-gradient-to-r from-cosmic-cyan to-cosmic-purple p-[4px] z-10">
-                {/* Image */}
+              {/* Background blur effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-cosmic-cyan to-cosmic-purple rounded-full blur-3xl" />
+              {/* Border gradient */}
+              <div className="absolute inset-0 bg-gradient-to-r from-cosmic-cyan to-cosmic-purple rounded-full" />
+              {/* Main image container with dark background */}
+              <div className="absolute inset-2 bg-gradient-to-br from-gray-900 to-gray-800 rounded-full overflow-hidden">
                 <img
                   src={pf}
                   alt="Profile"

@@ -348,7 +348,11 @@ const Contact = () => {
               >
                 Get in Touch
               </h3>
-              <button className="text-cosmic-cyan">
+              <button
+                data-aos="fade-up"
+                data-aos-delay="300"
+                className="text-cosmic-cyan"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="25"
@@ -367,7 +371,11 @@ const Contact = () => {
               </button>
             </div>
 
-            <p className="text-gray-400 text-[18px] mb-6 md:mb-8">
+            <p
+              data-aos="fade-right"
+              data-aos-delay="300"
+              className="text-gray-400 text-[18px] mb-6 md:mb-8"
+            >
               Have something to discuss? Send me a message and let's talk.
             </p>
 
@@ -380,12 +388,16 @@ const Contact = () => {
             >
               <div className="mb-5 md:mb-6">
                 <label
+                  data-aos="fade-right"
+                  data-aos-delay="300"
                   htmlFor="name"
                   className="block text-gray-400 text-sm mb-2"
                 >
                   Name*
                 </label>
                 <input
+                  data-aos="fade-up"
+                  data-aos-delay="300"
                   type="text"
                   id="name"
                   name="name"
@@ -399,12 +411,16 @@ const Contact = () => {
 
               <div className="mb-5 md:mb-6">
                 <label
+                  data-aos="fade-right"
+                  data-aos-delay="300"
                   htmlFor="email"
                   className="block text-gray-400 text-sm mb-2"
                 >
                   Email*
                 </label>
                 <input
+                  data-aos="fade-up"
+                  data-aos-delay="300"
                   type="email"
                   id="email"
                   name="email"
@@ -418,12 +434,16 @@ const Contact = () => {
 
               <div className="mb-5 md:mb-6">
                 <label
+                  data-aos="fade-right"
+                  data-aos-delay="300"
                   htmlFor="message"
                   className="block text-gray-400 text-sm mb-2"
                 >
                   Message*
                 </label>
                 <textarea
+                  data-aos="fade-up"
+                  data-aos-delay="300"
                   id="message"
                   name="message"
                   rows={4}
@@ -436,6 +456,8 @@ const Contact = () => {
               </div>
 
               <button
+                data-aos="fade-up"
+                data-aos-delay="300"
                 type="submit"
                 disabled={isContactLoading}
                 className="w-full py-3 bg-gradient-to-r from-cyan-500 to-purple-400 text-white rounded-lg hover:opacity-90 transition-all duration-300 hover:shadow-lg hover:shadow-purple-700/20 disabled:opacity-50 disabled:cursor-not-allowed"
@@ -446,13 +468,21 @@ const Contact = () => {
 
             <div data-aos="fade-up" data-aos-delay="300">
               <div className="md:p-8 p-4 mt-5 bg-gradient-to-r from-cyan-500/15 to-purple-400/15 rounded-xl h-full">
-                <h3 className="text-xl font-semibold text-cosmic-cyan mb-6">
+                <h3
+                  data-aos="fade-right"
+                  data-aos-delay="300"
+                  className="text-xl font-semibold text-cosmic-cyan mb-6"
+                >
                   Contact Info
                 </h3>
 
                 <div className="space-y-5 md:space-y-6">
                   <div className="flex items-start">
-                    <div className="bg-cosmic-purple/20 p-3 rounded-lg mr-4">
+                    <div
+                      data-aos="fade-right"
+                      data-aos-delay="300"
+                      className="bg-cosmic-purple/20 p-3 rounded-lg mr-4"
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="20"
@@ -469,13 +499,29 @@ const Contact = () => {
                       </svg>
                     </div>
                     <div>
-                      <h4 className="text-sm text-gray-400 mb-1">Phone</h4>
-                      <p className="text-white">+855| 97-5948-051</p>
+                      <h4
+                        data-aos="fade-up"
+                        data-aos-delay="300"
+                        className="text-sm text-gray-400 mb-1"
+                      >
+                        Phone
+                      </h4>
+                      <p
+                        data-aos="fade-left"
+                        data-aos-delay="600"
+                        className="text-white"
+                      >
+                        +855| 97-5948-051
+                      </p>
                     </div>
                   </div>
 
                   <div className="flex items-start">
-                    <div className="bg-cosmic-purple/20 p-3 rounded-lg mr-4">
+                    <div
+                      data-aos="fade-right"
+                      data-aos-delay="300"
+                      className="bg-cosmic-purple/20 p-3 rounded-lg mr-4"
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="20"
@@ -493,12 +539,24 @@ const Contact = () => {
                       </svg>
                     </div>
                     <div className="flex-1">
-                      <h4 className="text-sm text-gray-400 mb-1">Email</h4>
+                      <h4
+                        data-aos="fade-up"
+                        data-aos-delay="300"
+                        className="text-sm text-gray-400 mb-1"
+                      >
+                        Email
+                      </h4>
                       <div className="flex items-center gap-2">
-                        <p className="text-white text-sm md:text-base break-all">
+                        <p
+                          data-aos="fade-left"
+                          data-aos-delay="600"
+                          className="text-white text-sm md:text-base break-all"
+                        >
                           yansokchan05@gmail.com
                         </p>
                         <button
+                          data-aos="fade-left"
+                          data-aos-delay="1000"
                           onClick={() => {
                             navigator.clipboard.writeText(
                               "yansokchan05@gmail.com"
@@ -541,7 +599,11 @@ const Contact = () => {
                   </div>
 
                   <div className="flex items-start">
-                    <div className="bg-cosmic-purple/20 p-3 rounded-lg mr-4">
+                    <div
+                      data-aos="fade-right"
+                      data-aos-delay="300"
+                      className="bg-cosmic-purple/20 p-3 rounded-lg mr-4"
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="20"
@@ -559,11 +621,27 @@ const Contact = () => {
                       </svg>
                     </div>
                     <div>
-                      <h4 className="text-sm text-gray-400 mb-1">Location</h4>
-                      <p className="text-white">Chbar Ompov, Phnom Penh</p>
+                      <h4
+                        data-aos="fade-up"
+                        data-aos-delay="300"
+                        className="text-sm text-gray-400 mb-1"
+                      >
+                        Location
+                      </h4>
+                      <p
+                        data-aos="fade-left"
+                        data-aos-delay="600"
+                        className="text-white"
+                      >
+                        Chbar Ompov, Phnom Penh
+                      </p>
                     </div>
                   </div>
-                  <div className="relative w-full">
+                  <div
+                    data-aos="fade-up"
+                    data-aos-delay="300"
+                    className="relative w-full"
+                  >
                     <div className="absolute left-0 right-0 top-0 h-px w-full">
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cosmic-cyan to-transparent h-[2px] w-full blur-sm opacity-50" />
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cosmic-cyan to-transparent h-px w-full" />
@@ -574,9 +652,17 @@ const Contact = () => {
                     </div>
                   </div>
                   <div className="pt-6 mt-6">
-                    <h4 className="text-sm text-gray-400 mb-3">Find me on</h4>
+                    <h4
+                      data-aos="fade-right"
+                      data-aos-delay="300"
+                      className="text-sm text-gray-400 mb-3"
+                    >
+                      Find me on
+                    </h4>
                     <div className="flex space-x-3 md:space-x-4">
                       <a
+                        data-aos="fade-up"
+                        data-aos-delay="300"
                         href="#"
                         className="text-gray-400 hover:text-cosmic-cyan transition-colors"
                       >
@@ -597,6 +683,8 @@ const Contact = () => {
                         </svg>
                       </a>
                       <a
+                        data-aos="fade-up"
+                        data-aos-delay="400"
                         href="#"
                         className="text-gray-400 hover:text-cosmic-cyan transition-colors"
                       >
@@ -615,6 +703,8 @@ const Contact = () => {
                         </svg>
                       </a>
                       <a
+                        data-aos="fade-up"
+                        data-aos-delay="500"
                         href="#"
                         className="text-gray-400 hover:text-cosmic-cyan transition-colors"
                       >
@@ -647,7 +737,11 @@ const Contact = () => {
           >
             <div className="flex items-center justify-between mb-5 md:mb-6">
               <div className="flex items-center gap-2">
-                <div className="bg-cosmic-purple/20 p-2 rounded-lg">
+                <div
+                  data-aos="fade-left"
+                  data-aos-delay="300"
+                  className="bg-cosmic-purple/20 p-2 rounded-lg"
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -666,9 +760,17 @@ const Contact = () => {
                     <path d="M16 10h.01" />
                   </svg>
                 </div>
-                <h3 className="text-[24px] text-cosmic-cyan font-semibold flex items-center gap-2">
+                <h3
+                  data-aos="fade-left"
+                  data-aos-delay="400"
+                  className="text-[24px] text-cosmic-cyan font-semibold flex items-center gap-2"
+                >
                   Comments
-                  <span className="text-base font-normal text-cyan-400">
+                  <span
+                    data-aos="fade-left"
+                    data-aos-delay="500"
+                    className="text-base font-normal text-cyan-400"
+                  >
                     ({comments.length})
                   </span>
                 </h3>
@@ -678,12 +780,16 @@ const Contact = () => {
             <form onSubmit={handleCommentSubmit} className="mb-5 md:mb-6">
               <div className="mb-3 md:mb-4">
                 <label
+                  data-aos="fade-left"
+                  data-aos-delay="300"
                   htmlFor="comment-name"
                   className="block text-gray-400 text-sm mb-2"
                 >
                   Name*
                 </label>
                 <input
+                  data-aos="fade-up"
+                  data-aos-delay="300"
                   type="text"
                   id="comment-name"
                   name="name"
@@ -697,12 +803,16 @@ const Contact = () => {
 
               <div className="mb-4">
                 <label
+                  data-aos="fade-left"
+                  data-aos-delay="300"
                   htmlFor="comment-text"
                   className="block text-gray-400 text-sm mb-2"
                 >
                   Comment*
                 </label>
                 <textarea
+                  data-aos="fade-up"
+                  data-aos-delay="300"
                   id="comment-text"
                   name="comment"
                   rows={3}
@@ -715,21 +825,29 @@ const Contact = () => {
               </div>
 
               <div className="mb-4">
-                <label className="block text-gray-400 text-sm mb-2">
+                <label
+                  data-aos="fade-left"
+                  data-aos-delay="300"
+                  className="block text-gray-400 text-sm mb-2"
+                >
                   Profile Photo (optional)
                 </label>
                 <div
+                  data-aos="fade-up"
                   onClick={handleChoosePhoto}
                   className="w-full bg-black/30 border border-gray-700 rounded-lg px-4 py-3 flex items-center justify-center cursor-pointer hover:border-cosmic-cyan transition-colors"
                 >
                   {previewUrl ? (
                     <div className="relative w-20 h-20">
                       <img
+                        data-aos="zoom-in"
+                        data-aos-delay="300"
                         src={previewUrl}
                         alt="Preview"
                         className="w-full h-full object-cover rounded-full"
                       />
                       <button
+                        data-aos="fade-left"
                         onClick={(e) => {
                           e.stopPropagation();
                           setPreviewUrl(null);
@@ -744,7 +862,11 @@ const Contact = () => {
                       </button>
                     </div>
                   ) : (
-                    <span className="text-cosmic-cyan">
+                    <span
+                      data-aos="fade-left"
+                      data-aos-delay="300"
+                      className="text-cosmic-cyan"
+                    >
                       📎 Choose Profile Photo
                     </span>
                   )}
@@ -756,10 +878,18 @@ const Contact = () => {
                     className="hidden"
                   />
                 </div>
-                <p className="text-gray-500 text-xs mt-1">Max file size: 5MB</p>
+                <p
+                  data-aos="fade-right"
+                  data-aos-delay="300"
+                  className="text-gray-500 text-xs mt-1"
+                >
+                  Max file size: 5MB
+                </p>
               </div>
 
               <button
+                data-aos="fade-up"
+                data-aos-delay="300"
                 type="submit"
                 disabled={isCommentLoading}
                 className="w-full py-3 bg-gradient-to-r from-cyan-500 to-purple-400 text-white rounded-lg hover:opacity-90 transition-all duration-300 hover:shadow-lg hover:shadow-purple-700/20 disabled:opacity-50 disabled:cursor-not-allowed"
@@ -769,12 +899,14 @@ const Contact = () => {
             </form>
 
             <div className={`flex-1 ${styles.custom_scrollbar}`}>
-              <div className="space-y-2 md:space-y-3 pr-2">
+              <div
+                data-aos="fade-up"
+                data-aos-delay="300"
+                className="space-y-2 md:space-y-3 pr-2"
+              >
                 {comments.map((comment, index) => (
                   <div
                     key={comment.id}
-                    data-aos="fade-up"
-                    data-aos-delay={400 + index * 50}
                     className="flex items-start gap-2 p-2 md:p-3 rounded-lg bg-gradient-to-r from-cyan-500/15 to-purple-400/15"
                   >
                     {comment.profile_image ? (

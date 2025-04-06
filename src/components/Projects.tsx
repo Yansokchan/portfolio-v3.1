@@ -14,6 +14,16 @@ interface Project {
 const projects: Project[] = [
   {
     id: 1,
+    title: "Portfolio V3.1",
+    description:
+      "The first 3D Portfolio V3.1 using React Vite, Tailwind CSS, Three.js. I love this project because it's a 3D portfolio that showcases my projects and skills.",
+    tags: ["Vite", "Tailwind", "Three.js"],
+    imageUrl:
+      "https://khtkcvecjfjzmoormqjp.supabase.co/storage/v1/object/public/employee-profiles/c7b4390b-a329-4133-88b5-7be93fad53d7/bfef93b9-6c79-46f8-9bb5-9d9494bcae63.png",
+    link: "https://sokchan-info-v3.vercel.app/",
+  },
+  {
+    id: 2,
     title: "Next-Gen",
     description:
       "Management System for a company using Next.js, Tailwind CSS, Supabase, and Cursor. Please use the password: Pa$$w0rd to login.",
@@ -23,7 +33,7 @@ const projects: Project[] = [
     link: "https://next-gen-e4.vercel.app/",
   },
   {
-    id: 2,
+    id: 3,
     title: "Calculator",
     description: "Simple Calculator using HTML, CSS and JAVASCRIPT.",
     tags: ["HTML", "CSS", "JavaScript"],
@@ -32,16 +42,15 @@ const projects: Project[] = [
     link: "https://yansokchan.github.io/calculator/calculator.html",
   },
   {
-    id: 3,
+    id: 4,
     title: "E-Commerce Platform",
     description: "Static E-commerce solution with HTML, CSS and JAVASCRIPT.",
     tags: ["HTML", "CSS", "JavaScript"],
-    imageUrl:
-      "https://portfolio-v3-seven-kappa.vercel.app/assets/ecom-Bd2l15qF.png",
+    imageUrl: "https://sokchan-info-v3.vercel.app/assets/ecom-Bd2l15qF.png",
     link: "https://yansokchan.github.io/semicolon/home.html",
   },
   {
-    id: 4,
+    id: 5,
     title: "Rock Paper Scissor",
     description: "Rock Paper Scissor game using HTML, CSS and JAVASCRIPT.",
     tags: ["HTML", "CSS", "Javascript"],
@@ -50,21 +59,19 @@ const projects: Project[] = [
     link: "https://yansokchan.github.io/RPS/rock-paper-scissors.html",
   },
   {
-    id: 5,
+    id: 6,
     title: "Portfolio V1",
     description: "Portfolio V1 using React Vite and Tailwind CSS.",
     tags: ["Vite", "Tailwind"],
-    imageUrl:
-      "https://portfolio-v3-seven-kappa.vercel.app/assets/pfl1-BhNu1Ovl.png",
+    imageUrl: "https://sokchan-info-v3.vercel.app/assets/pfl1-BhNu1Ovl.png",
     link: "https://yansokchan.github.io/my-portfolio/",
   },
   {
-    id: 6,
+    id: 7,
     title: "Portfolio V2",
     description: "Portfolio V2 using React Vite, Tailwind CSS, GSAP, Daisy UI.",
     tags: ["Vite", "Tailwind", "GSAP", "Daisy UI"],
-    imageUrl:
-      "https://portfolio-v3-seven-kappa.vercel.app/assets/pfl2-DxOFezEw.png",
+    imageUrl: "https://sokchan-info-v3.vercel.app/assets/pfl2-DxOFezEw.png",
     link: "https://yansokchan.github.io/portfolio/",
   },
 ];
@@ -121,6 +128,8 @@ const ProjectCard = ({
           ))}
         </div>
         <a
+          data-aos="fade-up"
+          data-aos-delay={index * 100 + 100}
           target="_blank"
           href={project.link}
           className="inline-block px-6 py-2 rounded-sm bg-cosmic-purple/10 text-cosmic-cyan border border-cosmic-cyan/20 hover:border-cosmic-cyan transition-all duration-300 hover:bg-cosmic-purple/20"
@@ -148,7 +157,11 @@ const Projects = () => {
     <section id="projects" className="section !px-[25px] md:!px-8">
       <div className="max-w-7xl mx-auto py-20">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          <h2
+            data-aos="zoom-in"
+            data-aos-delay="300"
+            className="text-3xl md:text-4xl font-bold mb-4"
+          >
             <span
               data-aos="fade-right"
               data-aos-delay="100"

@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-
+import AOS from "aos";
+import "aos/dist/aos.css";
 const Nav = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -83,8 +84,8 @@ const Nav = () => {
             {/* Desktop menu */}
             <div className="hidden md:block">
               <div className="ml-10 flex items-center space-x-8">
-                {menuItems.map((item) => (
-                  <motion.a
+                {menuItems.map((item, index) => (
+                  <a
                     key={item.name}
                     href={item.href}
                     className={`relative px-3 py-2 text-sm font-medium transition-colors duration-300 ${
@@ -92,9 +93,6 @@ const Nav = () => {
                         ? "text-cosmic-cyan"
                         : "text-gray-300 hover:text-cosmic-cyan"
                     }`}
-                    whileHover={{ y: -2 }}
-                    whileTap={{ scale: 0.95 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 17 }}
                     onClick={() =>
                       handleSectionClick(item.href.replace("#", ""))
                     }
@@ -111,7 +109,7 @@ const Nav = () => {
                         transition: { duration: 0.3 },
                       }}
                     />
-                  </motion.a>
+                  </a>
                 ))}
               </div>
             </div>
@@ -161,7 +159,10 @@ const Nav = () => {
             >
               <div className="w-full max-w-xs space-y-4">
                 {menuItems.map((item, index) => (
-                  <motion.a
+                  <a
+                    data-aos="fade-right"
+                    data-aos-duration="400"
+                    data-aos-delay={200 + index * 100}
                     key={item.name}
                     href={item.href}
                     onClick={() => {
@@ -173,28 +174,6 @@ const Nav = () => {
                         ? "text-cosmic-cyan bg-gradient-to-r from-cosmic-purple/20 to-cosmic-cyan/20 border border-cosmic-cyan/20"
                         : "text-gray-300 hover:text-cosmic-cyan hover:bg-gray-800/30"
                     }`}
-                    initial={{ opacity: 0, x: -40, scale: 0.9 }}
-                    animate={{ opacity: 1, x: 0, scale: 1 }}
-                    transition={{
-                      duration: 0.2,
-                      delay: index * 0.05,
-                      ease: [0.23, 1, 0.32, 1],
-                    }}
-                    whileHover={{
-                      x: 10,
-                      backgroundColor: "rgba(6, 182, 212, 0.1)",
-                      transition: {
-                        duration: 0.15,
-                        ease: "easeOut",
-                      },
-                    }}
-                    whileTap={{
-                      scale: 0.95,
-                      transition: {
-                        duration: 0.1,
-                        ease: "easeIn",
-                      },
-                    }}
                   >
                     <div className="flex items-center justify-between">
                       <span>{item.name}</span>
@@ -211,7 +190,7 @@ const Nav = () => {
                         />
                       )}
                     </div>
-                  </motion.a>
+                  </a>
                 ))}
               </div>
             </motion.div>
