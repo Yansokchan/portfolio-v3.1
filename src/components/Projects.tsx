@@ -77,14 +77,32 @@ const ProjectCard = ({
 }) => {
   const [isHovered, setIsHovered] = useState(false);
   const cardRef = useRef(null);
-  const isInView = useInView(cardRef, { once: true, amount: 0.3 });
+  const isInView = useInView(cardRef, {
+    once: true,
+    amount: 0.2,
+    margin: "-50px",
+  });
 
   return (
     <motion.div
       ref={cardRef}
       initial={{ opacity: 0, y: 50 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-      transition={{ duration: 0.5, delay: index * 0.2 }}
+      animate={
+        isInView
+          ? {
+              opacity: 1,
+              y: 0,
+              transition: {
+                duration: 0.6,
+                delay: index * 0.05,
+                ease: "easeOut",
+              },
+            }
+          : {
+              opacity: 0,
+              y: 50,
+            }
+      }
       className="relative bg-gradient-to-r from-cyan-500/20 to-purple-400/20 rounded-xl overflow-hidden group"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -99,7 +117,7 @@ const ProjectCard = ({
           scale: isHovered ? 1.03 : 1,
           translateZ: isHovered ? "20px" : "0px",
         }}
-        transition={{ duration: 0.3, ease: "easeOut" }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
       >
         <motion.img
           src={project.imageUrl}
@@ -108,17 +126,24 @@ const ProjectCard = ({
           animate={{
             scale: isHovered ? 1.1 : 1,
           }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+        <motion.div
+          className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"
+          animate={{
+            opacity: isHovered ? 0.9 : 1,
+          }}
+          transition={{ duration: 0.3 }}
+        />
       </motion.div>
 
       <motion.div
         className="p-6"
         animate={{
           translateZ: isHovered ? "30px" : "0px",
+          y: isHovered ? -5 : 0,
         }}
-        transition={{ duration: 0.3, ease: "easeOut" }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
       >
         <motion.h3
           className="text-xl font-semibold text-white mb-2"
@@ -130,17 +155,40 @@ const ProjectCard = ({
         >
           {project.title}
         </motion.h3>
-        <p className="text-gray-300 mb-4">{project.description}</p>
+        <motion.p
+          className="text-gray-300 mb-4"
+          animate={{
+            opacity: isHovered ? 1 : 0.8,
+          }}
+          transition={{ duration: 0.3 }}
+        >
+          {project.description}
+        </motion.p>
         <div className="flex flex-wrap gap-2 mb-4">
-          {project.tags.map((tag) => (
+          {project.tags.map((tag, tagIndex) => (
             <motion.span
               key={tag}
-              className="px-3 py-1 text-xs rounded-full bg-cosmic-purple/20 text-cosmic-cyan"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={
+                isInView
+                  ? {
+                      opacity: 1,
+                      scale: 1,
+                      transition: {
+                        duration: 0.3,
+                        delay: index * 0.05 + tagIndex * 0.05,
+                      },
+                    }
+                  : {
+                      opacity: 0,
+                      scale: 0.8,
+                    }
+              }
               whileHover={{
                 scale: 1.05,
                 backgroundColor: "rgba(147, 51, 234, 0.3)",
               }}
-              transition={{ duration: 0.2 }}
+              className="px-3 py-1 text-xs rounded-full bg-cosmic-purple/20 text-cosmic-cyan"
             >
               {tag}
             </motion.span>
@@ -150,6 +198,10 @@ const ProjectCard = ({
           target="_blank"
           href={project.link}
           className="inline-block px-6 py-2 rounded-sm bg-cosmic-purple/10 text-cosmic-cyan border border-cosmic-cyan/20 hover:border-cosmic-cyan transition-colors duration-300"
+          whileHover={{
+            scale: 1.02,
+            backgroundColor: "rgba(147, 51, 234, 0.2)",
+          }}
           whileTap={{ scale: 0.95 }}
         >
           View Project
@@ -159,9 +211,10 @@ const ProjectCard = ({
       <motion.div
         className="absolute inset-0 rounded-xl opacity-0 ring-2 ring-cosmic-cyan pointer-events-none"
         animate={{
-          opacity: isHovered ? 0.2 : 0,
+          opacity: isHovered ? 0.3 : 0,
+          scale: isHovered ? 1.02 : 1,
         }}
-        transition={{ duration: 0.3 }}
+        transition={{ duration: 0.4 }}
       />
     </motion.div>
   );
@@ -169,25 +222,48 @@ const ProjectCard = ({
 
 const Projects = () => {
   const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
+  const isInView = useInView(sectionRef, {
+    once: true,
+    amount: 0.2,
+    margin: "-100px",
+  });
 
   return (
     <section id="projects" className="section py-20" ref={sectionRef}>
       <div className="max-w-7xl mx-auto">
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: 0.5 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            <span className="text-gradient">Featured </span>
-            <span className="text-white">Projects</span>
+            <motion.span
+              initial={{ opacity: 0, x: -20 }}
+              animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+              transition={{ duration: 0.6, delay: 0.15 }}
+              className="text-gradient"
+            >
+              Featured{" "}
+            </motion.span>
+            <motion.span
+              initial={{ opacity: 0, x: 20 }}
+              animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-white"
+            >
+              Projects
+            </motion.span>
           </h2>
-          <p className="text-gray-300 max-w-2xl mx-auto">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.6, delay: 0.25 }}
+            className="text-gray-300 max-w-2xl mx-auto"
+          >
             Explore some of my latest work showcasing creative solutions and
             cutting-edge technologies.
-          </p>
+          </motion.p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
