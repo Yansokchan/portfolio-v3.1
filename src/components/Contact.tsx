@@ -22,7 +22,11 @@ interface Comment {
 
 const Contact = () => {
   const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, amount: 0.3 });
+  const isInView = useInView(sectionRef, {
+    once: true,
+    amount: 0.2,
+    margin: "-100px",
+  });
   const { toast } = useToast();
 
   const [formData, setFormData] = useState({
@@ -108,7 +112,7 @@ const Contact = () => {
       });
     }
   };
-
+  
   const handleMouseMove = (e: React.MouseEvent<HTMLFormElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
     setMousePosition({
@@ -116,7 +120,7 @@ const Contact = () => {
       y: e.clientY - rect.top,
     });
   };
-
+  
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -184,9 +188,9 @@ const Contact = () => {
           className:
             "bg-gradient-to-r from-cyan-500/20 to-purple-400/20 border border-cyan-500/20 text-white",
         });
-        setFormData({
-          name: "",
-          email: "",
+    setFormData({
+      name: "",
+      email: "",
           message: "",
         });
       } else {
@@ -302,30 +306,35 @@ const Contact = () => {
       setIsCommentLoading(false);
     }
   };
-
+  
   return (
     <section id="contact" className="section py-20" ref={sectionRef}>
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-        transition={{ duration: 0.5 }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
         className="max-w-7xl mx-auto"
       >
-        <div className="text-center mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="text-center mb-16"
+        >
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             <span className="text-gradient">Contact</span> Me
           </h2>
           <p className="text-gray-400">
             Got a question? Send me a message, and I'll get back to you soon.
           </p>
-        </div>
-
+        </motion.div>
+        
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Left Side - Get in Touch Form */}
           <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            initial={{ opacity: 0, x: -50 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
+            transition={{ duration: 0.6, delay: 0.25, ease: "easeOut" }}
             className="bg-gradient-to-r from-cyan-500/20 to-purple-400/20 p-4 md:p-8 rounded-2xl"
           >
             <div className="flex items-center justify-between mb-6">
@@ -355,7 +364,7 @@ const Contact = () => {
               Have something to discuss? Send me a message and let's talk.
             </p>
 
-            <form
+            <form 
               onSubmit={handleContactSubmit}
               onMouseMove={handleMouseMove}
               onMouseEnter={() => setIsHovered(true)}
@@ -369,10 +378,10 @@ const Contact = () => {
                 >
                   Name*
                 </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
+                <input 
+                  type="text" 
+                  id="name" 
+                  name="name" 
                   value={formData.name}
                   onChange={handleChange}
                   placeholder="Enter your name"
@@ -380,7 +389,7 @@ const Contact = () => {
                   required
                 />
               </div>
-
+              
               <div className="mb-6">
                 <label
                   htmlFor="email"
@@ -388,10 +397,10 @@ const Contact = () => {
                 >
                   Email*
                 </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
+                <input 
+                  type="email" 
+                  id="email" 
+                  name="email" 
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="Enter your email"
@@ -399,7 +408,7 @@ const Contact = () => {
                   required
                 />
               </div>
-
+              
               <div className="mb-6">
                 <label
                   htmlFor="message"
@@ -407,9 +416,9 @@ const Contact = () => {
                 >
                   Message*
                 </label>
-                <textarea
-                  id="message"
-                  name="message"
+                <textarea 
+                  id="message" 
+                  name="message" 
                   rows={4}
                   value={formData.message}
                   onChange={handleChange}
@@ -418,29 +427,29 @@ const Contact = () => {
                   required
                 />
               </div>
-
-              <button
-                type="submit"
+              
+              <button 
+                type="submit" 
                 disabled={isContactLoading}
                 className="w-full py-3 bg-gradient-to-r from-cyan-500 to-purple-400 text-white rounded-lg hover:opacity-90 transition-all duration-300 hover:shadow-lg hover:shadow-purple-700/20 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isContactLoading ? "Sending..." : "Send Message"}
               </button>
             </form>
-
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
+          
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
             >
               <div className="md:p-8 p-4 mt-5 bg-gradient-to-r from-cyan-500/15 to-purple-400/15 rounded-xl h-full">
                 <h3 className="text-xl font-semibold text-cosmic-cyan mb-6">
                   Contact Info
                 </h3>
-
-                <div className="space-y-6">
-                  <div className="flex items-start">
-                    <div className="bg-cosmic-purple/20 p-3 rounded-lg mr-4">
+              
+              <div className="space-y-6">
+                <div className="flex items-start">
+                  <div className="bg-cosmic-purple/20 p-3 rounded-lg mr-4">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="20"
@@ -453,17 +462,17 @@ const Contact = () => {
                         strokeLinejoin="round"
                         className="text-cosmic-cyan"
                       >
-                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-                      </svg>
-                    </div>
-                    <div>
-                      <h4 className="text-sm text-gray-400 mb-1">Phone</h4>
+                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 className="text-sm text-gray-400 mb-1">Phone</h4>
                       <p className="text-white">+855| 97-5948-051</p>
                     </div>
-                  </div>
-
-                  <div className="flex items-start">
-                    <div className="bg-cosmic-purple/20 p-3 rounded-lg mr-4">
+                </div>
+                
+                <div className="flex items-start">
+                  <div className="bg-cosmic-purple/20 p-3 rounded-lg mr-4">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="20"
@@ -476,18 +485,60 @@ const Contact = () => {
                         strokeLinejoin="round"
                         className="text-cosmic-cyan"
                       >
-                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                        <polyline points="22,6 12,13 2,6" />
-                      </svg>
-                    </div>
-                    <div>
-                      <h4 className="text-sm text-gray-400 mb-1">Email</h4>
-                      <p className="text-white">yansokchan05@gmail.com</p>
-                    </div>
+                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                      <polyline points="22,6 12,13 2,6" />
+                    </svg>
                   </div>
-
-                  <div className="flex items-start">
-                    <div className="bg-cosmic-purple/20 p-3 rounded-lg mr-4">
+                    <div className="flex-1">
+                    <h4 className="text-sm text-gray-400 mb-1">Email</h4>
+                      <div className="flex items-center gap-2">
+                        <p className="text-white text-sm md:text-base break-all">
+                          yansokchan05@gmail.com
+                        </p>
+                        <button
+                          onClick={() => {
+                            navigator.clipboard.writeText(
+                              "yansokchan05@gmail.com"
+                            );
+                            toast({
+                              title: "Email Copied! 📋",
+                              description:
+                                "The email address has been copied to your clipboard.",
+                              className:
+                                "bg-gradient-to-r from-cyan-500/20 to-purple-400/20 border border-cyan-500/20 text-white",
+                            });
+                          }}
+                          className="p-1.5 rounded-lg bg-cosmic-purple/20 hover:bg-cosmic-purple/30 transition-colors"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="text-cosmic-cyan"
+                          >
+                            <rect
+                              x="9"
+                              y="9"
+                              width="13"
+                              height="13"
+                              rx="2"
+                              ry="2"
+                            />
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+                </div>
+                
+                <div className="flex items-start">
+                  <div className="bg-cosmic-purple/20 p-3 rounded-lg mr-4">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="20"
@@ -500,12 +551,12 @@ const Contact = () => {
                         strokeLinejoin="round"
                         className="text-cosmic-cyan"
                       >
-                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                        <circle cx="12" cy="10" r="3" />
-                      </svg>
-                    </div>
-                    <div>
-                      <h4 className="text-sm text-gray-400 mb-1">Location</h4>
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                      <circle cx="12" cy="10" r="3" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 className="text-sm text-gray-400 mb-1">Location</h4>
                       <p className="text-white">Chbar Ompov, Phnom Penh</p>
                     </div>
                   </div>
@@ -517,11 +568,11 @@ const Contact = () => {
                     <div className="absolute left-1/4 right-1/4 top-0 h-px w-1/2">
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cosmic-purple to-transparent h-[3px] w-full blur-sm opacity-50" />
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cosmic-purple to-transparent h-px w-full" />
-                    </div>
                   </div>
+                </div>
                   <div className="pt-6 mt-6">
-                    <h4 className="text-sm text-gray-400 mb-3">Find me on</h4>
-                    <div className="flex space-x-4">
+                  <h4 className="text-sm text-gray-400 mb-3">Find me on</h4>
+                  <div className="flex space-x-4">
                       <a
                         href="#"
                         className="text-gray-400 hover:text-cosmic-cyan transition-colors"
@@ -537,11 +588,11 @@ const Contact = () => {
                           strokeLinecap="round"
                           strokeLinejoin="round"
                         >
-                          <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-                          <rect x="2" y="9" width="4" height="12" />
-                          <circle cx="4" cy="4" r="2" />
-                        </svg>
-                      </a>
+                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                        <rect x="2" y="9" width="4" height="12" />
+                        <circle cx="4" cy="4" r="2" />
+                      </svg>
+                    </a>
                       <a
                         href="#"
                         className="text-gray-400 hover:text-cosmic-cyan transition-colors"
@@ -557,9 +608,9 @@ const Contact = () => {
                           strokeLinecap="round"
                           strokeLinejoin="round"
                         >
-                          <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
-                        </svg>
-                      </a>
+                        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+                      </svg>
+                    </a>
                       <a
                         href="#"
                         className="text-gray-400 hover:text-cosmic-cyan transition-colors"
@@ -575,11 +626,11 @@ const Contact = () => {
                           strokeLinecap="round"
                           strokeLinejoin="round"
                         >
-                          <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5 0-.29-.01-.58-.04-.87A7.72 7.72 0 0 0 23 3z" />
-                        </svg>
-                      </a>
-                    </div>
+                        <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5 0-.29-.01-.58-.04-.87A7.72 7.72 0 0 0 23 3z" />
+                      </svg>
+                    </a>
                   </div>
+                </div>
                 </div>
               </div>
             </motion.div>
@@ -587,9 +638,9 @@ const Contact = () => {
 
           {/* Right Side - Comments Section */}
           <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
+            initial={{ opacity: 0, x: 50 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
+            transition={{ duration: 0.6, delay: 0.25, ease: "easeOut" }}
             className="bg-gradient-to-r from-cyan-500/20 to-purple-400/20 md:p-8 p-4 rounded-2xl flex flex-col h-[950px]"
           >
             <div className="flex items-center justify-between mb-6">

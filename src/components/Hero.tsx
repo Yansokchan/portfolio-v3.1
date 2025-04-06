@@ -118,16 +118,11 @@ const Hero = () => {
 
           {/* Content Container */}
           <div className="max-w-2xl text-center lg:text-left">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              className="mb-4 inline-block"
-            >
+            <div data-aos="fade-up">
               <span className="text-lg text-cosmic-cyan font-medium">
                 Hello there, I'm
               </span>
-            </motion.div>
+            </div>
 
             <motion.h1
               style={{
