@@ -23,11 +23,7 @@ interface Comment {
 
 const Contact = () => {
   const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, {
-    once: true,
-    amount: 0.2,
-    margin: "-100px",
-  });
+
   const { toast } = useToast();
 
   const [formData, setFormData] = useState({
