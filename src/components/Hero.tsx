@@ -1,5 +1,5 @@
 import { TextHoverEffect } from "./ui/texthover";
-import pf from "../../public/pf.png";
+import pf from "../assets/pf.png";
 import { useState, useEffect } from "react";
 import { motion, useSpring, useTransform } from "framer-motion";
 const Hero = () => {
@@ -58,11 +58,11 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="section min-h-screen -mt-32 md:-mt-44 relative overflow-hidden"
+      className="section min-h-screen !px-[25px] md:!px-8 -mt-32 md:-mt-44 relative overflow-hidden"
     >
       <div className="flex flex-col lg:flex-row items-center justify-center min-h-screen w-full">
         {/* Left Side - Text Effect and Content */}
-        <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start justify-center gap-8 p-4">
+        <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start justify-center gap-8">
           {/* Text Effect Container */}
           <div className="w-full max-w-2xl">
             <TextHoverEffect text="ATONG" />

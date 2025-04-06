@@ -46,7 +46,7 @@ export const Tracing = ({
       ref={ref}
       className={cn("relative mx-auto h-full w-full max-w-7xl px-4", className)}
     >
-      <div className="fixed -left-[5px] top-[20%] z-50 md:left-1 md:top-1/4">
+      <div className="fixed -left-[10px] top-[20%] z-50 md:-left-1 md:top-1/4">
         <motion.div
           transition={{
             duration: 0.2,

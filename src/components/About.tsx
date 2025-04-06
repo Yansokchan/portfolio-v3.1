@@ -1,152 +1,117 @@
-import { useRef, useState, useEffect } from "react";
-import { motion, useInView } from "framer-motion";
-import { LampDemo } from "./ui/lamp";
-
-interface Skill {
-  name: string;
-  level: number;
-}
-
-const skills: Skill[] = [
-  { name: "Three.js / WebGL", level: 60 },
-  { name: "React.js / Next.js", level: 70 },
-  { name: "Javascript / TypeScript", level: 75 },
-  { name: "Tailwind CSS / UI / UX Design", level: 75 },
-  { name: "C / C++ / Java", level: 70 },
-  { name: "Coding with AI / Tools", level: 78 },
-];
+import { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import pf1 from "../assets/pf1.jpg";
 
 const About = () => {
-  const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, {
-    once: true,
-    amount: 0.2,
-    margin: "-100px",
-  });
+  useEffect(() => {
+    AOS.init({
+      duration: 800,
+      easing: "ease-out",
+      once: true,
+      offset: 100,
+    });
+  }, []);
 
   return (
-    <section id="about" className="section py-20" ref={sectionRef}>
+    <section id="about" className="section !px-[25px] md:!px-8">
       <div className="max-w-7xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-          className="text-center mb-16"
-        >
+        <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            <motion.span
-              initial={{ opacity: 0, x: -20 }}
-              animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-white"
-            >
-              About{" "}
-            </motion.span>
-            <motion.span
-              initial={{ opacity: 0, x: 20 }}
-              animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
-              transition={{ duration: 0.6, delay: 0.25 }}
+            <span
+              data-aos="fade-right"
+              data-aos-delay="100"
               className="text-gradient"
             >
+              About{" "}
+            </span>
+            <span
+              data-aos="fade-left"
+              data-aos-delay="200"
+              className="text-white"
+            >
               Me
-            </motion.span>
+            </span>
           </h2>
-        </motion.div>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
-            transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+          <p
+            data-aos="fade-up"
+            data-aos-delay="300"
+            className="text-gray-300 max-w-2xl mx-auto"
           >
-            <motion.h3
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              transition={{ duration: 0.6, delay: 0.35 }}
-              className="text-2xl font-semibold mb-4 text-cosmic-cyan"
-            >
-              Creative Developer
-            </motion.h3>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="text-gray-300 mb-6"
-            >
-              I'm a creative developer passionate about building immersive
-              digital experiences that blend art and technology. With expertise
-              in 3D graphics and interactive design, I create memorable web
-              applications that push the boundaries of what's possible on the
-              web.
-            </motion.p>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              transition={{ duration: 0.6, delay: 0.45 }}
-              className="text-gray-300 mb-6"
-            >
-              My journey began with traditional web development, but I quickly
-              fell in love with the creative possibilities offered by WebGL and
-              Three.js. Today, I focus on crafting experiences that aren't just
-              functional, but visually stunning and engaging.
-            </motion.p>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-              className="text-gray-300"
-            >
-              When I'm not coding, you can find me exploring new creative tools,
-              experimenting with digital art, or stargazing with my telescope.
-            </motion.p>
-          </motion.div>
+            Get to know more about my background, skills, and what drives me in
+            the world of technology.
+          </p>
+        </div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-            className="space-y-6"
-          >
-            <motion.h3
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              transition={{ duration: 0.6, delay: 0.25 }}
-              className="text-2xl font-semibold mb-4 text-cosmic-cyan"
-            >
-              Skills & Expertise
-            </motion.h3>
-
-            <div className="space-y-6">
-              {skills.map((skill, index) => (
-                <motion.div
-                  key={skill.name}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={
-                    isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
-                  }
-                  transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
-                >
-                  <div className="flex justify-between mb-2">
-                    <span className="text-gray-300">{skill.name}</span>
-                    <span className="text-cosmic-cyan">{skill.level}%</span>
-                  </div>
-                  <div className="w-full bg-gray-700 rounded-full h-2.5">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      animate={
-                        isInView ? { width: `${skill.level}%` } : { width: 0 }
-                      }
-                      transition={{
-                        duration: 1,
-                        delay: 0.4 + index * 0.1,
-                        ease: "easeOut",
-                      }}
-                      className="bg-gradient-to-r from-cosmic-cyan to-cosmic-purple h-2.5 rounded-full"
-                    />
-                  </div>
-                </motion.div>
-              ))}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div data-aos="fade-right" data-aos-delay="400" className="relative">
+            <div className="relative w-full aspect-square max-w-md mx-auto">
+              <div className="absolute inset-0 bg-gradient-to-r from-cosmic-cyan/20 to-cosmic-purple/20 rounded-full blur-3xl" />
+              <div className="absolute inset-0 bg-gradient-to-r from-cosmic-cyan/20 to-cosmic-purple/20 rounded-full" />
+              <div className="absolute inset-4 bg-gradient-to-br from-gray-900 to-gray-800 rounded-full overflow-hidden">
+                <img
+                  src={pf1}
+                  alt="Profile"
+                  className="w-full h-full object-cover"
+                />
+              </div>
             </div>
-          </motion.div>
+          </div>
+
+          <div data-aos="fade-left" data-aos-delay="500" className="space-y-6">
+            <div className="space-y-4">
+              <h3 className="text-2xl font-semibold text-cosmic-cyan">
+                Who am I?
+              </h3>
+              <p className="text-gray-300 leading-relaxed">
+                I'm a passionate Full Stack Developer with a strong foundation
+                in web development. My journey in technology began with a
+                curiosity for how things work, which evolved into a deep love
+                for creating innovative solutions.
+              </p>
+            </div>
+
+            <div className="space-y-4">
+              <h3 className="text-2xl font-semibold text-cosmic-cyan">
+                My Skills
+              </h3>
+              <div className="flex flex-wrap gap-3">
+                {[
+                  "JavaScript",
+
+                  "React.js",
+                  "Next.js",
+                  "Node.js",
+                  "Tailwind CSS",
+                  "TypeScript",
+                  "Git",
+                  "GitHub",
+
+                  "Supabase",
+                ].map((skill, index) => (
+                  <span
+                    key={skill}
+                    data-aos="fade-up"
+                    data-aos-delay={600 + index * 50}
+                    className="px-4 py-2 rounded-full bg-cosmic-purple/20 text-cosmic-cyan hover:bg-cosmic-purple/30 transition-colors duration-300"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <h3 className="text-2xl font-semibold text-cosmic-cyan">
+                What Drives Me
+              </h3>
+              <p className="text-gray-300 leading-relaxed">
+                I'm constantly learning and adapting to new technologies. My
+                goal is to create applications that not only look great but also
+                provide meaningful solutions to real-world problems.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>

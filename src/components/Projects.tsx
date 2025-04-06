@@ -1,5 +1,6 @@
-import { useRef, useState } from "react";
-import { motion, useInView } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 interface Project {
   id: number;
@@ -76,34 +77,13 @@ const ProjectCard = ({
   index: number;
 }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const cardRef = useRef(null);
-  const isInView = useInView(cardRef, {
-    once: true,
-    amount: 0.2,
-    margin: "-50px",
-  });
 
   return (
-    <motion.div
-      ref={cardRef}
-      initial={{ opacity: 0, y: 50 }}
-      animate={
-        isInView
-          ? {
-              opacity: 1,
-              y: 0,
-              transition: {
-                duration: 0.6,
-                delay: index * 0.05,
-                ease: "easeOut",
-              },
-            }
-          : {
-              opacity: 0,
-              y: 50,
-            }
-      }
-      className="relative bg-gradient-to-r from-cyan-500/20 to-purple-400/20 rounded-xl overflow-hidden group"
+    <div
+      data-aos="fade-up"
+      data-aos-delay={index * 100}
+      data-aos-duration="800"
+      className="relative bg-gradient-to-r from-cyan-500/20 to-purple-400/20 rounded-xl overflow-hidden group transition-transform duration-300 hover:scale-[1.02]"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       style={{
@@ -111,160 +91,88 @@ const ProjectCard = ({
         perspective: "1000px",
       }}
     >
-      <motion.div
-        className="h-72 w-full relative overflow-hidden"
-        animate={{
-          scale: isHovered ? 1.03 : 1,
-          translateZ: isHovered ? "20px" : "0px",
-        }}
-        transition={{ duration: 0.4, ease: "easeOut" }}
-      >
-        <motion.img
+      <div className="h-72 w-full relative overflow-hidden">
+        <img
           src={project.imageUrl}
           alt={project.title}
-          className="w-full h-full object-cover"
-          animate={{
-            scale: isHovered ? 1.1 : 1,
-          }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
-        <motion.div
-          className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"
-          animate={{
-            opacity: isHovered ? 0.9 : 1,
-          }}
-          transition={{ duration: 0.3 }}
-        />
-      </motion.div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-100 group-hover:opacity-90 transition-opacity duration-300" />
+      </div>
 
-      <motion.div
-        className="p-6"
-        animate={{
-          translateZ: isHovered ? "30px" : "0px",
-          y: isHovered ? -5 : 0,
-        }}
-        transition={{ duration: 0.4, ease: "easeOut" }}
-      >
-        <motion.h3
-          className="text-xl font-semibold text-white mb-2"
-          animate={{
-            y: isHovered ? -5 : 0,
-            color: isHovered ? "rgb(77, 238, 234)" : "rgb(255, 255, 255)",
-          }}
-          transition={{ duration: 0.3 }}
-        >
+      <div className="p-6 transition-transform duration-300 group-hover:-translate-y-1">
+        <h3 className="text-xl font-semibold text-white mb-2 group-hover:text-cosmic-cyan transition-colors duration-300">
           {project.title}
-        </motion.h3>
-        <motion.p
-          className="text-gray-300 mb-4"
-          animate={{
-            opacity: isHovered ? 1 : 0.8,
-          }}
-          transition={{ duration: 0.3 }}
-        >
+        </h3>
+        <p className="text-gray-300 mb-4 group-hover:opacity-100 transition-opacity duration-300">
           {project.description}
-        </motion.p>
+        </p>
         <div className="flex flex-wrap gap-2 mb-4">
           {project.tags.map((tag, tagIndex) => (
-            <motion.span
+            <span
               key={tag}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={
-                isInView
-                  ? {
-                      opacity: 1,
-                      scale: 1,
-                      transition: {
-                        duration: 0.3,
-                        delay: index * 0.05 + tagIndex * 0.05,
-                      },
-                    }
-                  : {
-                      opacity: 0,
-                      scale: 0.8,
-                    }
-              }
-              whileHover={{
-                scale: 1.05,
-                backgroundColor: "rgba(147, 51, 234, 0.3)",
-              }}
-              className="px-3 py-1 text-xs rounded-full bg-cosmic-purple/20 text-cosmic-cyan"
+              data-aos="fade-up"
+              data-aos-delay={index * 100 + tagIndex * 50}
+              data-aos-duration="600"
+              className="px-3 py-1 text-xs rounded-full bg-cosmic-purple/20 text-cosmic-cyan hover:bg-cosmic-purple/30 transition-colors duration-300"
             >
               {tag}
-            </motion.span>
+            </span>
           ))}
         </div>
-        <motion.a
+        <a
           target="_blank"
           href={project.link}
-          className="inline-block px-6 py-2 rounded-sm bg-cosmic-purple/10 text-cosmic-cyan border border-cosmic-cyan/20 hover:border-cosmic-cyan transition-colors duration-300"
-          whileHover={{
-            scale: 1.02,
-            backgroundColor: "rgba(147, 51, 234, 0.2)",
-          }}
-          whileTap={{ scale: 0.95 }}
+          className="inline-block px-6 py-2 rounded-sm bg-cosmic-purple/10 text-cosmic-cyan border border-cosmic-cyan/20 hover:border-cosmic-cyan transition-all duration-300 hover:bg-cosmic-purple/20"
         >
           View Project
-        </motion.a>
-      </motion.div>
+        </a>
+      </div>
 
-      <motion.div
-        className="absolute inset-0 rounded-xl opacity-0 ring-2 ring-cosmic-cyan pointer-events-none"
-        animate={{
-          opacity: isHovered ? 0.3 : 0,
-          scale: isHovered ? 1.02 : 1,
-        }}
-        transition={{ duration: 0.4 }}
-      />
-    </motion.div>
+      <div className="absolute inset-0 rounded-xl opacity-0 ring-2 ring-cosmic-cyan pointer-events-none group-hover:opacity-30 transition-opacity duration-300" />
+    </div>
   );
 };
 
 const Projects = () => {
-  const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, {
-    once: true,
-    amount: 0.2,
-    margin: "-100px",
-  });
+  useEffect(() => {
+    AOS.init({
+      duration: 800,
+      easing: "ease-out",
+      once: true,
+      offset: 100,
+    });
+  }, []);
 
   return (
-    <section id="projects" className="section py-20" ref={sectionRef}>
-      <div className="max-w-7xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="text-center mb-16"
-        >
+    <section id="projects" className="section !px-[25px] md:!px-8">
+      <div className="max-w-7xl mx-auto py-20">
+        <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            <motion.span
-              initial={{ opacity: 0, x: -20 }}
-              animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-              transition={{ duration: 0.6, delay: 0.15 }}
+            <span
+              data-aos="fade-right"
+              data-aos-delay="100"
               className="text-gradient"
             >
               Featured{" "}
-            </motion.span>
-            <motion.span
-              initial={{ opacity: 0, x: 20 }}
-              animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+            </span>
+            <span
+              data-aos="fade-left"
+              data-aos-delay="200"
               className="text-white"
             >
               Projects
-            </motion.span>
+            </span>
           </h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.6, delay: 0.25 }}
+          <p
+            data-aos="fade-up"
+            data-aos-delay="300"
             className="text-gray-300 max-w-2xl mx-auto"
           >
             Explore some of my latest work showcasing creative solutions and
             cutting-edge technologies.
-          </motion.p>
-        </motion.div>
+          </p>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (
