@@ -1,5 +1,6 @@
 import { useRef, useState, useEffect, useCallback } from "react";
-import { motion, useInView } from "framer-motion";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import { useToast } from "@/hooks/use-toast";
 import { createClient } from "@supabase/supabase-js";
 import styles from "@/styles/Contact.module.css";
@@ -307,22 +308,25 @@ const Contact = () => {
     }
   };
 
+  useEffect(() => {
+    AOS.init({
+      duration: 800,
+      easing: "ease-out",
+      once: true,
+      offset: 100,
+    });
+  }, []);
+
   return (
     <section
       id="contact"
       className="section !px-[25px] md:!px-8"
       ref={sectionRef}
     >
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
-        className="max-w-7xl mx-auto"
-      >
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
+      <div className="max-w-7xl mx-auto">
+        <div
+          data-aos="fade-up"
+          data-aos-delay="100"
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -331,18 +335,21 @@ const Contact = () => {
           <p className="text-gray-400">
             Got a question? Send me a message, and I'll get back to you soon.
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Left Side - Get in Touch Form */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
-            transition={{ duration: 0.6, delay: 0.25, ease: "easeOut" }}
+          <div
+            data-aos="fade-right"
+            data-aos-delay="200"
             className="bg-gradient-to-r from-cyan-500/20 to-purple-400/20 p-4 md:p-8 rounded-2xl"
           >
             <div className="flex items-center justify-between mb-6">
-              <h3 className="text-[24px] text-cosmic-cyan font-semibold">
+              <h3
+                data-aos="fade-right"
+                data-aos-delay="300"
+                className="text-[24px] text-cosmic-cyan font-semibold"
+              >
                 Get in Touch
               </h3>
               <button className="text-cosmic-cyan">
@@ -441,11 +448,7 @@ const Contact = () => {
               </button>
             </form>
 
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-            >
+            <div data-aos="fade-up" data-aos-delay="300">
               <div className="md:p-8 p-4 mt-5 bg-gradient-to-r from-cyan-500/15 to-purple-400/15 rounded-xl h-full">
                 <h3 className="text-xl font-semibold text-cosmic-cyan mb-6">
                   Contact Info
@@ -637,14 +640,13 @@ const Contact = () => {
                   </div>
                 </div>
               </div>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
 
           {/* Right Side - Comments Section */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
-            transition={{ duration: 0.6, delay: 0.25, ease: "easeOut" }}
+          <div
+            data-aos="fade-left"
+            data-aos-delay="200"
             className="bg-gradient-to-r from-cyan-500/20 to-purple-400/20 md:p-8 p-4 rounded-2xl flex flex-col h-[950px]"
           >
             <div className="flex items-center justify-between mb-5 md:mb-6">
@@ -772,9 +774,11 @@ const Contact = () => {
 
             <div className={`flex-1 ${styles.custom_scrollbar}`}>
               <div className="space-y-2 md:space-y-3 pr-2">
-                {comments.map((comment) => (
+                {comments.map((comment, index) => (
                   <div
                     key={comment.id}
+                    data-aos="fade-up"
+                    data-aos-delay={400 + index * 50}
                     className="flex items-start gap-2 p-2 md:p-3 rounded-lg bg-gradient-to-r from-cyan-500/15 to-purple-400/15"
                   >
                     {comment.profile_image ? (
@@ -818,9 +822,9 @@ const Contact = () => {
                 ))}
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 };
