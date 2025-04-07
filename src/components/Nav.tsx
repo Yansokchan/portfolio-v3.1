@@ -123,7 +123,7 @@ const Nav = () => {
             >
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="text-gray-400 hover:text-cosmic-cyan focus:outline-none"
+                className="text-cosmic-cyan focus:outline-none"
               >
                 {isOpen ? <X size={24} /> : <Menu size={24} />}
               </button>

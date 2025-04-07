@@ -26,8 +26,8 @@ const projects: Project[] = [
     id: 2,
     title: "Next-Gen",
     description:
-      "Management System for a company using Next.js, Tailwind CSS, Supabase, and Cursor. Please use the password: Pa$$w0rd to login.",
-    tags: ["Next.js", "Tailwind CSS", "Supabase", "Cursor"],
+      "Management System for a company using Next.js, Tailwind CSS, Node.js, Supabase, and Cursor. Please use the password: Pa$$w0rd to login.",
+    tags: ["Next.js", "Tailwind CSS", "Node.js", "Supabase", "Cursor"],
     imageUrl:
       "https://khtkcvecjfjzmoormqjp.supabase.co/storage/v1/object/public/employee-profiles/e89f032a-c8f6-4dbc-9c28-ebaf7c6c556e/78556db8-f4cf-4034-89c1-81e4b3d6f2dc.png",
     link: "https://next-gen-e4.vercel.app/",

@@ -233,7 +233,7 @@ const About = () => {
               }`}
             />
             {/* Mobile-only close button */}
-            <div className="block md:hidden absolute top-56 -right-1 z-[1001]">
+            <div className="block md:hidden absolute top-20 -right-1 z-[1001]">
               <button
                 data-aos="fade-left"
                 data-aos-duration="300"
