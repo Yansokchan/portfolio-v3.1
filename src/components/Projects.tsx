@@ -14,9 +14,9 @@ interface Project {
 const projects: Project[] = [
   {
     id: 1,
-    title: "Portfolio V3.1",
+    title: "Portfolio V3",
     description:
-      "The first 3D Portfolio V3.1 using React Vite, Tailwind CSS, Three.js. I love this project because it's a 3D portfolio that showcases my projects and skills.",
+      "The first 3D Portfolio V3 using React Vite, Tailwind CSS, Three.js. I love this project because it's a 3D portfolio that showcases my projects and skills.",
     tags: ["Vite", "Tailwind", "Three.js"],
     imageUrl:
       "https://khtkcvecjfjzmoormqjp.supabase.co/storage/v1/object/public/employee-profiles/c7b4390b-a329-4133-88b5-7be93fad53d7/bfef93b9-6c79-46f8-9bb5-9d9494bcae63.png",
