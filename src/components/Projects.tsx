@@ -14,9 +14,9 @@ interface Project {
 const projects: Project[] = [
   {
     id: 1,
-    title: "Portfolio V3.1",
+    title: "Portfolio V3",
     description:
-      "The first 3D Portfolio V3.1 using React Vite, Tailwind CSS, Three.js. I love this project because it's a 3D portfolio that showcases my projects and skills.",
+      "The first 3D Portfolio V3 using React Vite, Tailwind CSS, Three.js. I love this project because it's a 3D portfolio that showcases my projects and skills.",
     tags: ["Vite", "Tailwind", "Three.js"],
     imageUrl:
       "https://khtkcvecjfjzmoormqjp.supabase.co/storage/v1/object/public/employee-profiles/c7b4390b-a329-4133-88b5-7be93fad53d7/bfef93b9-6c79-46f8-9bb5-9d9494bcae63.png",
@@ -39,7 +39,7 @@ const projects: Project[] = [
     tags: ["HTML", "CSS", "JavaScript"],
     imageUrl:
       "https://images.pexels.com/photos/6963017/pexels-photo-6963017.jpeg?cs=srgb&dl=pexels-mikhail-nilov-6963017.jpg&fm=jpg",
-    link: "https://yansokchan.github.io/calculator/calculator.html",
+    link: "https://sokchan-calculator.vercel.app/",
   },
   {
     id: 4,
@@ -107,7 +107,11 @@ const ProjectCard = ({
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-100 group-hover:opacity-90 transition-opacity duration-300" />
       </div>
 
-      <div className="p-6 transition-transform duration-300 group-hover:-translate-y-1">
+      <div
+        data-aos="fade-up"
+        data-aos-delay={index * 100}
+        className="p-6 transition-transform duration-300 group-hover:-translate-y-1"
+      >
         <h3 className="text-xl font-semibold text-white mb-2 group-hover:text-cosmic-cyan transition-colors duration-300">
           {project.title}
         </h3>
@@ -144,6 +148,9 @@ const ProjectCard = ({
 };
 
 const Projects = () => {
+  const [showAll, setShowAll] = useState(false);
+  const initialProjectsToShow = 6;
+
   useEffect(() => {
     AOS.init({
       duration: 800,
@@ -152,6 +159,10 @@ const Projects = () => {
       offset: 100,
     });
   }, []);
+
+  const displayedProjects = showAll
+    ? projects
+    : projects.slice(0, initialProjectsToShow);
 
   return (
     <section id="projects" className="section !px-[25px] md:!px-8">
@@ -188,10 +199,21 @@ const Projects = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
+          {displayedProjects.map((project, index) => (
             <ProjectCard key={project.id} project={project} index={index} />
           ))}
         </div>
+
+        {projects.length > initialProjectsToShow && (
+          <div className="text-center mt-12">
+            <button
+              onClick={() => setShowAll(!showAll)}
+              className="px-6 py-3 rounded-sm bg-cosmic-purple/10 text-cosmic-cyan border border-cosmic-cyan/20 hover:border-cosmic-cyan transition-all duration-300 hover:bg-cosmic-purple/20"
+            >
+              {showAll ? "See Less" : "See More"}
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );

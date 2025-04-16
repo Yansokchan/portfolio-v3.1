@@ -112,11 +112,19 @@ const About = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div data-aos="fade-right" data-aos-delay="400" className="relative">
+          <div data-aos="fade-left" data-aos-delay="300" className="relative">
             <div className="relative w-full aspect-square max-w-[320px] sm:max-w-[360px] mx-auto">
               {/* Base image with effects */}
-              <div className="absolute inset-0 bg-gradient-to-r from-cosmic-cyan/20 to-cosmic-purple/20 rounded-full blur-3xl" />
-              <div className="absolute inset-0 bg-gradient-to-r from-cosmic-cyan/20 to-cosmic-purple/20 rounded-full" />
+              <div
+                data-aos="fade-right"
+                data-aos-delay="400"
+                className="absolute inset-0 bg-gradient-to-r from-cosmic-cyan/20 to-cosmic-purple/20 rounded-full blur-3xl"
+              />
+              <div
+                data-aos="fade-right"
+                data-aos-delay="300"
+                className="absolute inset-0 bg-gradient-to-r from-cosmic-cyan/20 to-cosmic-purple/20 rounded-full"
+              />
               <div
                 className="absolute inset-4 bg-gradient-to-br from-gray-900 to-gray-800 rounded-full overflow-hidden group cursor-pointer transition-transform duration-300 hover:scale-105"
                 onClick={handleImageClick}
@@ -167,10 +175,10 @@ const About = () => {
               <div className="flex flex-wrap gap-3">
                 {[
                   "JavaScript",
-
                   "React.js",
                   "Next.js",
                   "Node.js",
+                  "Three.js",
                   "Tailwind CSS",
                   "TypeScript",
                   "Git",
