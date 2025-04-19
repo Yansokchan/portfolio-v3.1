@@ -145,7 +145,7 @@ const Hero = () => {
               <motion.span
                 data-aos="fade-right"
                 data-aos-duration="800"
-                data-aos-delay="600"
+                data-aos-delay="200"
                 className="text-gradient inline-block"
                 style={{
                   textShadow: useTransform(
@@ -162,7 +162,7 @@ const Hero = () => {
               </motion.span>
               <motion.span
                 data-aos="fade-right"
-                data-aos-delay="1200"
+                data-aos-delay="300"
                 className="text-white inline-block"
                 style={{
                   textShadow: useTransform(
@@ -181,7 +181,7 @@ const Hero = () => {
 
             <motion.p
               data-aos="fade-up"
-              data-aos-delay="1500"
+              data-aos-delay="400"
               className="text-lg md:text-xl text-gray-300 mb-8 max-w-2xl mx-auto lg:mx-0"
             >
               I build immersive digital experiences with cutting-edge web

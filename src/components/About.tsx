@@ -83,49 +83,35 @@ const About = () => {
         <div className="text-center mb-16">
           <h2
             data-aos="zoom-in"
-            data-aos-delay="300"
             className="text-3xl md:text-4xl font-bold mb-4"
           >
-            <span
-              data-aos="fade-right"
-              data-aos-delay="300"
-              className="text-gradient"
-            >
+            <span data-aos="fade-right" className="text-gradient">
               About{" "}
             </span>
-            <span
-              data-aos="fade-left"
-              data-aos-delay="300"
-              className="text-white"
-            >
+            <span data-aos="fade-left" className="text-white">
               Me
             </span>
           </h2>
-          <p
-            data-aos="fade-up"
-            data-aos-delay="300"
-            className="text-gray-300 max-w-2xl mx-auto"
-          >
+          <p data-aos="fade-up" className="text-gray-300 max-w-2xl mx-auto">
             Get to know more about my background, skills, and what drives me in
             the world of technology.
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div data-aos="fade-left" data-aos-delay="300" className="relative">
+          <div className="relative">
             <div className="relative w-full aspect-square max-w-[320px] sm:max-w-[360px] mx-auto">
               {/* Base image with effects */}
               <div
                 data-aos="fade-right"
-                data-aos-delay="400"
                 className="absolute inset-0 bg-gradient-to-r from-cosmic-cyan/20 to-cosmic-purple/20 rounded-full blur-3xl"
               />
               <div
                 data-aos="fade-right"
-                data-aos-delay="300"
                 className="absolute inset-0 bg-gradient-to-r from-cosmic-cyan/20 to-cosmic-purple/20 rounded-full"
               />
               <div
+                data-aos="fade-left"
                 className="absolute inset-4 bg-gradient-to-br from-gray-900 to-gray-800 rounded-full overflow-hidden group cursor-pointer transition-transform duration-300 hover:scale-105"
                 onClick={handleImageClick}
               >
@@ -135,7 +121,7 @@ const About = () => {
                   className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                  <span className="text-white text-sm font-medium bg-black/50 px-4 py-2 rounded-full">
+                  <span className="text-cosmic-cyan text-sm font-medium bg-black/50 px-4 py-2 rounded-full">
                     Click to expand
                   </span>
                 </div>
@@ -147,16 +133,11 @@ const About = () => {
             <div className="space-y-4">
               <h3
                 data-aos="fade-left"
-                data-aos-delay="300"
                 className="text-2xl font-semibold text-cosmic-cyan"
               >
                 Who am I?
               </h3>
-              <p
-                data-aos="fade-left"
-                data-aos-delay="500"
-                className="text-gray-300 leading-relaxed"
-              >
+              <p data-aos="fade-left" className="text-gray-300 leading-relaxed">
                 I'm a passionate Full Stack Developer with a strong foundation
                 in web development. My journey in technology began with a
                 curiosity for how things work, which evolved into a deep love
@@ -167,7 +148,6 @@ const About = () => {
             <div className="space-y-4">
               <h3
                 data-aos="fade-left"
-                data-aos-delay="300"
                 className="text-2xl font-semibold text-cosmic-cyan"
               >
                 My Skills
@@ -201,16 +181,11 @@ const About = () => {
             <div className="space-y-4">
               <h3
                 data-aos="fade-left"
-                data-aos-delay="300"
                 className="text-2xl font-semibold text-cosmic-cyan"
               >
                 What Drives Me
               </h3>
-              <p
-                data-aos="fade-left"
-                data-aos-delay="500"
-                className="text-gray-300 leading-relaxed"
-              >
+              <p data-aos="fade-left" className="text-gray-300 leading-relaxed">
                 I'm constantly learning and adapting to new technologies. My
                 goal is to create applications that not only look great but also
                 provide meaningful solutions to real-world problems.

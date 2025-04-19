@@ -12,8 +12,9 @@ const Nav = () => {
 
   const menuItems = [
     { name: "Home", href: "#home" },
-    { name: "Projects", href: "#projects" },
     { name: "About", href: "#about" },
+    { name: "Projects", href: "#projects" },
+
     { name: "Contact", href: "#contact" },
   ];
 

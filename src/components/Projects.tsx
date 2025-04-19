@@ -88,7 +88,6 @@ const ProjectCard = ({
   return (
     <div
       data-aos="fade-up"
-      data-aos-delay={index * 100}
       data-aos-duration="800"
       className="relative bg-gradient-to-r from-cyan-500/20 to-purple-400/20 rounded-xl overflow-hidden group transition-transform duration-300 hover:scale-[1.02]"
       onMouseEnter={() => setIsHovered(true)}
@@ -109,7 +108,6 @@ const ProjectCard = ({
 
       <div
         data-aos="fade-up"
-        data-aos-delay={index * 100}
         className="p-6 transition-transform duration-300 group-hover:-translate-y-1"
       >
         <h3 className="text-xl font-semibold text-white mb-2 group-hover:text-cosmic-cyan transition-colors duration-300">
@@ -123,7 +121,6 @@ const ProjectCard = ({
             <span
               key={tag}
               data-aos="fade-up"
-              data-aos-delay={index * 100 + tagIndex * 50}
               data-aos-duration="600"
               className="px-3 py-1 text-xs rounded-full bg-cosmic-purple/20 text-cosmic-cyan hover:bg-cosmic-purple/30 transition-colors duration-300"
             >
@@ -133,7 +130,6 @@ const ProjectCard = ({
         </div>
         <a
           data-aos="fade-up"
-          data-aos-delay={index * 100 + 100}
           target="_blank"
           href={project.link}
           className="inline-block px-6 py-2 rounded-sm bg-cosmic-purple/10 text-cosmic-cyan border border-cosmic-cyan/20 hover:border-cosmic-cyan transition-all duration-300 hover:bg-cosmic-purple/20"
@@ -170,7 +166,6 @@ const Projects = () => {
         <div className="text-center mb-16">
           <h2
             data-aos="zoom-in"
-            data-aos-delay="300"
             className="text-3xl md:text-4xl font-bold mb-4"
           >
             <span
@@ -180,19 +175,11 @@ const Projects = () => {
             >
               Featured{" "}
             </span>
-            <span
-              data-aos="fade-left"
-              data-aos-delay="200"
-              className="text-white"
-            >
+            <span data-aos="fade-left" className="text-white">
               Projects
             </span>
           </h2>
-          <p
-            data-aos="fade-up"
-            data-aos-delay="300"
-            className="text-gray-300 max-w-2xl mx-auto"
-          >
+          <p data-aos="fade-up" className="text-gray-300 max-w-2xl mx-auto">
             Explore some of my latest work showcasing creative solutions and
             cutting-edge technologies.
           </p>
