@@ -88,6 +88,7 @@ const ProjectCard = ({
   return (
     <div
       data-aos="fade-up"
+      data-aos-delay={index * 100}
       data-aos-duration="800"
       className="relative bg-gradient-to-r from-cyan-500/20 to-purple-400/20 rounded-xl overflow-hidden group transition-transform duration-300 hover:scale-[1.02]"
       onMouseEnter={() => setIsHovered(true)}
