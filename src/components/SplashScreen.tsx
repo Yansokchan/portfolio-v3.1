@@ -222,26 +222,6 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
             <FaReact className="w-10 h-10 text-blue-400 hover:text-blue-600 transition-colors" />
           </motion.div>
 
-          <motion.div
-            initial={{ scale: 0, x: -50 }}
-            animate={{
-              scale: 1,
-              x: 0,
-              y: [0, -15, 0],
-              rotate: [0, 5, -5, 0],
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              repeatType: "reverse",
-              ease: "easeInOut",
-              delay: 0.4,
-            }}
-            className="absolute -top-8 left-[50%] transform -translate-x-1/2"
-          >
-            <Github className="w-10 h-10 text-white hover:text-primary transition-colors" />
-          </motion.div>
-
           <div className="relative">
             <TypewriterEffectSmooth words={words} />
           </div>
