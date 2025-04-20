@@ -119,7 +119,7 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
             }}
             className="absolute -top-8 left-[5%] transform -translate-x-1/2"
           >
-            <RiNextjsFill className="w-10 h-10 text-white hover:text-gray-400 transition-colors" />
+            <RiNextjsFill className="w-9 h-9 510:w-10 510:h-10 text-white hover:text-gray-400 transition-colors" />
           </motion.div>
 
           <motion.div
@@ -139,7 +139,7 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
             }}
             className="absolute -top-8 left-[20%] transform -translate-x-1/2"
           >
-            <RiTailwindCssFill className="w-10 h-10 text-cyan-400 hover:text-cyan-600 transition-colors" />
+            <RiTailwindCssFill className="w-9 h-9 510:w-10 510:h-10 text-cyan-400 hover:text-cyan-600 transition-colors" />
           </motion.div>
 
           <motion.div
@@ -159,7 +159,7 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
             }}
             className="absolute -top-8 left-[35%] transform -translate-x-1/2"
           >
-            <RiSupabaseFill className="w-10 h-10 text-emerald-400 hover:text-emerald-600 transition-colors" />
+            <RiSupabaseFill className="w-9 h-9 510:w-10 510:h-10 text-emerald-400 hover:text-emerald-600 transition-colors" />
           </motion.div>
 
           <motion.div
@@ -179,7 +179,7 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
             }}
             className="absolute -top-8 right-[35%] transform translate-x-1/2"
           >
-            <FaNodeJs className="w-10 h-10 text-green-400 hover:text-green-600 transition-colors" />
+            <FaNodeJs className="w-9 h-9 510:w-10 510:h-10 text-green-400 hover:text-green-600 transition-colors" />
           </motion.div>
 
           <motion.div
@@ -199,7 +199,7 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
             }}
             className="absolute -top-8 right-[20%] transform translate-x-1/2"
           >
-            <IoLogoJavascript className="w-10 h-10 text-yellow-400 hover:text-yellow-600 transition-colors" />
+            <IoLogoJavascript className="w-9 h-9 510:w-10 510:h-10 text-yellow-400 hover:text-yellow-600 transition-colors" />
           </motion.div>
 
           <motion.div
@@ -219,7 +219,7 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
             }}
             className="absolute -top-8 right-[5%] transform translate-x-1/2"
           >
-            <FaReact className="w-10 h-10 text-blue-400 hover:text-blue-600 transition-colors" />
+            <FaReact className="w-9 h-9 510:w-10 510:h-10 text-blue-400 hover:text-blue-600 transition-colors" />
           </motion.div>
 
           <div className="relative">

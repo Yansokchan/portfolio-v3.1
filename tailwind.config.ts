@@ -18,6 +18,8 @@ export default {
       screens: {
         "2xl": "1400px",
         365: "365px",
+        320: "320px",
+
         420: "420px",
         510: "510px",
       },

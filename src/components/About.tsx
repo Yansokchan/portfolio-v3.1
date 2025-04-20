@@ -2,10 +2,150 @@ import { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import pf1 from "../assets/pf1.jpg";
+import { GlareCard } from "./ui/glare-card";
+import { Code2, GraduationCap, Briefcase } from "lucide-react";
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent,
+  DragStartEvent,
+  DragOverEvent,
+  DragOverlay,
+  useDraggable,
+  useDroppable,
+} from "@dnd-kit/core";
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  useSortable,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
+
+interface StatCardProps {
+  id: string;
+  number: string;
+  title: string;
+  subtitle: string;
+  icon: React.ElementType;
+}
+
+const SortableStatCard = (props: StatCardProps) => {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({
+    id: props.id,
+  });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1,
+    cursor: "grab",
+    touchAction: "none",
+  };
+
+  return (
+    <div
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      {...listeners}
+      className="w-full sm:transform-none"
+    >
+      <GlareCard className="365:px-5 420:pt-4 510:p-9 sm:p-3 sm:pt-[10px] md:pt-5 md:px-6 p-4 lg:pt-3">
+        <div className="h-full flex flex-col justify-between">
+          <div className="flex justify-between items-center">
+            <div className="xl:w-16 xl:h-16 sm:w-12 sm:h-12 420:w-16 420:h-16 320:w-12 320:h-12 w-10 h-10 rounded-full p-3 bg-gradient-to-r from-cosmic-cyan/30 to-cosmic-purple/30 flex items-center justify-center">
+              <props.icon className="420:w-10 420:h-10 320:w-8 320:h-8 w-6 h-6 text-cosmic-cyan" />
+            </div>
+            <span className="420:text-5xl sm:text-4xl 320:text-3xl font-bold text-gradient">
+              {props.number}
+            </span>
+          </div>
+
+          <div className="sm:mb-2 md:mb-1 sm:mt-2">
+            <p className="510:text-2xl 420:text-xl 320:text-[16px] sm:text-[18px] lg:text-[16px] text-xs text-gray-400 uppercase tracking-wider mb-2 sm:-mb-2 lg:mb-0">
+              {props.title}
+            </p>
+            <div className="flex items-center justify-between">
+              <p className="510:text-xl 420:text-[16px] 320:text-[14px] sm:text-[14px] lg:text-[14px] text-xs text-gray-500">
+                {props.subtitle}
+              </p>
+            </div>
+          </div>
+        </div>
+      </GlareCard>
+    </div>
+  );
+};
 
 const About = () => {
   const [showFullImage, setShowFullImage] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [activeId, setActiveId] = useState<string | null>(null);
+  const [items, setItems] = useState([
+    {
+      id: "card-1",
+      number: "12",
+      title: "TOTAL PROJECTS",
+      subtitle: "Innovative web solutions crafted",
+      icon: Code2,
+    },
+    {
+      id: "card-2",
+      number: "2+",
+      title: "YEARS EXPERIENCE",
+      subtitle: "Full stack development journey",
+      icon: Briefcase,
+    },
+    {
+      id: "card-3",
+      number: "5",
+      title: "CERTIFICATES",
+      subtitle: "Professional certifications earned",
+      icon: GraduationCap,
+    },
+  ]);
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 8,
+      },
+    }),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
+
+  const handleDragStart = (event: DragStartEvent) => {
+    setActiveId(event.active.id as string);
+  };
+
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+    setActiveId(null);
+
+    if (active.id !== over?.id) {
+      setItems((items) => {
+        const oldIndex = items.findIndex((item) => item.id === active.id);
+        const newIndex = items.findIndex((item) => item.id === over?.id);
+        return arrayMove(items, oldIndex, newIndex);
+      });
+    }
+  };
 
   useEffect(() => {
     AOS.init({
@@ -101,7 +241,6 @@ const About = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="relative">
             <div className="relative w-full aspect-square max-w-[320px] sm:max-w-[360px] mx-auto">
-              {/* Base image with effects */}
               <div
                 data-aos="fade-right"
                 className="absolute inset-0 bg-gradient-to-r from-cosmic-cyan/20 to-cosmic-purple/20 rounded-full blur-3xl"
@@ -163,7 +302,6 @@ const About = () => {
                   "TypeScript",
                   "Git",
                   "GitHub",
-
                   "Supabase",
                 ].map((skill, index) => (
                   <span
@@ -192,6 +330,42 @@ const About = () => {
               </p>
             </div>
           </div>
+        </div>
+
+        {/* Stats Cards Section */}
+        <div className="mt-16">
+          <DndContext
+            sensors={sensors}
+            collisionDetection={closestCenter}
+            onDragStart={handleDragStart}
+            onDragEnd={handleDragEnd}
+            modifiers={[restrictToVerticalAxis]}
+          >
+            <SortableContext
+              items={items.map((item) => item.id)}
+              strategy={verticalListSortingStrategy}
+            >
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 relative">
+                {items.map((item) => (
+                  <SortableStatCard key={item.id} {...item} />
+                ))}
+              </div>
+            </SortableContext>
+            <DragOverlay
+              dropAnimation={{
+                duration: 150,
+                easing: "cubic-bezier(0.25, 1, 0.5, 1)",
+              }}
+            >
+              {activeId ? (
+                <div className="w-full">
+                  <SortableStatCard
+                    {...items.find((item) => item.id === activeId)!}
+                  />
+                </div>
+              ) : null}
+            </DragOverlay>
+          </DndContext>
         </div>
       </div>
 
