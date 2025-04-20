@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import pf1 from "../assets/pf1.jpg";
@@ -25,6 +25,7 @@ import {
 import { CSS } from "@dnd-kit/utilities";
 import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
 import { useMediaQuery } from "react-responsive";
+import styles from "./About.module.css";
 
 interface StatCardProps {
   id: string;
@@ -37,6 +38,31 @@ interface StatCardProps {
 }
 
 const SortableStatCard = (props: StatCardProps) => {
+  const [isDragStart, setIsDragStart] = useState(false);
+  const [counter, setCounter] = useState(2000);
+  const counterRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    if (isDragStart && counter > 0) {
+      counterRef.current = setInterval(() => {
+        setCounter((prev) => Math.max(0, prev - 10));
+      }, 10);
+    } else {
+      if (counterRef.current) {
+        clearInterval(counterRef.current);
+      }
+      if (!isDragStart) {
+        setCounter(2000);
+      }
+    }
+
+    return () => {
+      if (counterRef.current) {
+        clearInterval(counterRef.current);
+      }
+    };
+  }, [isDragStart]);
+
   const {
     attributes,
     listeners,
@@ -57,6 +83,10 @@ const SortableStatCard = (props: StatCardProps) => {
     position: "relative" as const,
   };
 
+  const progressStyle = {
+    strokeDashoffset: ((2000 - counter) / 2000) * 100,
+  };
+
   return (
     <div
       ref={setNodeRef}
@@ -66,8 +96,53 @@ const SortableStatCard = (props: StatCardProps) => {
       className={`w-full select-none ${
         props.isMobile ? "sm:transform-none" : ""
       }`}
+      onTouchStart={() => setIsDragStart(true)}
+      onTouchEnd={() => setIsDragStart(false)}
+      onTouchCancel={() => setIsDragStart(false)}
     >
       <GlareCard className="365:px-5 420:pt-4 510:p-9 sm:p-3 sm:pt-[10px] md:pt-5 md:px-6 p-4 lg:pt-3">
+        {props.isMobile && isDragStart && (
+          <div className="absolute inset-0 z-50 bg-black/50 backdrop-blur-sm rounded-lg flex items-center justify-center">
+            <div className="relative flex items-center justify-center">
+              {counter > 0 ? (
+                <>
+                  <div className="w-12 h-12 relative flex items-center justify-center">
+                    <svg className="w-full h-full absolute" viewBox="0 0 36 36">
+                      <circle
+                        cx="18"
+                        cy="18"
+                        r="16"
+                        fill="none"
+                        className="stroke-cosmic-cyan/20"
+                        strokeWidth="2"
+                      />
+                      <circle
+                        cx="18"
+                        cy="18"
+                        r="16"
+                        fill="none"
+                        className={`stroke-cosmic-cyan ${styles.progressCircle}`}
+                        strokeWidth="2"
+                        style={{
+                          strokeDashoffset: ((2000 - counter) / 2000) * 100,
+                        }}
+                      />
+                    </svg>
+                    <span className="text-cosmic-cyan text-sm font-medium z-10">
+                      {(counter / 1000).toFixed(1)}s
+                    </span>
+                  </div>
+                </>
+              ) : (
+                <div className="px-4 py-2 bg-cosmic-cyan/10 rounded-lg">
+                  <span className="text-cosmic-cyan text-sm font-medium">
+                    You can move
+                  </span>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
         <div className="h-full flex flex-col justify-between">
           <div className="flex justify-between items-center">
             <div
@@ -145,9 +220,14 @@ const About = () => {
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
-      activationConstraint: {
-        distance: 8,
-      },
+      activationConstraint: isMobile
+        ? {
+            delay: 2000, // 2 seconds delay for mobile
+            tolerance: 5, // Allow small movements during the delay
+          }
+        : {
+            distance: 8, // Distance threshold for desktop
+          },
     }),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
