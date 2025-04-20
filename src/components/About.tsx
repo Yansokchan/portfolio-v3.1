@@ -39,7 +39,7 @@ interface StatCardProps {
 
 const SortableStatCard = (props: StatCardProps) => {
   const [isDragStart, setIsDragStart] = useState(false);
-  const [counter, setCounter] = useState(2000);
+  const [counter, setCounter] = useState(1500);
   const counterRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
@@ -52,7 +52,7 @@ const SortableStatCard = (props: StatCardProps) => {
         clearInterval(counterRef.current);
       }
       if (!isDragStart) {
-        setCounter(2000);
+        setCounter(1500);
       }
     }
 
@@ -124,7 +124,7 @@ const SortableStatCard = (props: StatCardProps) => {
                         className={`stroke-cosmic-cyan ${styles.progressCircle}`}
                         strokeWidth="2"
                         style={{
-                          strokeDashoffset: ((2000 - counter) / 2000) * 100,
+                          strokeDashoffset: ((1500 - counter) / 1500) * 100,
                         }}
                       />
                     </svg>
