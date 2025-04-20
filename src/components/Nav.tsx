@@ -124,9 +124,57 @@ const Nav = () => {
             >
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="text-cosmic-cyan focus:outline-none"
+                className="relative w-6 h-6 flex items-center justify-center focus:outline-none"
+                aria-label={isOpen ? "Close menu" : "Open menu"}
               >
-                {isOpen ? <X size={24} /> : <Menu size={24} />}
+                <div className="relative w-full h-full flex items-center justify-center">
+                  <motion.span
+                    className="absolute h-[2px] rounded-full bg-gradient-to-r from-cosmic-cyan to-cosmic-purple w-full transform-gpu"
+                    variants={{
+                      open: {
+                        rotate: 45,
+                        y: 0,
+                      },
+                      closed: {
+                        rotate: 0,
+                        y: -6,
+                      },
+                    }}
+                    animate={isOpen ? "open" : "closed"}
+                    initial="closed"
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                  />
+                  <motion.span
+                    className="absolute h-[2px] rounded-full bg-gradient-to-r from-cosmic-cyan to-cosmic-purple w-full transform-gpu"
+                    variants={{
+                      open: {
+                        opacity: 0,
+                      },
+                      closed: {
+                        opacity: 1,
+                      },
+                    }}
+                    animate={isOpen ? "open" : "closed"}
+                    initial="closed"
+                    transition={{ duration: 0.3 }}
+                  />
+                  <motion.span
+                    className="absolute h-[2px] rounded-full bg-gradient-to-r from-cosmic-cyan to-cosmic-purple w-full transform-gpu"
+                    variants={{
+                      open: {
+                        rotate: -45,
+                        y: 0,
+                      },
+                      closed: {
+                        rotate: 0,
+                        y: 6,
+                      },
+                    }}
+                    animate={isOpen ? "open" : "closed"}
+                    initial="closed"
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                  />
+                </div>
               </button>
             </motion.div>
           </div>
@@ -172,7 +220,7 @@ const Nav = () => {
                     }}
                     className={`block w-full px-6 py-4 text-lg font-medium rounded-xl transition-all duration-300 ${
                       activeSection === item.href.replace("#", "")
-                        ? "text-cosmic-cyan bg-gradient-to-r from-cosmic-purple/20 to-cosmic-cyan/20 border border-cosmic-cyan/20"
+                        ? "text-cosmic-cyan bg-gradient-to-r from-cosmic-cyan/20 to-cosmic-purple/20 border-2 border-cosmic-cyan/20"
                         : "text-gray-300 hover:text-cosmic-cyan hover:bg-gray-800/30"
                     }`}
                   >
