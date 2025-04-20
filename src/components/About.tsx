@@ -12,21 +12,19 @@ import {
   useSensor,
   useSensors,
   DragEndEvent,
-  DragStartEvent,
-  DragOverEvent,
-  DragOverlay,
-  useDraggable,
-  useDroppable,
+  Modifier,
 } from "@dnd-kit/core";
 import {
   arrayMove,
   SortableContext,
   sortableKeyboardCoordinates,
   useSortable,
+  horizontalListSortingStrategy,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
+import { useMediaQuery } from "react-responsive";
 
 interface StatCardProps {
   id: string;
@@ -34,6 +32,8 @@ interface StatCardProps {
   title: string;
   subtitle: string;
   icon: React.ElementType;
+  isMobile: boolean;
+  isLastItem: boolean;
 }
 
 const SortableStatCard = (props: StatCardProps) => {
@@ -54,6 +54,7 @@ const SortableStatCard = (props: StatCardProps) => {
     opacity: isDragging ? 0.5 : 1,
     cursor: "grab",
     touchAction: "none",
+    position: "relative" as const,
   };
 
   return (
@@ -62,25 +63,47 @@ const SortableStatCard = (props: StatCardProps) => {
       style={style}
       {...attributes}
       {...listeners}
-      className="w-full sm:transform-none"
+      className={`w-full select-none ${
+        props.isMobile ? "sm:transform-none" : ""
+      }`}
     >
       <GlareCard className="365:px-5 420:pt-4 510:p-9 sm:p-3 sm:pt-[10px] md:pt-5 md:px-6 p-4 lg:pt-3">
         <div className="h-full flex flex-col justify-between">
           <div className="flex justify-between items-center">
-            <div className="xl:w-16 xl:h-16 sm:w-12 sm:h-12 420:w-16 420:h-16 320:w-12 320:h-12 w-10 h-10 rounded-full p-3 bg-gradient-to-r from-cosmic-cyan/30 to-cosmic-purple/30 flex items-center justify-center">
+            <div
+              data-aos="fade-right"
+              data-aos-duration="800"
+              data-aos-delay="200"
+              className="xl:w-16 xl:h-16 sm:w-12 sm:h-12 420:w-16 420:h-16 320:w-12 320:h-12 w-10 h-10 rounded-full p-3 bg-gradient-to-r from-cosmic-cyan/30 to-cosmic-purple/30 flex items-center justify-center"
+            >
               <props.icon className="420:w-10 420:h-10 320:w-8 320:h-8 w-6 h-6 text-cosmic-cyan" />
             </div>
-            <span className="420:text-5xl sm:text-4xl 320:text-3xl font-bold text-gradient">
+            <span
+              data-aos="fade-left"
+              data-aos-duration="800"
+              data-aos-delay="200"
+              className="420:text-5xl sm:text-4xl 320:text-3xl font-bold text-gradient"
+            >
               {props.number}
             </span>
           </div>
 
           <div className="sm:mb-2 md:mb-1 sm:mt-2">
-            <p className="510:text-2xl 420:text-xl 320:text-[16px] sm:text-[18px] lg:text-[16px] text-xs text-gray-400 uppercase tracking-wider mb-2 sm:-mb-2 lg:mb-0">
+            <p
+              data-aos="fade-up"
+              data-aos-duration="800"
+              data-aos-delay="200"
+              className="510:text-2xl 420:text-xl 320:text-[16px] sm:text-[18px] lg:text-[16px] text-xs text-cosmic-cyan uppercase tracking-wider mb-2 sm:-mb-2 lg:mb-0"
+            >
               {props.title}
             </p>
             <div className="flex items-center justify-between">
-              <p className="510:text-xl 420:text-[16px] 320:text-[14px] sm:text-[14px] lg:text-[14px] text-xs text-gray-500">
+              <p
+                data-aos="fade-up"
+                data-aos-duration="800"
+                data-aos-delay="200"
+                className="510:text-xl 420:text-[16px] 320:text-[14px] sm:text-[14px] lg:text-[14px] text-xs text-gray-500"
+              >
                 {props.subtitle}
               </p>
             </div>
@@ -94,30 +117,31 @@ const SortableStatCard = (props: StatCardProps) => {
 const About = () => {
   const [showFullImage, setShowFullImage] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
-  const [activeId, setActiveId] = useState<string | null>(null);
   const [items, setItems] = useState([
     {
       id: "card-1",
-      number: "12",
+      number: "8",
       title: "TOTAL PROJECTS",
       subtitle: "Innovative web solutions crafted",
       icon: Code2,
     },
     {
       id: "card-2",
-      number: "2+",
-      title: "YEARS EXPERIENCE",
-      subtitle: "Full stack development journey",
+      number: "16+",
+      title: "MONTHS EXPERIENCE",
+      subtitle: "Frontend & Backend Development",
       icon: Briefcase,
     },
     {
       id: "card-3",
-      number: "5",
+      number: "1",
       title: "CERTIFICATES",
-      subtitle: "Professional certifications earned",
+      subtitle: "Completed the Secondary School",
       icon: GraduationCap,
     },
   ]);
+
+  const isMobile = useMediaQuery({ maxWidth: 640 });
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -130,21 +154,41 @@ const About = () => {
     })
   );
 
-  const handleDragStart = (event: DragStartEvent) => {
-    setActiveId(event.active.id as string);
-  };
-
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
-    setActiveId(null);
 
     if (active.id !== over?.id) {
       setItems((items) => {
         const oldIndex = items.findIndex((item) => item.id === active.id);
         const newIndex = items.findIndex((item) => item.id === over?.id);
+
+        // Prevent moving the last item to the right
+        if (oldIndex === items.length - 1 && newIndex > oldIndex) {
+          return items;
+        }
+
         return arrayMove(items, oldIndex, newIndex);
       });
     }
+  };
+
+  // Custom modifier that prevents the last item from moving right
+  const restrictLastItemMovement: Modifier = ({ transform, active }) => {
+    if (!active || !active.id) {
+      return transform;
+    }
+
+    const activeIndex = items.findIndex((item) => item.id === active.id);
+    const isLastItem = activeIndex === items.length - 1;
+
+    if (isLastItem && transform.x > 0) {
+      return {
+        ...transform,
+        x: 0,
+      };
+    }
+
+    return transform;
   };
 
   useEffect(() => {
@@ -337,34 +381,36 @@ const About = () => {
           <DndContext
             sensors={sensors}
             collisionDetection={closestCenter}
-            onDragStart={handleDragStart}
             onDragEnd={handleDragEnd}
-            modifiers={[restrictToVerticalAxis]}
+            modifiers={
+              isMobile ? [restrictToVerticalAxis] : [restrictLastItemMovement]
+            }
           >
             <SortableContext
               items={items.map((item) => item.id)}
-              strategy={verticalListSortingStrategy}
+              strategy={
+                isMobile
+                  ? verticalListSortingStrategy
+                  : horizontalListSortingStrategy
+              }
             >
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 relative">
-                {items.map((item) => (
-                  <SortableStatCard key={item.id} {...item} />
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
+                {items.map((item, index) => (
+                  <div
+                    key={item.id}
+                    data-aos="fade-up"
+                    data-aos-delay={index * 100}
+                    data-aos-duration="800"
+                  >
+                    <SortableStatCard
+                      {...item}
+                      isMobile={isMobile}
+                      isLastItem={index === items.length - 1}
+                    />
+                  </div>
                 ))}
               </div>
             </SortableContext>
-            <DragOverlay
-              dropAnimation={{
-                duration: 150,
-                easing: "cubic-bezier(0.25, 1, 0.5, 1)",
-              }}
-            >
-              {activeId ? (
-                <div className="w-full">
-                  <SortableStatCard
-                    {...items.find((item) => item.id === activeId)!}
-                  />
-                </div>
-              ) : null}
-            </DragOverlay>
           </DndContext>
         </div>
       </div>
