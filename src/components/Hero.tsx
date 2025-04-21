@@ -1,9 +1,22 @@
 import { TextHoverEffect } from "./ui/texthover";
-import pf from "../assets/pf.png";
+import giphy from "../assets/giphy.gif";
 import { useState, useEffect } from "react";
 import { motion, useSpring, useTransform } from "framer-motion";
 import AOS from "aos";
 import "aos/dist/aos.css";
+
+const floatingAnimation = {
+  initial: { y: 0 },
+  animate: {
+    y: [-20, 20, -20],
+    transition: {
+      duration: 6,
+      repeat: Infinity,
+      ease: "easeInOut",
+    },
+  },
+};
+
 const Hero = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [imageHovered, setImageHovered] = useState(false);
@@ -77,18 +90,21 @@ const Hero = () => {
             <TextHoverEffect text="ATONG" />
           </div>
 
-          {/* Profile Image for Mobile */}
-          <div className="lg:hidden w-full flex justify-center mb-8">
+          {/* GIF Image for Mobile */}
+          <div
+            className="lg:hidden w-full flex justify-center mb-8"
+            data-aos="fade-up"
+            data-aos-duration="1000"
+            data-aos-delay="300"
+          >
             <motion.div
-              className="relative w-52 h-52"
-              initial={{ opacity: 0, scale: 0.5 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              onHoverStart={() => setImageHovered(true)}
-              onHoverEnd={() => setImageHovered(false)}
+              className="relative w-64 h-64"
+              initial="initial"
+              animate="animate"
+              variants={floatingAnimation}
             >
               <motion.div
-                className="w-full h-full relative rounded-full overflow-hidden"
+                className="w-full h-full"
                 animate={{
                   scale: imageHovered ? 1.05 : 1,
                 }}
@@ -97,29 +113,10 @@ const Hero = () => {
                   ease: "easeOut",
                 }}
               >
-                {/* Background blur effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-cosmic-cyan to-cosmic-purple rounded-full blur-3xl" />
-                {/* Border gradient */}
-                <div className="absolute inset-0 bg-gradient-to-r from-cosmic-cyan to-cosmic-purple rounded-full" />
-                {/* Main image container with dark background */}
-                <div className="absolute inset-2 bg-gradient-to-br from-gray-900 to-gray-800 rounded-full overflow-hidden">
-                  <img
-                    src={pf}
-                    alt="Profile"
-                    className="w-full h-full object-cover rounded-full"
-                  />
-                </div>
-
-                {/* Blink effect overlay */}
-                <motion.div
-                  className="absolute inset-0 bg-white opacity-0 z-20"
-                  animate={{
-                    opacity: imageHovered ? [0, 0.15, 0] : 0,
-                  }}
-                  transition={{
-                    duration: 1,
-                    ease: "easeInOut",
-                  }}
+                <img
+                  src={giphy}
+                  alt="Developer Animation"
+                  className="w-full h-full object-contain"
                 />
               </motion.div>
             </motion.div>
@@ -191,17 +188,20 @@ const Hero = () => {
         </div>
 
         {/* Right Side - Profile Image (Desktop) */}
-        <div className="hidden lg:flex w-full lg:w-1/2 items-center justify-center p-4">
+        <div
+          className="hidden lg:flex w-full lg:w-1/2 items-center justify-center p-4"
+          data-aos="fade-left"
+          data-aos-duration="1000"
+          data-aos-delay="400"
+        >
           <motion.div
-            className="relative w-72 h-72"
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            onHoverStart={() => setImageHovered(true)}
-            onHoverEnd={() => setImageHovered(false)}
+            className="relative w-96 h-96"
+            initial="initial"
+            animate="animate"
+            variants={floatingAnimation}
           >
             <motion.div
-              className="w-full h-full relative rounded-full overflow-hidden"
+              className="w-full h-full"
               animate={{
                 scale: imageHovered ? 1.05 : 1,
               }}
@@ -210,29 +210,10 @@ const Hero = () => {
                 ease: "easeOut",
               }}
             >
-              {/* Background blur effect */}
-              <div className="absolute inset-0 bg-gradient-to-r from-cosmic-cyan to-cosmic-purple rounded-full blur-3xl" />
-              {/* Border gradient */}
-              <div className="absolute inset-0 bg-gradient-to-r from-cosmic-cyan to-cosmic-purple rounded-full" />
-              {/* Main image container with dark background */}
-              <div className="absolute inset-2 bg-gradient-to-br from-gray-900 to-gray-800 rounded-full overflow-hidden">
-                <img
-                  src={pf}
-                  alt="Profile"
-                  className="w-full h-full object-cover rounded-full"
-                />
-              </div>
-
-              {/* Blink effect overlay */}
-              <motion.div
-                className="absolute inset-0 bg-white opacity-0 z-20"
-                animate={{
-                  opacity: imageHovered ? [0, 0.15, 0] : 0,
-                }}
-                transition={{
-                  duration: 0.5,
-                  ease: "easeInOut",
-                }}
+              <img
+                src={giphy}
+                alt="Developer Animation"
+                className="w-full h-full object-contain"
               />
             </motion.div>
           </motion.div>
