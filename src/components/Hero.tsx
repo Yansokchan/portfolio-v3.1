@@ -4,13 +4,13 @@ import { useState, useEffect } from "react";
 import { motion, useSpring, useTransform } from "framer-motion";
 import AOS from "aos";
 import "aos/dist/aos.css";
-
+import { ContainerTextFlip } from "./ui/container-text-flip";
 const floatingAnimation = {
   initial: { y: 0 },
   animate: {
     y: [-20, 20, -20],
     transition: {
-      duration: 6,
+      duration: 8,
       repeat: Infinity,
       ease: "easeInOut",
     },
@@ -41,41 +41,8 @@ const Hero = () => {
       offset: 100,
     });
   }, []);
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      // Calculate mouse position relative to the center of the viewport
-      const centerX = window.innerWidth / 2;
-      const centerY = window.innerHeight / 2;
-
-      // Normalize values between -1 and 1
-      const normalizedX = (e.clientX - centerX) / centerX;
-      const normalizedY = (e.clientY - centerY) / centerY;
-
-      smoothMouseX.set(normalizedX);
-      smoothMouseY.set(normalizedY);
-      setMousePosition({ x: normalizedX, y: normalizedY });
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [smoothMouseX, smoothMouseY]);
 
   // Transform values for different parallax layers
-  const titleX = useTransform(smoothMouseX, [-1, 1], [-20, 20]);
-  const titleY = useTransform(smoothMouseY, [-1, 1], [-15, 15]);
-
-  const subtitleX = useTransform(smoothMouseX, [-1, 1], [-15, 15]);
-  const subtitleY = useTransform(smoothMouseY, [-1, 1], [-10, 10]);
-
-  const textX = useTransform(smoothMouseX, [-1, 1], [-10, 10]);
-  const textY = useTransform(smoothMouseY, [-1, 1], [-5, 5]);
-
-  const buttonX = useTransform(smoothMouseX, [-1, 1], [-25, 25]);
-  const buttonY = useTransform(smoothMouseY, [-1, 1], [-20, 20]);
-
-  // Profile image hover animations
-  const imageRotateX = useTransform(smoothMouseY, [-1, 1], [15, -15]);
-  const imageRotateY = useTransform(smoothMouseX, [-1, 1], [-15, 15]);
 
   return (
     <section
@@ -125,20 +92,12 @@ const Hero = () => {
           {/* Content Container */}
           <div className="max-w-2xl text-center lg:text-left">
             <div data-aos="fade-up">
-              <span className="text-lg text-cosmic-cyan font-medium">
+              <span className="text-xl text-cosmic-cyan font-medium">
                 Hello there, I'm
               </span>
             </div>
 
-            <motion.h1
-              style={{
-                x: titleX,
-                y: titleY,
-                rotateX: useTransform(smoothMouseY, [-1, 1], [4, -4]),
-                rotateY: useTransform(smoothMouseX, [-1, 1], [-4, 4]),
-              }}
-              className="text-5xl md:text-7xl font-bold mb-6 tracking-tight relative"
-            >
+            <motion.h1 className="text-5xl md:text-7xl font-bold mb-2 mt-2 tracking-tight relative">
               <motion.span
                 data-aos="fade-right"
                 data-aos-duration="800"
@@ -161,18 +120,10 @@ const Hero = () => {
                 data-aos="fade-right"
                 data-aos-delay="300"
                 className="text-white inline-block"
-                style={{
-                  textShadow: useTransform(
-                    smoothMouseY,
-                    [-1, 1],
-                    [
-                      "2px 2px 20px rgba(255, 255, 255, 0.2)",
-                      "-2px -2px 20px rgba(255, 255, 255, 0.2)",
-                    ]
-                  ),
-                }}
               >
-                Developer
+                <ContainerTextFlip
+                  words={["Developer", "Designer", "Thinking"]}
+                />
               </motion.span>
             </motion.h1>
 

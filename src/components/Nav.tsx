@@ -76,7 +76,7 @@ const Nav = () => {
             >
               <Link
                 to="/"
-                className="text-2xl font-bold text-cosmic-cyan text-glow"
+                className="text-2xl floating-space font-bold text-gradient text-glow"
               >
                 SOKCHAN<span className="text-cosmic-purple">.</span>YAN
               </Link>
