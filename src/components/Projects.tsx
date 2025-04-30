@@ -1,6 +1,43 @@
 import { useRef, useState, useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { Link } from "react-router-dom";
+import { ArrowRight, ExternalLink, ArrowDown, ArrowUp } from "lucide-react";
+
+const styles = `
+@keyframes ruler {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+
+.ruler-button {
+  position: relative;
+  overflow: hidden;
+  border: none !important;
+  outline: none !important;
+}
+
+.ruler-button:focus,
+.ruler-button:active {
+  border: none !important;
+  outline: none !important;
+}
+
+.ruler-button::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(to right, #22d3ee, #a855f7);
+  transition: width 0.3s ease-out;
+}
+
+.ruler-button:hover::after {
+  width: 100%;
+}
+`;
 
 interface Project {
   id: number;
@@ -17,7 +54,7 @@ const projects: Project[] = [
     title: "Portfolio V3",
     description:
       "The first 3D Portfolio V3 using React Vite, Tailwind CSS, Three.js. I love this project because it's a 3D portfolio that showcases my projects and skills.",
-    tags: ["Vite", "Tailwind", "Three.js"],
+    tags: ["Vite", "Tailwind", "Three.js", "AOS"],
     imageUrl:
       "https://khtkcvecjfjzmoormqjp.supabase.co/storage/v1/object/public/employee-profiles/c7b4390b-a329-4133-88b5-7be93fad53d7/bfef93b9-6c79-46f8-9bb5-9d9494bcae63.png",
     link: "https://sokchan-info-v3.vercel.app/",
@@ -45,7 +82,7 @@ const projects: Project[] = [
     id: 4,
     title: "E-Commerce Platform",
     description: "Static E-commerce solution with HTML, CSS and JAVASCRIPT.",
-    tags: ["HTML", "CSS", "JavaScript"],
+    tags: ["HTML", "CSS", "JavaScript", "AOS"],
     imageUrl: "https://sokchan-info-v3.vercel.app/assets/ecom-Bd2l15qF.png",
     link: "https://yansokchan.github.io/semicolon/home.html",
   },
@@ -62,7 +99,7 @@ const projects: Project[] = [
     id: 6,
     title: "Portfolio V1",
     description: "Portfolio V1 using React Vite and Tailwind CSS.",
-    tags: ["Vite", "Tailwind"],
+    tags: ["Vite", "Tailwind", "AOS"],
     imageUrl: "https://sokchan-info-v3.vercel.app/assets/pfl1-BhNu1Ovl.png",
     link: "https://yansokchan.github.io/my-portfolio/",
   },
@@ -70,7 +107,7 @@ const projects: Project[] = [
     id: 7,
     title: "Portfolio V2",
     description: "Portfolio V2 using React Vite, Tailwind CSS, GSAP, Daisy UI.",
-    tags: ["Vite", "Tailwind", "GSAP", "Daisy UI"],
+    tags: ["Vite", "Tailwind", "GSAP", "Daisy UI", "AOS"],
     imageUrl: "https://sokchan-info-v3.vercel.app/assets/pfl2-DxOFezEw.png",
     link: "https://yansokchan.github.io/portfolio/",
   },
@@ -87,10 +124,9 @@ const ProjectCard = ({
 
   return (
     <div
-      data-aos="fade-up"
-      data-aos-delay={index * 100}
-      data-aos-duration="800"
-      className="relative bg-gradient-to-r from-cyan-500/20 to-purple-400/20 rounded-xl overflow-hidden group transition-transform duration-300 hover:scale-[1.02]"
+      data-aos={index % 2 === 0 ? "fade-up-right" : "fade-up-left"}
+      data-aos-duration="600"
+      className="relative bg-gradient-to-br from-cosmic-cyan/20 to-cosmic-purple/20 rounded-2xl shadow-lg overflow-hidden group duration-300 hover:scale-[1.03] hover:shadow-[0_0_0_4px_rgba(34,211,238,0.25),0_0_24px_8px_rgba(168,85,247,0.18)] max-w-lg mx-auto"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       style={{
@@ -98,55 +134,59 @@ const ProjectCard = ({
         perspective: "1000px",
       }}
     >
-      <div className="h-72 w-full relative overflow-hidden">
-        <img
-          src={project.imageUrl}
-          alt={project.title}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-100 group-hover:opacity-90 transition-opacity duration-300" />
+      <div className="p-3 md:p-4 pb-0">
+        <div className="w-full aspect-video bg-[#23243a] rounded-2xl overflow-hidden flex items-center justify-center shadow-lg transition-transform duration-300 group-hover:scale-[1.02]">
+          <img
+            src={project.imageUrl}
+            alt={project.title}
+            className="object-cover w-full h-full rounded-2xl bg-[#23243a] transition-transform duration-300 group-hover:scale-105"
+            style={{ objectPosition: "center" }}
+          />
+        </div>
       </div>
-
-      <div
-        data-aos="fade-up"
-        className="p-6 transition-transform duration-300 group-hover:-translate-y-1"
-      >
-        <h3 className="text-xl font-semibold text-white mb-2 group-hover:text-cosmic-cyan transition-colors duration-300">
+      <div className="p-3 md:p-4 flex flex-col gap-2">
+        <h3 className="text-lg font-bold text-cosmic-cyan mb-1 text-left">
           {project.title}
         </h3>
-        <p className="text-gray-300 mb-4 group-hover:opacity-100 transition-opacity duration-300">
+        <p className="text-sm text-gray-300 mb-2 text-left line-clamp-2">
           {project.description}
         </p>
         <div className="flex flex-wrap gap-2 mb-4">
-          {project.tags.map((tag, tagIndex) => (
+          {project.tags.map((tag) => (
             <span
               key={tag}
-              data-aos="fade-up"
-              data-aos-duration="600"
-              className="px-3 py-1 text-xs rounded-full bg-cosmic-purple/20 text-cosmic-cyan hover:bg-cosmic-purple/30 transition-colors duration-300"
+              className="px-3 py-1 text-xs rounded-full bg-gradient-to-r from-cosmic-cyan/20 to-cosmic-purple/20 text-cosmic-cyan"
             >
               {tag}
             </span>
           ))}
         </div>
-        <a
-          data-aos="fade-up"
-          target="_blank"
-          href={project.link}
-          className="inline-block px-6 py-2 rounded-sm bg-cosmic-purple/10 text-cosmic-cyan border border-cosmic-cyan/20 hover:border-cosmic-cyan transition-all duration-300 hover:bg-cosmic-purple/20"
-        >
-          View Project
-        </a>
-      </div>
+        <div className="flex items-center justify-between mt-auto gap-2">
+          <a
+            href={project.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1 text-cosmic-cyan font-medium hover:underline text-sm px-3 py-2 rounded-md transition-colors"
+          >
+            Live Demo{" "}
+            <ExternalLink className="w-4 h-4 group-hover:translate-x-[2px] group-hover:rotate-[15deg] transition-transform duration-300" />
+          </a>
 
-      <div className="absolute inset-0 rounded-xl opacity-0 ring-2 ring-cosmic-cyan pointer-events-none group-hover:opacity-30 transition-opacity duration-300" />
+          <Link
+            to={`/projects/${project.id}`}
+            className="flex items-center gap-1 bg-gradient-to-r from-cosmic-cyan/20 to-cosmic-purple/20 hover:bg-cosmic-cyan/10 text-cosmic-cyan font-medium px-4 py-2 rounded-lg transition-colors text-sm shadow border border-[#23243a]/60"
+          >
+            Details <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+      </div>
     </div>
   );
 };
 
 const Projects = () => {
   const [showAll, setShowAll] = useState(false);
-  const initialProjectsToShow = 6;
+  const initialProjectsToShow = 4;
 
   useEffect(() => {
     AOS.init({
@@ -186,22 +226,33 @@ const Projects = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Grid Layout for all screens */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 px-0 md:px-12 max-w-6xl mx-auto">
           {displayedProjects.map((project, index) => (
             <ProjectCard key={project.id} project={project} index={index} />
           ))}
         </div>
 
-        {projects.length > initialProjectsToShow && (
-          <div className="text-center mt-12">
-            <button
-              onClick={() => setShowAll(!showAll)}
-              className="px-6 py-3 rounded-sm bg-cosmic-purple/10 text-cosmic-cyan border border-cosmic-cyan/20 hover:border-cosmic-cyan transition-all duration-300 hover:bg-cosmic-purple/20"
-            >
-              {showAll ? "See Less" : "See More"}
-            </button>
-          </div>
-        )}
+        {/* See More/Less Button */}
+        <div className="flex justify-center mt-10">
+          <style>{styles}</style>
+          <button
+            onClick={() => setShowAll(!showAll)}
+            className="group ruler-button px-6 py-3 rounded-lg border-none outline-none focus:outline-none focus:border-none active:outline-none active:border-none bg-gradient-to-r from-cosmic-cyan/20 to-cosmic-purple/20 text-cosmic-cyan font-medium hover:shadow-[0_0_24px_8px_rgba(168,85,247,0.18)] transition-all duration-300 flex items-center gap-2"
+          >
+            {showAll ? (
+              <>
+                See Less
+                <ArrowUp className="w-4 h-4 text-cosmic-cyan transition-transform duration-300 group-hover:-translate-y-1" />
+              </>
+            ) : (
+              <>
+                See More
+                <ArrowDown className="w-4 h-4 text-cosmic-cyan transition-transform duration-300 group-hover:translate-y-1" />
+              </>
+            )}
+          </button>
+        </div>
       </div>
     </section>
   );

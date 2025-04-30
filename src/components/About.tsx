@@ -26,6 +26,8 @@ import { CSS } from "@dnd-kit/utilities";
 import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
 import { useMediaQuery } from "react-responsive";
 import styles from "./About.module.css";
+import ScrollVelocity from "./ui/ScrollVelocity";
+import { TextGenerateEffect } from "./ui/text-generate-effect";
 
 interface StatCardProps {
   id: string;
@@ -390,6 +392,17 @@ const About = () => {
                 </div>
               </div>
             </div>
+            <div className="mt-8">
+              <div data-aos="fade-up" data-aos-duration="800">
+                <ScrollVelocity
+                  texts={["One Bro Many Dreams", "One Bro Many Dreams"]}
+                  velocity={50}
+                  className="text-cosmic-cyan"
+                  velocityMapping={{ input: [0, 1000], output: [0, 5] }}
+                  scrollerClassName="text-lg md:text-xl font-medium w-[250px] uppercase"
+                />
+              </div>
+            </div>
           </div>
 
           <div className="space-y-6">
@@ -400,12 +413,12 @@ const About = () => {
               >
                 Who am I?
               </h3>
-              <p data-aos="fade-left" className="text-gray-300 leading-relaxed">
-                I'm a passionate Full Stack Developer with a strong foundation
+              <TextGenerateEffect
+                words="I'm a passionate Full Stack Developer with a strong foundation
                 in web development. My journey in technology began with a
                 curiosity for how things work, which evolved into a deep love
-                for creating innovative solutions.
-              </p>
+                for creating innovative solutions."
+              />
             </div>
 
             <div className="space-y-4">
@@ -447,11 +460,11 @@ const About = () => {
               >
                 What Drives Me
               </h3>
-              <p data-aos="fade-left" className="text-gray-300 leading-relaxed">
-                I'm constantly learning and adapting to new technologies. My
+              <TextGenerateEffect
+                words="I'm constantly learning and adapting to new technologies. My
                 goal is to create applications that not only look great but also
-                provide meaningful solutions to real-world problems.
-              </p>
+                provide meaningful solutions to real-world problems."
+              />
             </div>
           </div>
         </div>

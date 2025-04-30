@@ -4,7 +4,7 @@ import "aos/dist/aos.css";
 import { useToast } from "@/hooks/use-toast";
 import { createClient } from "@supabase/supabase-js";
 import styles from "@/styles/Contact.module.css";
-
+import { FaArrowRightFromBracket } from "react-icons/fa6";
 // Initialize Supabase client
 const supabaseUrl = "https://vkxlcowblrveznxsradv.supabase.co";
 const supabaseAnonKey =
@@ -481,7 +481,7 @@ const Contact = () => {
                     <div
                       data-aos="fade-right"
                       data-aos-delay="300"
-                      className="bg-cosmic-purple/20 p-3 rounded-lg mr-4"
+                      className="bg-gradient-to-r from-cyan-500/20 to-purple-400/20 p-3 rounded-lg mr-4"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -520,7 +520,7 @@ const Contact = () => {
                     <div
                       data-aos="fade-right"
                       data-aos-delay="300"
-                      className="bg-cosmic-purple/20 p-3 rounded-lg mr-4"
+                      className="bg-gradient-to-r from-cyan-500/20 to-purple-400/20 p-3 rounded-lg mr-4"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -554,46 +554,15 @@ const Contact = () => {
                         >
                           yansokchan05@gmail.com
                         </p>
-                        <button
+                        <a
                           data-aos="fade-left"
                           data-aos-delay="1000"
-                          onClick={() => {
-                            navigator.clipboard.writeText(
-                              "yansokchan05@gmail.com"
-                            );
-                            toast({
-                              title: "Email Copied! 📋",
-                              description:
-                                "The email address has been copied to your clipboard.",
-                              className:
-                                "bg-gradient-to-r from-cyan-500/20 to-purple-400/20 border border-cyan-500/20 text-white",
-                            });
-                          }}
-                          className="p-1.5 rounded-lg bg-cosmic-purple/20 hover:bg-cosmic-purple/30 transition-colors"
+                          href="mailto:yansokchan05@gmail.com?subject=Portfolio Inquiry&body=Hello, I came across your portfolio and would like to discuss a project."
+                          rel="noopener noreferrer"
+                          className="p-1.5 rounded-lg bg-cosmic-purple/20 hover:bg-cosmic-purple/30 transition-colors flex items-center gap-1"
                         >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            className="text-cosmic-cyan"
-                          >
-                            <rect
-                              x="9"
-                              y="9"
-                              width="13"
-                              height="13"
-                              rx="2"
-                              ry="2"
-                            />
-                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-                          </svg>
-                        </button>
+                          <FaArrowRightFromBracket className="text-cosmic-cyan hover:-rotate-45 transition-transform duration-300" />
+                        </a>
                       </div>
                     </div>
                   </div>
@@ -602,7 +571,7 @@ const Contact = () => {
                     <div
                       data-aos="fade-right"
                       data-aos-delay="300"
-                      className="bg-cosmic-purple/20 p-3 rounded-lg mr-4"
+                      className="bg-gradient-to-r from-cyan-500/20 to-purple-400/20 p-3 rounded-lg mr-4"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -663,7 +632,8 @@ const Contact = () => {
                       <a
                         data-aos="fade-up"
                         data-aos-delay="300"
-                        href="#"
+                        href="https://www.linkedin.com/in/sokchan-yan-74277b335?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+                        target="_blank"
                         className="text-gray-400 hover:text-cosmic-cyan transition-colors"
                       >
                         <svg
@@ -684,8 +654,9 @@ const Contact = () => {
                       </a>
                       <a
                         data-aos="fade-up"
+                        href="https://github.com/Yansokchan"
                         data-aos-delay="400"
-                        href="#"
+                        target="_blank"
                         className="text-gray-400 hover:text-cosmic-cyan transition-colors"
                       >
                         <svg
@@ -705,21 +676,21 @@ const Contact = () => {
                       <a
                         data-aos="fade-up"
                         data-aos-delay="500"
-                        href="#"
+                        href="https://t.me/YanSokchan"
+                        target="_blank"
                         className="text-gray-400 hover:text-cosmic-cyan transition-colors"
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="20"
                           height="20"
-                          viewBox="0 0 24 24"
                           fill="none"
                           stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
                         >
-                          <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5 0-.29-.01-.58-.04-.87A7.72 7.72 0 0 0 23 3z" />
+                          <path d="M22 2L11 13" />
+                          <polygon points="22 2 15 22 11 13 2 9 22 2" />
                         </svg>
                       </a>
                     </div>
@@ -740,7 +711,7 @@ const Contact = () => {
                 <div
                   data-aos="fade-left"
                   data-aos-delay="300"
-                  className="bg-cosmic-purple/20 p-2 rounded-lg"
+                  className="bg-gradient-to-r from-cyan-500/20 to-purple-400/20 p-2 rounded-lg"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

@@ -1,4 +1,3 @@
-
 import { useRef, useMemo, useEffect } from "react";
 import * as THREE from "three";
 import { Canvas, useFrame } from "@react-three/fiber";
@@ -6,7 +5,7 @@ import { Canvas, useFrame } from "@react-three/fiber";
 const Particles = ({ count = 5000 }) => {
   const mesh = useRef<THREE.Points>(null!);
   const hover = useRef(false);
-  
+
   const dummy = useMemo(() => new THREE.Object3D(), []);
   const particles = useMemo(() => {
     const temp = [];
@@ -28,22 +27,22 @@ const Particles = ({ count = 5000 }) => {
     const colors = new Float32Array(count * 3);
 
     const color = new THREE.Color();
-    
+
     for (let i = 0; i < count; i++) {
       const i3 = i * 3;
       positions[i3] = (Math.random() - 0.5) * 10;
       positions[i3 + 1] = (Math.random() - 0.5) * 10;
       positions[i3 + 2] = (Math.random() - 0.5) * 10;
-      
+
       color.setHSL(Math.random(), 0.7, 0.7);
       colors[i3] = color.r;
       colors[i3 + 1] = color.g;
       colors[i3 + 2] = color.b;
     }
-    
-    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-    
+
+    geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+    geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+
     return geometry;
   }, [count]);
 
@@ -53,23 +52,26 @@ const Particles = ({ count = 5000 }) => {
     mesh.current.rotation.x = Math.sin(time / 10) * 0.2;
     mesh.current.rotation.y = Math.sin(time / 10) * 0.2;
 
-    const positions = particlesGeometry.attributes.position.array as Float32Array;
+    const positions = particlesGeometry.attributes.position
+      .array as Float32Array;
 
     for (let i = 0; i < count; i++) {
       const i3 = i * 3;
       const { t, factor, speed, xFactor, yFactor, zFactor } = particles[i];
-      
+
       // Update position
       const curZ = positions[i3 + 2];
       const curY = positions[i3 + 1];
       const curX = positions[i3];
-      
+
       // Move particles
       positions[i3] = curX + Math.sin((time + t) / factor) * speed * xFactor;
-      positions[i3 + 1] = curY + Math.cos((time + t) / factor) * speed * yFactor;
-      positions[i3 + 2] = curZ + Math.sin((time + t) / factor) * speed * zFactor;
+      positions[i3 + 1] =
+        curY + Math.cos((time + t) / factor) * speed * yFactor;
+      positions[i3 + 2] =
+        curZ + Math.sin((time + t) / factor) * speed * zFactor;
     }
-    
+
     particlesGeometry.attributes.position.needsUpdate = true;
   });
 

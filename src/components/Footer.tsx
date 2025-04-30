@@ -22,7 +22,8 @@ const Footer = () => {
 
           <div className="flex space-x-4 mt-4 md:mt-0">
             <motion.a
-              href="#"
+              target="_blank"
+              href="https://www.facebook.com/kh.boyloy.1"
               whileHover={{ y: -3 }}
               className="text-gray-400 hover:text-cosmic-cyan transition-colors"
             >
@@ -42,7 +43,8 @@ const Footer = () => {
             </motion.a>
 
             <motion.a
-              href="#"
+              target="_blank"
+              href="https://www.instagram.com/ouknhachan/?igsh=cXoyenZrd2hhdnI4"
               whileHover={{ y: -3 }}
               className="text-gray-400 hover:text-cosmic-cyan transition-colors"
             >
@@ -64,7 +66,8 @@ const Footer = () => {
             </motion.a>
 
             <motion.a
-              href="#"
+              target="_blank"
+              href="https://www.linkedin.com/in/sokchan-yan-74277b335?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
               whileHover={{ y: -3 }}
               className="text-gray-400 hover:text-cosmic-cyan transition-colors"
             >
