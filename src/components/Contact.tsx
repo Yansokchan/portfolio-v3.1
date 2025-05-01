@@ -179,7 +179,8 @@ const Contact = () => {
           description: (
             <div className="flex flex-col gap-1">
               <p className="font-medium">
-                Thank you for reaching out, {formData.name}!
+                Thank you for reaching out,{" "}
+                <span className="text-gradient">{formData.name}!</span>
               </p>
               <p className="text-sm text-gray-400">
                 I'll get back to you as soon as possible.
@@ -187,7 +188,7 @@ const Contact = () => {
             </div>
           ),
           className:
-            "bg-gradient-to-r from-cyan-500/20 to-purple-400/20 border border-cyan-500/20 text-white",
+            "bg-gradient-to-r from-cosmic-purple/30 to-cosmic-cyan/30 border border-cosmic-purple text-white backdrop-blur-sm",
         });
         setFormData({
           name: "",
@@ -210,7 +211,7 @@ const Contact = () => {
           </div>
         ),
         variant: "destructive",
-        className: "bg-red-500/20 border border-red-500/20",
+        className: "bg-red-500/50 border border-red-500 backdrop-blur-sm",
       });
     } finally {
       setIsContactLoading(false);
@@ -275,7 +276,7 @@ const Contact = () => {
           </div>
         ),
         className:
-          "bg-gradient-to-r from-cyan-500/20 to-purple-400/20 border border-cyan-500/20 text-white",
+          "bg-gradient-to-r from-cyan-500/40 to-purple-400/40 border border-cyan-500/20 text-white",
       });
 
       setCommentData({
@@ -301,7 +302,7 @@ const Contact = () => {
           </div>
         ),
         variant: "destructive",
-        className: "bg-red-500/20 border border-red-500/20",
+        className: "bg-red-500 border border-red-500/20",
       });
     } finally {
       setIsCommentLoading(false);
