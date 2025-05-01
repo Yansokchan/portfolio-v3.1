@@ -4,6 +4,7 @@ import "aos/dist/aos.css";
 import { useToast } from "@/hooks/use-toast";
 import { createClient } from "@supabase/supabase-js";
 import styles from "@/styles/Contact.module.css";
+import { FaPaperPlane, FaComment } from "react-icons/fa";
 import { FaArrowRightFromBracket } from "react-icons/fa6";
 // Initialize Supabase client
 const supabaseUrl = "https://vkxlcowblrveznxsradv.supabase.co";
@@ -57,6 +58,7 @@ const Contact = () => {
     const diffInHours = Math.floor(diffInMinutes / 60);
     const diffInDays = Math.floor(diffInHours / 24);
     const diffInMonths = Math.floor(diffInDays / 30);
+    const diffInYears = Math.floor(diffInMonths / 12);
 
     if (diffInSeconds < 60) {
       return "just now";
@@ -66,8 +68,10 @@ const Contact = () => {
       return `${diffInHours}h ago`;
     } else if (diffInDays < 30) {
       return `${diffInDays}d ago`;
-    } else {
+    } else if (diffInMonths < 12) {
       return `${diffInMonths}mo ago`;
+    } else {
+      return `${diffInYears}y ago`;
     }
   }, []);
 
@@ -326,7 +330,7 @@ const Contact = () => {
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            <span className="text-gradient">Contact</span> Me
+            Contact<span className="text-gradient"> Me</span>
           </h2>
           <p className="text-gray-400">
             Got a question? Send me a message, and I'll get back to you soon.
@@ -460,9 +464,15 @@ const Contact = () => {
                 data-aos-delay="300"
                 type="submit"
                 disabled={isContactLoading}
-                className="w-full py-3 bg-gradient-to-r from-cyan-500 to-purple-400 text-white rounded-lg hover:opacity-90 transition-all duration-300 hover:shadow-lg hover:shadow-purple-700/20 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full py-3 bg-gradient-to-r from-cyan-500 to-purple-400 text-white rounded-lg hover:opacity-90 transition-all duration-300 hover:shadow-lg hover:shadow-purple-700/20 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
-                {isContactLoading ? "Sending..." : "Send Message"}
+                {isContactLoading ? (
+                  "Sending..."
+                ) : (
+                  <>
+                    Send Message <FaPaperPlane className="text-sm" />
+                  </>
+                )}
               </button>
             </form>
 
@@ -863,9 +873,15 @@ const Contact = () => {
                 data-aos-delay="300"
                 type="submit"
                 disabled={isCommentLoading}
-                className="w-full py-3 bg-gradient-to-r from-cyan-500 to-purple-400 text-white rounded-lg hover:opacity-90 transition-all duration-300 hover:shadow-lg hover:shadow-purple-700/20 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full py-3 bg-gradient-to-r from-cyan-500 to-purple-400 text-white rounded-lg hover:opacity-90 transition-all duration-300 hover:shadow-lg hover:shadow-purple-700/20 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
-                {isCommentLoading ? "Posting..." : "Post Comment"}
+                {isCommentLoading ? (
+                  "Posting..."
+                ) : (
+                  <>
+                    Post Comment <FaComment className="text-sm" />
+                  </>
+                )}
               </button>
             </form>
 

@@ -9,7 +9,7 @@ const projects = [
     id: 1,
     title: "Portfolio V3",
     description:
-      "I'm really interested in Three.js, so I created this 3D portfolio. I love this project because it looks beautiful and runs smoothly.",
+      "I'm passionate about Three.js, so I created this 3D portfolio to showcase my skills. I'm especially proud of this project because of its smooth performance and visually appealing design.",
     tags: ["Vite", "Tailwind", "Three.js", "AOS"],
     imageUrl:
       "https://khtkcvecjfjzmoormqjp.supabase.co/storage/v1/object/public/employee-profiles/c7b4390b-a329-4133-88b5-7be93fad53d7/bfef93b9-6c79-46f8-9bb5-9d9494bcae63.png",
@@ -21,7 +21,7 @@ const projects = [
     id: 2,
     title: "Next-Gen",
     description:
-      "This is a first full stack project, that I made. It's a management system when I learn Next.js. It can manage employees, customers, products, and orders. It also has a dashboard to track the revenue per day, week and month. Please use the password: Pa$$w0rd to login.",
+      "This is the first full-stack project I built—a management system developed while I was learning Next.js. It allows users to manage employees, customers, products, and orders. The system also includes a dashboard that tracks revenue by day, week, and month. You can log in using the password: Pa$$w0rd.",
     tags: ["Next.js", "Tailwind CSS", "Node.js", "Supabase", "Cursor"],
     imageUrl:
       "https://khtkcvecjfjzmoormqjp.supabase.co/storage/v1/object/public/employee-profiles/e89f032a-c8f6-4dbc-9c28-ebaf7c6c556e/78556db8-f4cf-4034-89c1-81e4b3d6f2dc.png",
@@ -33,7 +33,7 @@ const projects = [
     id: 3,
     title: "Calculator",
     description:
-      "This is a simple calculator using HTML, CSS and JavaScript. I really appreciate this project because it's a simple project but I can use in my daily life.",
+      "This is a simple calculator built with HTML, CSS, and JavaScript. I really value this project because, despite its simplicity, it's practical and useful in my daily life.",
     tags: ["HTML", "CSS", "JavaScript"],
     imageUrl:
       "https://images.pexels.com/photos/6963017/pexels-photo-6963017.jpeg?cs=srgb&dl=pexels-mikhail-nilov-6963017.jpg&fm=jpg",
@@ -44,7 +44,8 @@ const projects = [
   {
     id: 4,
     title: "E-Commerce Platform",
-    description: "Static E-commerce solution with HTML, CSS and JAVASCRIPT.",
+    description:
+      "As one of my first projects while learning HTML, CSS, and JavaScript, I built this simple e-commerce platform to apply my skills and understand the basics of web development.",
     tags: ["HTML", "CSS", "JavaScript"],
     imageUrl: "https://sokchan-info-v3.vercel.app/assets/ecom-Bd2l15qF.png",
     link: "https://yansokchan.github.io/semicolon/home.html",
@@ -54,7 +55,8 @@ const projects = [
   {
     id: 5,
     title: "Rock Paper Scissor",
-    description: "Rock Paper Scissor game using HTML, CSS and JAVASCRIPT.",
+    description:
+      "While learning JavaScript, I discovered that I could build simple games with it—so I created this project. It's a basic game developed using JavaScript, and I really enjoyed working on it during the early stages of my learning journey.",
     tags: ["HTML", "CSS", "Javascript"],
     imageUrl:
       "https://remptongames.com/wp-content/uploads/2024/08/rock-paper-scissors-1.png?w=1200",
@@ -65,8 +67,9 @@ const projects = [
   {
     id: 6,
     title: "Portfolio V1",
-    description: "Portfolio V1 using React Vite and Tailwind CSS.",
-    tags: ["Vite", "Tailwind"],
+    description:
+      "This is the first portfolio website I made while learning React.js. I'm super excited about it because it marks the start of my journey into software development and exploring new frameworks!",
+    tags: ["Vite", "Tailwind", "AOS"],
     imageUrl: "https://sokchan-info-v3.vercel.app/assets/pfl1-BhNu1Ovl.png",
     link: "https://yansokchan.github.io/my-portfolio/",
     github: "https://github.com/yansokchan/my-portfolio",
@@ -75,8 +78,9 @@ const projects = [
   {
     id: 7,
     title: "Portfolio V2",
-    description: "Portfolio V2 using React Vite, Tailwind CSS, GSAP, Daisy UI.",
-    tags: ["Vite", "Tailwind", "GSAP", "Daisy UI"],
+    description:
+      "This is Portfolio V2, an upgraded version of my first portfolio. I enhanced it by incorporating new technologies I recently learned, such as GSAP, Tailwind CSS, and DaisyUI. I think it's a pretty cool project for a junior developer!",
+    tags: ["Vite", "Tailwind", "GSAP", "Daisy UI", "AOS"],
     imageUrl: "https://sokchan-info-v3.vercel.app/assets/pfl2-DxOFezEw.png",
     link: "https://yansokchan.github.io/portfolio/",
     github: "https://github.com/yansokchan/portfolio",
