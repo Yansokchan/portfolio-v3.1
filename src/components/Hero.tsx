@@ -5,6 +5,7 @@ import { motion, useSpring, useTransform } from "framer-motion";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { ContainerTextFlip } from "./ui/container-text-flip";
+import LightRays from "./LightRays";
 const floatingAnimation = {
   initial: { y: 0 },
   animate: {
@@ -47,16 +48,25 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="section min-h-screen !px-[25px] md:!px-8 -mt-32 md:-mt-44 relative overflow-hidden"
+      className="section min-h-screen !px-[25px] md:!px-8 -mt-52 lg:-mt-44 relative overflow-hidden"
     >
+      <LightRays
+        className="fixed inset-0 z-[8]"
+        raysOrigin="top-center"
+        followMouse={true}
+        mouseInfluence={0.12}
+        raysSpeed={0.8}
+        lightSpread={1}
+        rayLength={1.6}
+        fadeDistance={1}
+        saturation={0.95}
+        noiseAmount={0.03}
+        raysColor={"#4deeea"}
+        distortion={0.08}
+      />
       <div className="flex flex-col lg:flex-row items-center justify-center min-h-screen w-full">
         {/* Left Side - Text Effect and Content */}
         <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start justify-center gap-8">
-          {/* Text Effect Container */}
-          <div className="w-full max-w-2xl">
-            <TextHoverEffect text="ATONG" />
-          </div>
-
           {/* GIF Image for Mobile */}
           <div
             className="lg:hidden w-full flex justify-center mb-8"
@@ -65,7 +75,7 @@ const Hero = () => {
             data-aos-delay="300"
           >
             <motion.div
-              className="relative w-64 h-64"
+              className="relative w-96 h-96"
               initial="initial"
               animate="animate"
               variants={floatingAnimation}
@@ -90,7 +100,7 @@ const Hero = () => {
           </div>
 
           {/* Content Container */}
-          <div className="max-w-2xl text-center lg:text-left">
+          <div className="max-w-lg ml-0 -mt-20 lg:mt-10 lg:ml-[121px] text-center lg:text-left">
             <div data-aos="fade-up">
               <span className="text-xl text-cosmic-cyan font-medium">
                 Hello there, I'm
@@ -121,9 +131,7 @@ const Hero = () => {
                 data-aos-delay="300"
                 className="text-white inline-block"
               >
-                <ContainerTextFlip
-                  words={["Developer", "Designer", "Thinking"]}
-                />
+                <ContainerTextFlip words={["Developer", "Designer"]} />
               </motion.span>
             </motion.h1>
 
@@ -146,7 +154,7 @@ const Hero = () => {
           data-aos-delay="400"
         >
           <motion.div
-            className="relative w-96 h-96"
+            className="relative w-[500px] h-[500px]"
             initial="initial"
             animate="animate"
             variants={floatingAnimation}

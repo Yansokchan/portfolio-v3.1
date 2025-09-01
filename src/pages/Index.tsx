@@ -7,8 +7,6 @@ import About from "@/components/About";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import ParticleBackground from "@/components/ParticleBackground";
-import Services from "@/components/Services";
-import { Tracing } from "@/components/ui/tracing";
 
 const Index = () => {
   return (
@@ -24,7 +22,7 @@ const Index = () => {
         <Nav />
         <Hero />
         <About />
-        <Services />
+
         <Projects />
         <Contact />
         <Footer />

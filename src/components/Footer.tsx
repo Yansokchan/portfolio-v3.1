@@ -23,7 +23,7 @@ const Footer = () => {
           <div className="flex space-x-4 mt-4 md:mt-0">
             <motion.a
               target="_blank"
-              href="https://www.facebook.com/kh.boyloy.1"
+              href="https://www.facebook.com/lichantong"
               whileHover={{ y: -3 }}
               className="text-gray-400 hover:text-cosmic-cyan transition-colors"
             >
