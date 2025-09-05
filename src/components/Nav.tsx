@@ -20,7 +20,7 @@ const Nav = () => {
           </div>
 
           {/* Center: segmented links */}
-          <div className="flex flex-1 items-center md:justify-center justify-end">
+          <div className="flex -ml-10  flex-1 items-center md:justify-center justify-end">
             <div className="inline-flex items-center rounded-full border border-white/10 bg-white/5 backdrop-blur supports-[backdrop-filter]:bg-white/5 p-1 text-sm text-white/80">
               <a
                 href="#about"
@@ -40,11 +40,11 @@ const Nav = () => {
 
           {/* Right: CTA */}
           <div className="hidden md:flex items-center">
-            <a href="#contact" className="inline-flex">
-              <Button className="rounded-full bg-white text-gray-900 hover:bg-white/90">
-                Get in Touch
-                <ArrowRight className="h-4 w-4" />
-              </Button>
+            <a
+              href="#contact"
+              className="inline-flex items-center gap-1 text-gradient text-xl"
+            >
+              Get in Touch
             </a>
           </div>
         </nav>

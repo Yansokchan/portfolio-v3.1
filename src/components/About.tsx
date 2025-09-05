@@ -197,12 +197,12 @@ const About = () => {
                   "React.js",
                   "Next.js",
                   "Node.js",
-                  "Three.js",
                   "Tailwind CSS",
                   "TypeScript",
-                  "Git",
-                  "GitHub",
                   "Supabase",
+                  "MySQL",
+                  "MongoDB",
+                  "Git/Github",
                 ].map((skill, index) => (
                   <span
                     key={skill}

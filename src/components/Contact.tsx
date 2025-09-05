@@ -687,7 +687,7 @@ const Contact = () => {
                       <a
                         data-aos="fade-up"
                         data-aos-delay="500"
-                        href="https://t.me/YanSokchan"
+                        href="https://t.me/Sokchan_YAN"
                         target="_blank"
                         className="text-gray-400 hover:text-cosmic-cyan transition-colors"
                       >
