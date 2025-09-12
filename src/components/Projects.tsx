@@ -51,35 +51,26 @@ interface Project {
 const projects: Project[] = [
   {
     id: 1,
-    title: "Portfolio V3",
-    description:
-      "The first 3D Portfolio V3 using React Vite, Tailwind CSS, Three.js. I love this project because it's a 3D portfolio that showcases my projects and skills.",
-    tags: ["Vite", "Tailwind", "Three.js", "AOS"],
-    imageUrl:
-      "https://khtkcvecjfjzmoormqjp.supabase.co/storage/v1/object/public/employee-profiles/c7b4390b-a329-4133-88b5-7be93fad53d7/bfef93b9-6c79-46f8-9bb5-9d9494bcae63.png",
-    link: "https://sokchan-info-v3.vercel.app/",
-  },
-  {
-    id: 2,
     title: "Next-Gen",
     description:
       "Management System for a company using Next.js, Tailwind CSS, Node.js, Supabase, and Cursor. Please use the password: Pa$$w0rd to login.",
-    tags: ["Next.js", "Tailwind CSS", "Node.js", "Supabase", "Cursor"],
+    tags: ["React.js", "Tailwind CSS", "Shadcn UI", "Supabase", "Cursor"],
     imageUrl:
-      "https://khtkcvecjfjzmoormqjp.supabase.co/storage/v1/object/public/employee-profiles/e89f032a-c8f6-4dbc-9c28-ebaf7c6c556e/78556db8-f4cf-4034-89c1-81e4b3d6f2dc.png",
+      "https://www.peanutsquare.com/wp-content/uploads/2023/04/React.js-CRUD-application-jpg.webp",
     link: "https://next-gen-e4.vercel.app/",
   },
   {
-    id: 3,
-    title: "Calculator",
-    description: "Simple Calculator using HTML, CSS and JAVASCRIPT.",
-    tags: ["HTML", "CSS", "JavaScript"],
+    id: 2,
+    title: "DevTracker PRO",
+    description:
+      "DevTracker PRO is a modern tracking tool that allows you to track your daily task with modern AI features.",
+    tags: ["React.js", "Tailwind CSS", "Shadcn UI", "Supabase", "Cursor"],
     imageUrl:
       "https://images.pexels.com/photos/6963017/pexels-photo-6963017.jpeg?cs=srgb&dl=pexels-mikhail-nilov-6963017.jpg&fm=jpg",
     link: "https://sokchan-calculator.vercel.app/",
   },
   {
-    id: 4,
+    id: 3,
     title: "E-Commerce Platform",
     description: "Static E-commerce solution with HTML, CSS and JAVASCRIPT.",
     tags: ["HTML", "CSS", "JavaScript", "AOS"],
@@ -87,29 +78,13 @@ const projects: Project[] = [
     link: "https://yansokchan.github.io/semicolon/home.html",
   },
   {
-    id: 5,
+    id: 4,
     title: "Rock Paper Scissor",
     description: "Rock Paper Scissor game using HTML, CSS and JAVASCRIPT.",
     tags: ["HTML", "CSS", "Javascript"],
     imageUrl:
       "https://remptongames.com/wp-content/uploads/2024/08/rock-paper-scissors-1.png?w=1200",
     link: "https://yansokchan.github.io/RPS/rock-paper-scissors.html",
-  },
-  {
-    id: 6,
-    title: "Portfolio V1",
-    description: "Portfolio V1 using React Vite and Tailwind CSS.",
-    tags: ["Vite", "Tailwind", "AOS"],
-    imageUrl: "https://sokchan-info-v3.vercel.app/assets/pfl1-BhNu1Ovl.png",
-    link: "https://yansokchan.github.io/my-portfolio/",
-  },
-  {
-    id: 7,
-    title: "Portfolio V2",
-    description: "Portfolio V2 using React Vite, Tailwind CSS, GSAP, Daisy UI.",
-    tags: ["Vite", "Tailwind", "GSAP", "Daisy UI", "AOS"],
-    imageUrl: "https://sokchan-info-v3.vercel.app/assets/pfl2-DxOFezEw.png",
-    link: "https://yansokchan.github.io/portfolio/",
   },
 ];
 
@@ -126,7 +101,7 @@ const ProjectCard = ({
     <div
       data-aos={index % 2 === 0 ? "fade-up-right" : "fade-up-left"}
       data-aos-duration="600"
-      className="relative bg-gradient-to-br from-cosmic-cyan/20 to-cosmic-purple/20 rounded-2xl shadow-lg overflow-hidden group duration-300 hover:scale-[1.03] hover:shadow-[0_0_0_4px_rgba(34,211,238,0.25),0_0_24px_8px_rgba(168,85,247,0.18)] max-w-lg mx-auto"
+      className="relative bg-gradient-to-br from-cosmic-cyan/20 to-cosmic-purple/20 rounded-2xl shadow-lg overflow-hidden group duration-300 hover:scale-[1.03] hover:shadow-[0_0_0_4px_rgba(34,211,238,0.25),0_0_24px_8px_rgba(168,85,247,0.18)] max-w-full"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       style={{
@@ -227,13 +202,13 @@ const Projects = () => {
         </div>
 
         {/* Grid Layout for all screens */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 px-0 md:px-12 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 px-0 max-w-full">
           {displayedProjects.map((project, index) => (
             <ProjectCard key={project.id} project={project} index={index} />
           ))}
         </div>
 
-        {/* See More/Less Button */}
+        {/* See More/Less Button
         <div className="flex justify-center mt-10">
           <style>{styles}</style>
           <button
@@ -252,7 +227,7 @@ const Projects = () => {
               </>
             )}
           </button>
-        </div>
+        </div> */}
       </div>
     </section>
   );

@@ -7,6 +7,14 @@ import "aos/dist/aos.css";
 import { ContainerTextFlip } from "./ui/container-text-flip";
 import LightRays from "./LightRays";
 import ProfileCard from "./ProfileCard";
+import { OrbitingCircles as MagicOrbit } from "./magicui/orbiting-circles";
+import TailwindIcon from "../assets/tech/file-type-tailwind-icon-original.svg";
+import GitIcon from "../assets/tech/git-icon-icon-original.svg";
+import GitHubIcon from "../assets/tech/github-mark-white.svg";
+import JSIcon from "../assets/tech/js-icon-original.svg";
+import NextJSIcon from "../assets/tech/nextjs-icon.svg";
+import ReactIcon from "../assets/tech/react-logo.svg";
+import SupabaseIcon from "../assets/tech/supabase-logo.svg";
 const floatingAnimation = {
   initial: { y: 0 },
   animate: {
@@ -97,6 +105,22 @@ const Hero = () => {
                 <motion.div className="absolute left-1/3 top-1/4 h-56 w-56 -translate-x-1/2 -translate-y-1/2 rounded-full bg-fuchsia-500/25 blur-3xl mix-blend-screen" />
                 <motion.div className="absolute left-2/3 top-2/3 h-52 w-52 -translate-x-1/2 -translate-y-1/2 rounded-full bg-indigo-500/20 blur-3xl mix-blend-screen" />
               </motion.div>
+              <div className="absolute inset-0 z-[0] zoom-in">
+                <MagicOrbit
+                  className="w-full h-full"
+                  radius={140}
+                  iconSize={36}
+                  speed={25}
+                >
+                  <img src={ReactIcon} alt="React" className="w-6 h-6" />
+                  <img src={NextJSIcon} alt="Next.js" className="w-6 h-6" />
+                  <img src={TailwindIcon} alt="Tailwind" className="w-6 h-6" />
+                  <img src={JSIcon} alt="JavaScript" className="w-6 h-6" />
+                  <img src={GitHubIcon} alt="GitHub" className="w-6 h-6" />
+                  <img src={GitIcon} alt="Git" className="w-6 h-6" />
+                  <img src={SupabaseIcon} alt="Supabase" className="w-6 h-6" />
+                </MagicOrbit>
+              </div>
               <motion.div
                 className="w-full h-full flex items-center justify-center"
                 animate={{
@@ -175,6 +199,22 @@ const Hero = () => {
               <motion.div className="absolute left-1/4 top-1/3 h-80 w-80 -translate-x-1/2 -translate-y-1/2 rounded-full bg-fuchsia-500/20 blur-3xl mix-blend-screen" />
               <motion.div className="absolute left-2/3 top-2/3 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-indigo-500/20 blur-3xl mix-blend-screen" />
             </motion.div>
+            <div className="absolute inset-0 z-[0] zoom-in">
+              <MagicOrbit
+                className="w-full h-full"
+                radius={200}
+                iconSize={44}
+                speed={25}
+              >
+                <img src={ReactIcon} alt="React" className="w-8 h-8" />
+                <img src={NextJSIcon} alt="Next.js" className="w-8 h-8" />
+                <img src={TailwindIcon} alt="Tailwind" className="w-8 h-8" />
+                <img src={JSIcon} alt="JavaScript" className="w-8 h-8" />
+                <img src={GitHubIcon} alt="GitHub" className="w-8 h-8" />
+                <img src={GitIcon} alt="Git" className="w-8 h-8" />
+                <img src={SupabaseIcon} alt="Supabase" className="w-8 h-8" />
+              </MagicOrbit>
+            </div>
             <motion.div
               className="w-full h-full flex items-center justify-center"
               animate={{

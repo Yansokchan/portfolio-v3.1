@@ -7,34 +7,21 @@ import { Spotlight } from "../components/ui/spotlight-new";
 const projects = [
   {
     id: 1,
-    title: "Portfolio V3",
-    description:
-      "I'm passionate about Three.js, so I created this 3D portfolio to showcase my skills. I'm especially proud of this project because of its smooth performance and visually appealing design.",
-    tags: ["Vite", "Tailwind", "Three.js", "AOS"],
-    imageUrl:
-      "https://khtkcvecjfjzmoormqjp.supabase.co/storage/v1/object/public/employee-profiles/c7b4390b-a329-4133-88b5-7be93fad53d7/bfef93b9-6c79-46f8-9bb5-9d9494bcae63.png",
-    link: "https://sokchan-info-v3.vercel.app/",
-    github: "https://github.com/yansokchan/portfolio-v3",
-    public: true,
-  },
-  {
-    id: 2,
     title: "Next-Gen",
     description:
       "This is the first full-stack project I built—a management system developed while I was learning Next.js. It allows users to manage employees, customers, products, and orders. The system also includes a dashboard that tracks revenue by day, week, and month. You can log in using the password: Pa$$w0rd.",
-    tags: ["Next.js", "Tailwind CSS", "Node.js", "Supabase", "Cursor"],
+    tags: ["React.js", "Tailwind CSS", "Shadcn UI", "Supabase", "Cursor"],
     imageUrl:
-      "https://khtkcvecjfjzmoormqjp.supabase.co/storage/v1/object/public/employee-profiles/e89f032a-c8f6-4dbc-9c28-ebaf7c6c556e/78556db8-f4cf-4034-89c1-81e4b3d6f2dc.png",
+      "https://www.peanutsquare.com/wp-content/uploads/2023/04/React.js-CRUD-application-jpg.webp",
     link: "https://next-gen-e4.vercel.app/",
     github: "https://github.com/yansokchan/next-gen",
     public: false,
   },
   {
-    id: 3,
-    title: "Calculator",
+    id: 2,
+    title: "DevTracker PRO",
     description:
-      "This is a simple calculator built with HTML, CSS, and JavaScript. I really value this project because, despite its simplicity, it's practical and useful in my daily life.",
-    tags: ["HTML", "CSS", "JavaScript"],
+      "DevTracker PRO is a modern tracking tool that allows you to track your daily task with modern AI features.",
     imageUrl:
       "https://images.pexels.com/photos/6963017/pexels-photo-6963017.jpeg?cs=srgb&dl=pexels-mikhail-nilov-6963017.jpg&fm=jpg",
     link: "https://sokchan-calculator.vercel.app/",
@@ -42,7 +29,7 @@ const projects = [
     public: true,
   },
   {
-    id: 4,
+    id: 3,
     title: "E-Commerce Platform",
     description:
       "As one of my first projects while learning HTML, CSS, and JavaScript, I built this simple e-commerce platform to apply my skills and understand the basics of web development.",
@@ -53,7 +40,7 @@ const projects = [
     public: true,
   },
   {
-    id: 5,
+    id: 4,
     title: "Rock Paper Scissor",
     description:
       "While learning JavaScript, I discovered that I could build simple games with it—so I created this project. It's a basic game developed using JavaScript, and I really enjoyed working on it during the early stages of my learning journey.",
@@ -62,28 +49,6 @@ const projects = [
       "https://remptongames.com/wp-content/uploads/2024/08/rock-paper-scissors-1.png?w=1200",
     link: "https://yansokchan.github.io/RPS/rock-paper-scissors.html",
     github: "https://github.com/yansokchan/RPS",
-    public: true,
-  },
-  {
-    id: 6,
-    title: "Portfolio V1",
-    description:
-      "This is the first portfolio website I made while learning React.js. I'm super excited about it because it marks the start of my journey into software development and exploring new frameworks!",
-    tags: ["Vite", "Tailwind", "AOS"],
-    imageUrl: "https://sokchan-info-v3.vercel.app/assets/pfl1-BhNu1Ovl.png",
-    link: "https://yansokchan.github.io/my-portfolio/",
-    github: "https://github.com/yansokchan/my-portfolio",
-    public: true,
-  },
-  {
-    id: 7,
-    title: "Portfolio V2",
-    description:
-      "This is Portfolio V2, an upgraded version of my first portfolio. I enhanced it by incorporating new technologies I recently learned, such as GSAP, Tailwind CSS, and DaisyUI. I think it's a pretty cool project for a junior developer!",
-    tags: ["Vite", "Tailwind", "GSAP", "Daisy UI", "AOS"],
-    imageUrl: "https://sokchan-info-v3.vercel.app/assets/pfl2-DxOFezEw.png",
-    link: "https://yansokchan.github.io/portfolio/",
-    github: "https://github.com/yansokchan/portfolio",
     public: true,
   },
 ];
@@ -231,24 +196,26 @@ const ProjectDetail = () => {
               </a>
             </div>
             {/* Technologies Used */}
-            <div className="mt-4">
-              <div className="flex items-center gap-2 mb-2">
-                <span className="text-cosmic-cyan text-xl">&lt;/&gt;</span>
-                <span className="text-white font-semibold text-lg">
-                  Technologies Used
-                </span>
-              </div>
-              <div className="flex gap-2 flex-wrap">
-                {project.tags.map((tag, i) => (
-                  <span
-                    key={i}
-                    className="px-4 py-1 rounded-full bg-gradient-to-r from-[#23243a]/20 to-cosmic-purple/20 text-cosmic-cyan border border-cosmic-cyan/30 text-sm font-medium mt-1"
-                  >
-                    {tag}
+            {project.tags && project.tags.length > 0 && (
+              <div className="mt-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-cosmic-cyan text-xl">&lt;/&gt;</span>
+                  <span className="text-white font-semibold text-lg">
+                    Technologies Used
                   </span>
-                ))}
+                </div>
+                <div className="flex gap-2 flex-wrap">
+                  {project.tags.map((tag, i) => (
+                    <span
+                      key={i}
+                      className="px-4 py-1 rounded-full bg-gradient-to-r from-[#23243a]/20 to-cosmic-purple/20 text-cosmic-cyan border border-cosmic-cyan/30 text-sm font-medium mt-1"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
           </div>
           {/* Right: Image and Key Features */}
           <div className="flex flex-col items-center justify-start gap-6">

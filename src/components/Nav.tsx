@@ -20,7 +20,7 @@ const Nav = () => {
           </div>
 
           {/* Center: segmented links */}
-          <div className="flex -ml-10  flex-1 items-center md:justify-center justify-end">
+          <div className="flex -ml-[46px] flex-1 items-center md:justify-center justify-end">
             <div className="inline-flex items-center rounded-full border border-white/10 bg-white/5 backdrop-blur supports-[backdrop-filter]:bg-white/5 p-1 text-sm text-white/80">
               <a
                 href="#about"

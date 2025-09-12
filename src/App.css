@@ -54,53 +54,35 @@ body {
 
 /* Floating animations for background icons */
 .animate-float-slow {
-  animation: float-slow 6s ease-in-out infinite;
-}
-
-.animate-float-medium {
-  animation: float-medium 4s ease-in-out infinite;
-}
-
-.animate-float-fast {
-  animation: float-fast 3s ease-in-out infinite;
+  animation: float-slow 8s ease-in-out infinite;
 }
 
 @keyframes float-slow {
   0%,
   100% {
-    transform: translateY(0px) rotate(0deg);
+    transform: translateY(0px) translateX(5px) rotate(0deg);
   }
   25% {
-    transform: translateY(-8px) rotate(1deg);
+    transform: translateY(-8px) translateX(0px) rotate(1deg);
   }
   50% {
-    transform: translateY(-4px) rotate(-1deg);
+    transform: translateY(-4px) translateX(5px) rotate(-1deg);
   }
   75% {
-    transform: translateY(-12px) rotate(0.5deg);
+    transform: translateY(-12px) translateX(0px) rotate(0.5deg);
   }
 }
 
-@keyframes float-medium {
-  0%,
-  100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  33% {
-    transform: translateY(-6px) rotate(-1deg);
-  }
-  66% {
-    transform: translateY(-10px) rotate(1deg);
-  }
+.zoom-in {
+  animation: zoomIn 3s ease-in-out;
 }
 
-@keyframes float-fast {
-  0%,
-  100% {
-    transform: translateY(0px) rotate(0deg);
+@keyframes zoomIn {
+  from {
+    transform: scale(0);
   }
-  50% {
-    transform: translateY(-5px) rotate(0.5deg);
+  to {
+    transform: scale(1);
   }
 }
 
