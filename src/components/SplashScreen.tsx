@@ -1,286 +1,115 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { motion } from "framer-motion";
-import { Sparkles, Github, CodeXml, Globe } from "lucide-react";
-import { Button } from "./ui/button";
-import { TypewriterEffect, TypewriterEffectSmooth } from "./ui/typewriter.tsx";
-import { BackgroundBeamsWithCollision } from "./ui/background-beams-with-collision.tsx";
-import { FaReact } from "react-icons/fa";
-import { RiNextjsFill, RiTailwindCssFill } from "react-icons/ri";
-import { IoLogoJavascript } from "react-icons/io";
-import { RiSupabaseFill } from "react-icons/ri";
-import { FaNodeJs } from "react-icons/fa";
+import { CodeXml, Github, Globe, User } from "lucide-react";
+
 interface SplashScreenProps {
   onComplete: () => void;
 }
 
 const SplashScreen = ({ onComplete }: SplashScreenProps) => {
-  const [progress, setProgress] = useState(0);
-  const [showSecondTypewriter, setShowSecondTypewriter] = useState(false);
-
-  useEffect(() => {
-    const duration = 7000; // 7 seconds
-    const interval = 50; // Update every 50ms
-    const steps = duration / interval;
-
-    // Custom timing function for more realistic progress
-    const getProgressIncrement = (currentProgress: number) => {
-      if (currentProgress < 20) {
-        return 0.8; // Fast initial progress
-      } else if (currentProgress < 40) {
-        return 1.2; // Slower
-      } else if (currentProgress < 95) {
-        return 0.4; // Very slow
-      } else {
-        return 0.1; // Extremely slow at the end
-      }
-    };
-
-    const timer = setInterval(() => {
-      setProgress((prev) => {
-        const newProgress = prev + getProgressIncrement(prev);
-        if (newProgress >= 100) {
-          clearInterval(timer);
-          onComplete();
-          return 100;
-        }
-        return newProgress;
-      });
-    }, interval);
-
-    return () => clearInterval(timer);
-  }, [onComplete]);
-
-  // Start the second typewriter after the first one finishes
   useEffect(() => {
     const timer = setTimeout(() => {
-      setShowSecondTypewriter(true);
-    }, 3000); // Adjust this timing based on your first typewriter's duration
+      onComplete();
+    }, 3500); // 3.5s duration
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [onComplete]);
 
-  const words = [
-    {
-      text: "WELCOME",
-    },
-    {
-      text: "TO",
-    },
-    {
-      text: "THE",
-    },
-    {
-      text: "SOKCHAN.YAN",
-      className: "text-gradient",
-    },
-  ];
+  const slideLeftVariant = {
+    hidden: { x: -100, opacity: 0 },
+    visible: (i: number) => ({
+      x: 0,
+      opacity: 1,
+      transition: {
+        delay: i * 0.2 + 0.5,
+        duration: 0.9,
+        ease: "easeOut",
+      },
+    }),
+  };
 
-  const url = [{ text: "sokchanyan.vercel.app" }];
+  const slideUpVariant = {
+    hidden: { y: 60, opacity: 0 },
+    visible: (i: number) => ({
+      y: 0,
+      opacity: 1,
+      transition: {
+        delay: i * 0.2 + 1.5,
+        duration: 0.8,
+        ease: "easeOut",
+      },
+    }),
+  };
 
   return (
-    <BackgroundBeamsWithCollision>
-      <div className="relative h-full w-full flex items-center justify-center">
-        {/* Animated background elements */}
-        <motion.div
-          className="absolute inset-0 overflow-hidden"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1 }}
-        >
-          <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-primary/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/4 right-1/4 w-32 h-32 bg-primary/10 rounded-full blur-3xl" />
-        </motion.div>
+    <div className="fixed inset-0 z-50 flex flex-col items-center justify-center overflow-hidden bg-[#030014]">
+      {/* Background Glow */}
+      <div className="absolute top-[-20%] left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-purple-900/20 blur-[120px] pointer-events-none" />
+      
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="relative z-10 flex flex-col items-center gap-8"
+      >
+         <motion.div className="absolute left-1/2 top-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#4deeea]/15 blur-3xl" />
+              <motion.div className="absolute left-1/4 top-1/3 h-80 w-80 -translate-x-1/2 -translate-y-1/2 rounded-full bg-fuchsia-500/10 blur-3xl mix-blend-screen" />
+              <motion.div className="absolute left-2/3 top-2/3 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-indigo-500/10 blur-3xl mix-blend-screen" />
+        {/* Top Icons
+        <div className="flex items-center gap-6 p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md shadow-[0_0_30px_rgba(168,85,247,0.1)]">
+            <CodeXml className="w-6 h-6 text-purple-400" />
+            <div className="w-px h-5 bg-white/10" />
+            <User className="w-6 h-6 text-purple-400" />
+            <div className="w-px h-5 bg-white/10" />
+            <Github className="w-6 h-6 text-purple-400" />
+        </div> */}
 
-        {/* Main content */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="relative z-10 text-center"
-        >
-          {/* Decorative elements */}
-
-          {/* Tech Stack Icons */}
-          <motion.div
-            initial={{ scale: 0, x: -100 }}
-            animate={{
-              scale: 1,
-              x: 0,
-              y: [0, -15, 0],
-              rotate: [0, 5, -5, 0],
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              repeatType: "reverse",
-              ease: "easeInOut",
-              delay: 0.2,
-            }}
-            className="absolute -top-8 left-[5%] transform -translate-x-1/2"
-          >
-            <RiNextjsFill className="w-9 h-9 510:w-10 510:h-10 text-white hover:text-gray-400 transition-colors" />
-          </motion.div>
-
-          <motion.div
-            initial={{ scale: 0, x: -50 }}
-            animate={{
-              scale: 1,
-              x: 0,
-              y: [0, -15, 0],
-              rotate: [0, 5, -5, 0],
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              repeatType: "reverse",
-              ease: "easeInOut",
-              delay: 0.3,
-            }}
-            className="absolute -top-8 left-[20%] transform -translate-x-1/2"
-          >
-            <RiTailwindCssFill className="w-9 h-9 510:w-10 510:h-10 text-cyan-400 hover:text-cyan-600 transition-colors" />
-          </motion.div>
-
-          <motion.div
-            initial={{ scale: 0, x: -50 }}
-            animate={{
-              scale: 1,
-              x: 0,
-              y: [0, -15, 0],
-              rotate: [0, 5, -5, 0],
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              repeatType: "reverse",
-              ease: "easeInOut",
-              delay: 0.4,
-            }}
-            className="absolute -top-8 left-[35%] transform -translate-x-1/2"
-          >
-            <RiSupabaseFill className="w-9 h-9 510:w-10 510:h-10 text-emerald-400 hover:text-emerald-600 transition-colors" />
-          </motion.div>
-
-          <motion.div
-            initial={{ scale: 0, x: 50 }}
-            animate={{
-              scale: 1,
-              x: 0,
-              y: [0, -15, 0],
-              rotate: [0, -5, 5, 0],
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              repeatType: "reverse",
-              ease: "easeInOut",
-              delay: 0.5,
-            }}
-            className="absolute -top-8 right-[35%] transform translate-x-1/2"
-          >
-            <FaNodeJs className="w-9 h-9 510:w-10 510:h-10 text-green-400 hover:text-green-600 transition-colors" />
-          </motion.div>
-
-          <motion.div
-            initial={{ scale: 0, x: 50 }}
-            animate={{
-              scale: 1,
-              x: 0,
-              y: [0, -15, 0],
-              rotate: [0, -5, 5, 0],
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              repeatType: "reverse",
-              ease: "easeInOut",
-              delay: 0.6,
-            }}
-            className="absolute -top-8 right-[20%] transform translate-x-1/2"
-          >
-            <IoLogoJavascript className="w-9 h-9 510:w-10 510:h-10 text-yellow-400 hover:text-yellow-600 transition-colors" />
-          </motion.div>
-
-          <motion.div
-            initial={{ scale: 0, x: 100 }}
-            animate={{
-              scale: 1,
-              x: 0,
-              y: [0, -15, 0],
-              rotate: [0, -5, 5, 0],
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              repeatType: "reverse",
-              ease: "easeInOut",
-              delay: 0.7,
-            }}
-            className="absolute -top-8 right-[5%] transform translate-x-1/2"
-          >
-            <FaReact className="w-9 h-9 510:w-10 510:h-10 text-blue-400 hover:text-blue-600 transition-colors" />
-          </motion.div>
-
-          <div className="relative">
-            <TypewriterEffectSmooth words={words} />
-          </div>
-          {showSecondTypewriter && (
-            <div className="flex justify-center items-center gap-3">
-              <Globe className="text-cosmic-cyan" />
-              <TypewriterEffect words={url} />
+        {/* Text Content */}
+        <div className="flex flex-col items-center gap-2">
+            {/* Line 1: Welcome To My */}
+            <div className="flex flex-wrap justify-center gap-x-3 gap-y-1 text-3xl md:text-5xl font-bold text-white tracking-tight">
+                {["Welcome", "To", "My"].map((word, i) => (
+                    <motion.span
+                        key={word}
+                        custom={i}
+                        variants={slideLeftVariant}
+                        initial="hidden"
+                        animate="visible"
+                    >
+                        {word}
+                    </motion.span>
+                ))}
             </div>
-          )}
-        </motion.div>
 
-        {/* Circular Loading Indicator - Bottom Right */}
-        <div className="absolute bottom-8 right-8 w-16 h-16">
-          <svg className="w-full h-full" viewBox="0 0 100 100">
-            {/* Background circle */}
-            <circle
-              cx="50"
-              cy="50"
-              r="45"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="5"
-              className="text-primary/20"
-            />
-            {/* Progress circle */}
-            <motion.circle
-              cx="50"
-              cy="50"
-              r="45"
-              fill="none"
-              stroke="url(#gradient)"
-              strokeWidth="5"
-              strokeLinecap="round"
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: progress / 100 }}
-              transition={{ duration: 0.1 }}
-              transform="rotate(-90 50 50)"
-            />
-            {/* Gradient definition */}
-            <defs>
-              <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#3B82F6" />
-                <stop offset="100%" stopColor="#8B5CF6" />
-              </linearGradient>
-            </defs>
-          </svg>
-          {/* Percentage text */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <motion.span
-              className="text-sm font-bold text-gradient"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-            >
-              {Math.round(progress)}%
-            </motion.span>
-          </div>
+            {/* Line 2: Portfolio Website */}
+            <div className="flex flex-wrap justify-center gap-x-3 gap-y-1 text-3xl md:text-5xl font-bold">
+                {["Portfolio", "Website"].map((word, i) => (
+                    <motion.span
+                        key={word}
+                        custom={i}
+                        variants={slideUpVariant}
+                        initial="hidden"
+                        animate="visible"
+                        className="bg-clip-text text-gradient"
+                    >
+                        {word}
+                    </motion.span>
+                ))}
+            </div>
         </div>
-      </div>
-    </BackgroundBeamsWithCollision>
+      </motion.div>
+
+      {/* Footer */}
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 2.2, duration: 0.8 }}
+        className="absolute bottom-12 flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm text-purple-300/80 text-sm hover:bg-white/10 transition-colors"
+      >
+        <Globe className="w-4 h-4" />
+        <span className="tracking-wide">sokchanyan.vercel.app</span>
+      </motion.div>
+    </div>
   );
 };
 
