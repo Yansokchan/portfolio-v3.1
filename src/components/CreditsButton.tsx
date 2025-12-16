@@ -1,10 +1,22 @@
 import React from "react";
 import styled from "styled-components";
 
-const CreditsButton = () => {
+interface CreditsButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  text?: string;
+  className?: string;
+  icon?: React.ReactNode;
+}
+
+const CreditsButton = ({
+  text = "Credits",
+  className,
+  icon,
+  ...props
+}: CreditsButtonProps) => {
   return (
-    <StyledWrapper>
-      <button type="button" className="button">
+    <StyledWrapper className={className}>
+      <button className="button" {...props}>
         <span className="fold" />
         <div className="points_wrapper">
           <i className="point" />
@@ -19,19 +31,21 @@ const CreditsButton = () => {
           <i className="point" />
         </div>
         <span className="inner">
-          <svg
-            className="icon"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2.5"
-          >
-            <polyline points="13.18 1.37 13.18 9.64 21.45 9.64 10.82 22.63 10.82 14.36 2.55 14.36 13.18 1.37" />
-          </svg>
-          Credits
+          {icon || (
+            <svg
+              className="icon"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2.5"
+            >
+              <polyline points="13.18 1.37 13.18 9.64 21.45 9.64 10.82 22.63 10.82 14.36 2.55 14.36 13.18 1.37" />
+            </svg>
+          )}
+          {text}
         </span>
       </button>
     </StyledWrapper>
@@ -39,6 +53,8 @@ const CreditsButton = () => {
 };
 
 const StyledWrapper = styled.div`
+  width: 100%;
+
   .button {
     --h-button: 48px;
     --w-button: 102px;
@@ -60,7 +76,19 @@ const StyledWrapper = styled.div`
     border: none;
     outline: none;
     padding: 12px 18px;
+    min-width: var(--w-button);
   }
+
+  &.w-full .button {
+    width: 100%;
+    --w-button: 100%;
+  }
+
+  .button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+
   .button::before,
   .button::after {
     content: "";
@@ -87,7 +115,7 @@ const StyledWrapper = styled.div`
       ),
       linear-gradient(0deg, #7a5af8, #7a5af8);
   }
-  .button:active {
+  .button:active:not(:disabled) {
     transform: scale(0.95);
   }
 

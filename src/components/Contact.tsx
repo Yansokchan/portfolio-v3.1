@@ -6,6 +6,7 @@ import { createClient } from "@supabase/supabase-js";
 import styles from "@/styles/Contact.module.css";
 import { FaPaperPlane, FaComment } from "react-icons/fa";
 import { FaArrowRightFromBracket } from "react-icons/fa6";
+import CreditsButton from "./CreditsButton";
 // Initialize Supabase client
 const supabaseUrl = "https://vkxlcowblrveznxsradv.supabase.co";
 const supabaseAnonKey =
@@ -460,21 +461,15 @@ const Contact = () => {
                 />
               </div>
 
-              <button
+              <CreditsButton
                 data-aos="fade-up"
                 data-aos-delay="300"
                 type="submit"
                 disabled={isContactLoading}
-                className="w-full py-3 bg-gradient-to-r from-cyan-500 to-purple-400 text-white rounded-lg hover:opacity-90 transition-all duration-300 hover:shadow-lg hover:shadow-purple-700/20 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-              >
-                {isContactLoading ? (
-                  "Sending..."
-                ) : (
-                  <>
-                    Send Message <FaPaperPlane className="text-sm" />
-                  </>
-                )}
-              </button>
+                text={isContactLoading ? "Sending..." : "Send Message"}
+                className="w-full"
+                icon={<FaPaperPlane className="text-sm" />}
+              />
             </form>
 
             <div data-aos="fade-up" data-aos-delay="300">
@@ -869,21 +864,15 @@ const Contact = () => {
                 </p>
               </div>
 
-              <button
+              <CreditsButton
                 data-aos="fade-up"
                 data-aos-delay="300"
                 type="submit"
                 disabled={isCommentLoading}
-                className="w-full py-3 bg-gradient-to-r from-cyan-500 to-purple-400 text-white rounded-lg hover:opacity-90 transition-all duration-300 hover:shadow-lg hover:shadow-purple-700/20 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-              >
-                {isCommentLoading ? (
-                  "Posting..."
-                ) : (
-                  <>
-                    Post Comment <FaComment className="text-sm" />
-                  </>
-                )}
-              </button>
+                text={isCommentLoading ? "Posting..." : "Post Comment"}
+                className="w-full"
+                icon={<FaComment className="text-sm" />}
+              />
             </form>
 
             <div className={`flex-1 ${styles.custom_scrollbar}`}>
