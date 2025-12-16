@@ -4,8 +4,10 @@ import "aos/dist/aos.css";
 import pf1 from "../assets/pf1.jpeg";
 import { GlareCard } from "./ui/glare-card";
 import { Code2, GraduationCap, Briefcase } from "lucide-react";
+import { Timeline } from "./ui/timeline";
 
 import ScrollVelocity from "./ui/ScrollVelocity";
+import ShinyText from "./ShinyText";
 
 interface StatCardProps {
   id: string;
@@ -99,6 +101,90 @@ const About = () => {
     },
   ]);
 
+  const timelineData = [
+    {
+      title: "2024 - Present",
+      content: (
+        <div>
+          <h4 className="text-2xl font-bold text-cosmic-cyan mb-2">
+            Pre-Sales Network & Security Engineer
+          </h4>
+          <p className="text-gray-300 mb-4">
+            Specializing in designing and presenting enterprise security
+            solutions from leading vendors like Palo Alto Networks, Cisco, and
+            Fortinet. Handling end-to-end network and security solutions
+            including hardware, software, and cloud infrastructure.
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {[
+              "Network Security",
+              "Consultant",
+              "Cisco",
+              "Palo Alto",
+              "Fortinet",
+            ].map((skill) => (
+              <span
+                key={skill}
+                className="px-3 py-1 rounded-full bg-cosmic-purple/20 text-cosmic-cyan text-sm"
+              >
+                {skill}
+              </span>
+            ))}
+          </div>
+        </div>
+      ),
+    },
+    {
+      title: "Web Development",
+      content: (
+        <div>
+          <h4 className="text-2xl font-bold text-cosmic-cyan mb-2">
+            Full Stack Passion
+          </h4>
+          <p className="text-gray-300 mb-4">
+            Before I moved into network security, I enjoy building modern
+            applications using React, Next.js, and various database
+            technologies. Creating applications that not only look great but
+            also provide secure and meaningful solutions.
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {[
+              "React.js",
+              "Next.js",
+              "TypeScript",
+              "Node.js",
+              "Tailwind CSS",
+              "Supabase",
+            ].map((skill) => (
+              <span
+                key={skill}
+                className="px-3 py-1 rounded-full bg-cosmic-purple/20 text-cosmic-cyan text-sm"
+              >
+                {skill}
+              </span>
+            ))}
+          </div>
+        </div>
+      ),
+    },
+    {
+      title: "2023 - Present",
+      content: (
+        <div>
+          <h4 className="text-2xl font-bold text-cosmic-cyan mb-2">
+            Computer Science Student
+          </h4>
+          <p className="text-gray-300 mb-4">
+            After completing secondary school, I moved to Phnom Penh to continue
+            my university studies. I’m currently in my third year at the Royal
+            University of Phnom Penh (RUPP) and am passionate about bridging the
+            gap between complex security solutions and business needs.
+          </p>
+        </div>
+      ),
+    },
+  ];
+
   useEffect(() => {
     AOS.init({
       duration: 800,
@@ -177,10 +263,17 @@ const About = () => {
                 data-aos-delay="200"
                 className="text-gray-300"
               >
-                I'm a passionate Full Stack Developer with a strong foundation
-                in web development. My journey in technology began with a
-                curiosity for how things work, which evolved into a deep love
-                for creating innovative solutions.
+                I’m a Pre-Sales Network & Security Engineer and a third-year
+                Computer Science student at RUPP, with over a year of experience
+                designing and presenting enterprise security solutions.
+              </p>
+              <p
+                data-aos="fade-left"
+                data-aos-delay="300"
+                className="text-gray-300 mt-4"
+              >
+                Beyond network security, I'm passionate about web development
+                and enjoy building modern applications.
               </p>
             </div>
 
@@ -193,16 +286,14 @@ const About = () => {
               </h3>
               <div className="flex flex-wrap gap-3">
                 {[
-                  "JavaScript",
                   "React.js",
                   "Next.js",
+                  "TypeScript",
                   "Node.js",
                   "Tailwind CSS",
-                  "TypeScript",
                   "Supabase",
-                  "MySQL",
-                  "MongoDB",
-                  "Git/Github",
+                  "Network Security",
+                  "Consultant",
                 ].map((skill, index) => (
                   <span
                     key={skill}
@@ -228,28 +319,32 @@ const About = () => {
                 data-aos-delay="200"
                 className="text-gray-300"
               >
-                I'm constantly learning and adapting to new technologies. My
-                goal is to create applications that not only look great but also
-                provide meaningful solutions to real-world problems.
+                I’m constantly learning and adapting to new technologies,
+                particularly in network and security technology. My goal is to
+                create applications and solutions that not only look great but
+                also deliver secure, reliable, and meaningful solutions to
+                real-world problems.
               </p>
             </div>
           </div>
         </div>
 
-        {/* Stats Cards Section */}
-        <div className="mt-16">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
-            {items.map((item, index) => (
-              <div
-                key={item.id}
-                data-aos="fade-up"
-                data-aos-delay={index * 100}
-                data-aos-duration="800"
-              >
-                <StatCard {...item} />
-              </div>
-            ))}
+        {/* Timeline Section */}
+        <div className="relative w-full mt-40 overflow-clip">
+          <div>
+            <ShinyText
+              text="Changelog from my journey"
+              disabled={false}
+              speed={5}
+              className="text-center text-3xl mb-4"
+            />{" "}
+            <p className="mx-auto text-gray-300">
+              I’ve been working in Pre-Sales for over one year. Below is a
+              timeline of my journey.
+            </p>
           </div>
+
+          <Timeline data={timelineData} />
         </div>
       </div>
     </section>

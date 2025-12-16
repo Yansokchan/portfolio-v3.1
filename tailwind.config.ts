@@ -82,6 +82,10 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       keyframes: {
+        shine: {
+          "0%": { "background-position": "100%" },
+          "100%": { "background-position": "-100%" },
+        },
         "fall-from-top": {
           "0%": {
             opacity: "0",
@@ -158,6 +162,7 @@ export default {
         },
       },
       animation: {
+        shine: "shine 5s linear infinite",
         "fall-from-top":
           "fall-from-top 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards",
         "fade-in-scale": "fade-in-scale 0.3s ease-out forwards",
