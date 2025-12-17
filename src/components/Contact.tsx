@@ -5,6 +5,7 @@ import { useToast } from "@/hooks/use-toast";
 import { createClient } from "@supabase/supabase-js";
 import styles from "@/styles/Contact.module.css";
 import { FaPaperPlane, FaComment } from "react-icons/fa";
+import { TiPinOutline } from "react-icons/ti";
 import { FaArrowRightFromBracket } from "react-icons/fa6";
 import CreditsButton from "./CreditsButton";
 // Initialize Supabase client
@@ -322,7 +323,7 @@ const Contact = () => {
   return (
     <section
       id="contact"
-      className="section !px-[25px] md:!px-8"
+      className="section !px-[25px] md:!px-8 scale-90"
       ref={sectionRef}
     >
       <div className="max-w-7xl mx-auto">
@@ -710,7 +711,7 @@ const Contact = () => {
           <div
             data-aos="fade-left"
             data-aos-delay="200"
-            className="bg-gradient-to-r from-cyan-500/20 to-purple-400/20 md:p-8 p-4 rounded-2xl flex flex-col h-[950px]"
+            className=" bg-gradient-to-r from-cyan-500/20 to-purple-400/20 md:p-8 p-4 rounded-2xl flex flex-col h-[950px]"
           >
             <div className="flex items-center justify-between mb-5 md:mb-6">
               <div className="flex items-center gap-2">
@@ -881,6 +882,36 @@ const Contact = () => {
                 data-aos-delay="300"
                 className="space-y-2 md:space-y-3 pr-2"
               >
+                <div className="flex flex-col items-start gap-2 p-2 md:p-3 rounded-lg bg-gradient-to-r from-cyan-500/30 to-purple-400/30">
+                  <div className="flex items-center gap-2">
+                    <TiPinOutline className="text-cosmic-cyan text-2xl" />
+                    <p className="text-gray-300 text-sm">Pined Comment</p>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <div className="w-11 h-11 border-[2px] border-cyan-600 rounded-full overflow-hidden">
+                      <img
+                        src={
+                          "https://sokchanyan.vercel.app/assets/pf1-DYjeZ2cN.jpeg"
+                        }
+                        alt={"sokchanyan"}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+
+                    <div className="flex-1">
+                      <div className="flex items-start justify-between">
+                        <h4 className="text-white font-medium">Sokchan Yan</h4>
+                        <span className="text-gray-500 text-sm">
+                          {formatTimeAgo("2025-12-17 18:30:00")}
+                        </span>
+                      </div>
+                      <p className="text-gray-300 mt-1">
+                        Thank you for visiting my portfolio. I would appreciate
+                        any questions or feedback you might have.
+                      </p>
+                    </div>
+                  </div>
+                </div>
                 {comments.map((comment, index) => (
                   <div
                     key={comment.id}
@@ -921,7 +952,7 @@ const Contact = () => {
                           {formatTimeAgo(comment.created_at)}
                         </span>
                       </div>
-                      <p className="text-gray-400 mt-1">{comment.comment}</p>
+                      <p className="text-gray-300 mt-1">{comment.comment}</p>
                     </div>
                   </div>
                 ))}

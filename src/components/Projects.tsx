@@ -177,7 +177,7 @@ const Projects = () => {
     : projects.slice(0, initialProjectsToShow);
 
   return (
-    <section id="projects" className="section !px-[25px] md:!px-8">
+    <section id="projects" className="section !px-[25px] md:!px-8 scale-90">
       <div className="max-w-7xl mx-auto py-20">
         <div className="text-center mb-16">
           <h2
@@ -202,7 +202,7 @@ const Projects = () => {
         </div>
 
         {/* Grid Layout for all screens */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 px-0 max-w-full">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {displayedProjects.map((project, index) => (
             <ProjectCard key={project.id} project={project} index={index} />
           ))}

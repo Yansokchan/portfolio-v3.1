@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CodeXml, Github, Globe, User } from "lucide-react";
+import { CanvasRevealEffect } from "./ui/CanvasRevealEffect";
+import Astronaut from "./ui/Astronaut";
+import PlayButton from "./ui/PlayButton";
 
 interface SplashScreenProps {
   onComplete: () => void;
@@ -9,19 +12,19 @@ interface SplashScreenProps {
 const SplashScreen = ({ onComplete }: SplashScreenProps) => {
   const [isExiting, setIsExiting] = useState(false);
 
-  useEffect(() => {
+  /* useEffect(() => {
     const timer = setTimeout(() => {
       setIsExiting(true);
     }, 3500); // Start exit animation at 3.5s
 
     return () => clearTimeout(timer);
-  }, []);
+  }, []); */
 
   useEffect(() => {
     if (isExiting) {
       const exitTimer = setTimeout(() => {
         onComplete();
-      }, 800); // Wait for exit animation to complete (0.8s)
+      }, 1000); // Wait for exit animation to complete (1s)
       return () => clearTimeout(exitTimer);
     }
   }, [isExiting, onComplete]);
@@ -38,10 +41,10 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
       },
     }),
     exit: {
-        x: -100,
-        opacity: 0,
-        transition: { duration: 0.5, ease: "easeIn" }
-    }
+      x: -100,
+      opacity: 0,
+      transition: { duration: 0.5, ease: "easeIn" },
+    },
   };
 
   const slideUpVariant = {
@@ -56,95 +59,114 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
       },
     }),
     exit: {
-        y: 60,
-        opacity: 0,
-        transition: { duration: 0.5, ease: "easeIn" }
-    }
+      y: 60,
+      opacity: 0,
+      transition: { duration: 0.5, ease: "easeIn" },
+    },
   };
 
   return (
     <AnimatePresence>
-    {!isExiting ? (
-    <motion.div
-        key="splash"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ 
-            opacity: 0, 
-            scale: 1.1, 
+      {!isExiting ? (
+        <motion.div
+          key="splash"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{
+            opacity: 0,
+            scale: 1.1,
             filter: "blur(10px)",
-            transition: { duration: 0.8, ease: "easeInOut" } 
-        }}
-        className="fixed inset-0 z-50 flex flex-col items-center justify-center overflow-hidden bg-[#030014]"
-    >
-      {/* Background Glow */}
-      <div className="absolute top-[-20%] left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-purple-900/20 blur-[120px] pointer-events-none" />
-      
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        className="relative z-10 flex flex-col items-center gap-8"
-      >
-        <motion.div className="absolute left-1/2 top-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#4deeea]/15 blur-3xl" />
-        <motion.div className="absolute left-1/4 top-1/3 h-80 w-80 -translate-x-1/2 -translate-y-1/2 rounded-full bg-fuchsia-500/10 blur-3xl mix-blend-screen" />
-        <motion.div className="absolute left-2/3 top-2/3 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-indigo-500/10 blur-3xl mix-blend-screen" />
-        
-        {/* Top Icons */}
-        {/* <div className="flex items-center gap-6 p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md shadow-[0_0_30px_rgba(168,85,247,0.1)]">
-            <CodeXml className="w-6 h-6 text-purple-400" />
-            <div className="w-px h-5 bg-white/10" />
-            <User className="w-6 h-6 text-purple-400" />
-            <div className="w-px h-5 bg-white/10" />
-            <Github className="w-6 h-6 text-purple-400" />
-        </div> */}
+            transition: { duration: 0.8, ease: "easeInOut" },
+          }}
+          className="fixed inset-0 z-50 flex flex-col items-center justify-center overflow-hidden bg-[#030014]"
+        >
+          {/* Background DotMatrix */}
+          <div className="absolute inset-0 z-0">
+            <CanvasRevealEffect
+              animationSpeed={3}
+              containerClassName="bg-[#030014]"
+              colors={[
+                [255, 255, 255],
+                [255, 255, 255],
+              ]}
+              dotSize={2}
+            />
+          </div>
 
-        {/* Text Content */}
-        <div className="flex flex-col items-center gap-2">
-            {/* Line 1: Welcome To My */}
-            <div className="flex flex-wrap justify-center gap-x-3 gap-y-1 text-3xl md:text-5xl font-bold text-white tracking-tight">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="absolute top-10 right-0 z-20 transform -translate-x-1/2 md:top-10 md:right-10 lg:right-20"
+          >
+            <div className="scale-[0.8] md:scale-[0.9] lg:scale-100">
+              <Astronaut />
+            </div>
+          </motion.div>
+
+          {/* Centered content removed */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="relative z-10 flex flex-col items-center justify-center gap-8"
+          >
+            <motion.div className="absolute left-1/2 top-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#4deeea]/15 blur-3xl" />
+            <motion.div className="absolute left-1/4 top-1/3 h-80 w-80 -translate-x-1/2 -translate-y-1/2 rounded-full bg-fuchsia-500/10 blur-3xl mix-blend-screen" />
+            <motion.div className="absolute left-2/3 top-2/3 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-indigo-500/10 blur-3xl mix-blend-screen" />
+
+            {/* Text Content */}
+            <div className="flex flex-col z-10 items-center justify-center gap-2 mt-20">
+              {/* Line 1: Welcome To My */}
+              <div className="flex flex-wrap justify-center gap-x-3 gap-y-1 text-3xl md:text-5xl font-bold text-white tracking-tight">
                 {["Welcome", "To", "My"].map((word, i) => (
-                    <motion.span
-                        key={word}
-                        custom={i}
-                        variants={slideLeftVariant}
-                        initial="hidden"
-                        animate="visible"
-                    >
-                        {word}
-                    </motion.span>
+                  <motion.span
+                    key={word}
+                    custom={i}
+                    variants={slideLeftVariant}
+                    initial="hidden"
+                    animate="visible"
+                  >
+                    {word}
+                  </motion.span>
                 ))}
-            </div>
+              </div>
 
-            {/* Line 2: Portfolio Website */}
-            <div className="flex flex-wrap justify-center gap-x-3 gap-y-1 text-3xl md:text-5xl font-bold">
+              {/* Line 2: Portfolio Website */}
+              <div className="flex flex-wrap justify-center gap-x-3 gap-y-1 text-3xl md:text-5xl font-bold">
                 {["Portfolio", "Website"].map((word, i) => (
-                    <motion.span
-                        key={word}
-                        custom={i}
-                        variants={slideUpVariant}
-                        initial="hidden"
-                        animate="visible"
-                        className="bg-clip-text text-gradient"
-                    >
-                        {word}
-                    </motion.span>
+                  <motion.span
+                    key={word}
+                    custom={i}
+                    variants={slideUpVariant}
+                    initial="hidden"
+                    animate="visible"
+                    className="bg-clip-text text-gradient"
+                  >
+                    {word}
+                  </motion.span>
                 ))}
+              </div>
             </div>
-        </div>
-      </motion.div>
 
-      {/* Footer */}
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 2.2, duration: 0.8 }}
-        className="absolute bottom-12 flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm text-purple-300/80 text-sm hover:bg-white/10 transition-colors"
-      >
-        <Globe className="w-4 h-4" />
-        <span className="tracking-wide">sokchanyan.vercel.app</span>
-      </motion.div>
-    </motion.div>
-    ) : null}
+            {/* Play Button Section */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 2.5, duration: 0.8 }}
+              className="flex flex-col items-center justify-center gap-4 mt-12"
+            >
+              <p className="text-white/80 text-sm text-center font-light tracking-wide">
+                Thank you for visiting my portfolio website!
+              </p>
+              <p className="text-white/80 text-sm text-center font-light tracking-wide">
+                Are you ready to see me?
+              </p>
+              <div className="relative z-40">
+                <PlayButton onClick={() => setIsExiting(true)} />
+              </div>
+            </motion.div>
+          </motion.div>
+        </motion.div>
+      ) : null}
     </AnimatePresence>
   );
 };

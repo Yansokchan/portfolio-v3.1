@@ -3,8 +3,7 @@ import { motion, useSpring, useTransform } from "framer-motion";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { ContainerTextFlip } from "./ui/container-text-flip";
-
-import { TechStackBeam } from "./TechStackBeam";
+import ProfileCard from "./ui/ProfileCard";
 
 const floatingAnimation = {
   initial: { y: 0 },
@@ -43,23 +42,22 @@ const Hero = () => {
     });
   }, []);
 
-  // Transform values for different parallax layers
-
   return (
     <section
       id="home"
-      className="section min-h-screen !px-[25px] md:!px-8 -mt-52 lg:-mt-44 relative overflow-hidden"
+      className="section min-h-screen !px-[25px] md:!px-8 -mt-52 lg:-mt-44 relative overflow-hidden scale-90"
     >
       <div className="flex flex-col lg:flex-row items-center justify-center min-h-screen w-full">
         {/* Left Side - Text Effect and Content */}
-        <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start justify-center gap-8">
+
+        <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start justify-center gap-20">
           {/* GIF Image for Mobile */}
-          <div className="lg:hidden w-full flex flex-col items-center justify-center -mt-24 sm:mt-24">
-            <TechStackBeam />
+          <div className="lg:hidden flex flex-col items-center justify-center gap-5">
+            <ProfileCard />
           </div>
 
           {/* Content Container */}
-          <div className="max-w-lg ml-0 -mb-40 lg:mb-0 lg:ml-[50px] text-center lg:text-left">
+          <div className="max-w-lg ml-0 lg:mb-0 lg:ml-[50px] text-center lg:text-left">
             <div data-aos="fade-up">
               <span className="text-xl text-cosmic-cyan font-medium">
                 Hello there, I'm
@@ -107,8 +105,8 @@ const Hero = () => {
           </div>
         </div>
 
-        <div className="hidden lg:flex w-full lg:w-1/2 flex-col items-center justify-center p-4 relative">
-          <TechStackBeam />
+        <div className="hidden lg:flex w-full lg:w-1/2 flex-col items-center justify-center p-4 gap-10 relative">
+          <ProfileCard />
         </div>
       </div>
     </section>
