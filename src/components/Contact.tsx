@@ -8,6 +8,7 @@ import { FaPaperPlane, FaComment } from "react-icons/fa";
 import { TiPinOutline } from "react-icons/ti";
 import { FaArrowRightFromBracket } from "react-icons/fa6";
 import CreditsButton from "./CreditsButton";
+import pf from "../assets/pf1.png";
 // Initialize Supabase client
 const supabaseUrl = "https://vkxlcowblrveznxsradv.supabase.co";
 const supabaseAnonKey =
@@ -890,9 +891,7 @@ const Contact = () => {
                   <div className="flex items-start gap-2">
                     <div className="w-11 h-11 border-[2px] border-cyan-600 rounded-full overflow-hidden">
                       <img
-                        src={
-                          "https://sokchanyan.vercel.app/assets/pf1-DYjeZ2cN.jpeg"
-                        }
+                        src={pf}
                         alt={"sokchanyan"}
                         className="w-full h-full object-cover"
                       />

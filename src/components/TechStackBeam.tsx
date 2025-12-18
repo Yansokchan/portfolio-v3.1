@@ -17,7 +17,7 @@ const Circle = forwardRef<
     <div
       ref={ref}
       className={cn(
-        "z-10 inline-flex items-center justify-center align-middle select-none font-sans text-center px-4 py-2 text-white text-sm font-medium rounded-full bg-white/2.5 border border-white/20 backdrop-blur-sm hover:bg-white/50 transition-all duration-300 before:absolute before:inset-0 before:rounded-full before:bg-gradient-to-br before:from-white/30 before:via-transparent before:to-transparent before:opacity-30 before:pointer-events-none after:absolute after:inset-0 after:rounded-full after:bg-gradient-to-tl after:from-white/50 after:via-transparent after:to-transparent after:opacity-30 after:pointer-events-none antialiased",
+        "z-10 inline-flex items-center justify-center align-middle select-none font-sans text-center px-4 py-2 text-white text-sm font-medium rounded-full bg-white/2.5 border border-white/20 backdrop-blur-sm transition-all duration-300 before:absolute before:inset-0 before:rounded-full before:bg-gradient-to-br before:from-white/30 before:via-transparent before:to-transparent before:opacity-30 before:pointer-events-none after:absolute after:inset-0 after:rounded-full after:bg-gradient-to-tl after:from-white/50 after:via-transparent after:to-transparent after:opacity-30 after:pointer-events-none antialiased",
         className
       )}
     >

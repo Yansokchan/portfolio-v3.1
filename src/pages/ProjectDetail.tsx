@@ -2,17 +2,19 @@ import { useParams, useNavigate } from "react-router-dom";
 import { ArrowLeft, ExternalLink, Github as GithubIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Spotlight } from "../components/ui/spotlight-new";
-
+import devTracker from "../assets/devtracker.png";
+import nextGen from "../assets/next-gen.webp";
+import ecom from "../assets/ecom.png";
+import rps from "../assets/rps.webp";
 // You may want to move this to a shared location
 const projects = [
   {
     id: 1,
     title: "Next-Gen",
     description:
-      "This is the first full-stack project I built—a management system developed while I was learning Next.js. It allows users to manage employees, customers, products, and orders. The system also includes a dashboard that tracks revenue by day, week, and month. You can log in using the password: Pa$$w0rd.",
+      "This is the first full-stack project I built—a management system developed while I was learning React.js. It allows users to manage employees, customers, products, and orders. The system also includes a dashboard that tracks revenue by day, week, and month. You can log in using the password: Pa$$w0rd.",
     tags: ["React.js", "Tailwind CSS", "Shadcn UI", "Supabase", "Cursor"],
-    imageUrl:
-      "https://www.peanutsquare.com/wp-content/uploads/2023/04/React.js-CRUD-application-jpg.webp",
+    imageUrl: nextGen,
     link: "https://next-gen-e4.vercel.app/",
     github: "https://github.com/yansokchan/next-gen",
     public: false,
@@ -22,11 +24,11 @@ const projects = [
     title: "DevTracker PRO",
     description:
       "DevTracker PRO is a modern tracking tool that allows you to track your daily task with modern AI features.",
-    imageUrl:
-      "https://images.pexels.com/photos/6963017/pexels-photo-6963017.jpeg?cs=srgb&dl=pexels-mikhail-nilov-6963017.jpg&fm=jpg",
+    tags: ["React.js", "Tailwind CSS", "Shadcn UI", "Supabase", "Cursor"],
+    imageUrl: devTracker,
     link: "https://sokchan-calculator.vercel.app/",
     github: "https://github.com/yansokchan/calculator",
-    public: true,
+    public: false,
   },
   {
     id: 3,
@@ -34,7 +36,7 @@ const projects = [
     description:
       "As one of my first projects while learning HTML, CSS, and JavaScript, I built this simple e-commerce platform to apply my skills and understand the basics of web development.",
     tags: ["HTML", "CSS", "JavaScript"],
-    imageUrl: "https://sokchan-info-v3.vercel.app/assets/ecom-Bd2l15qF.png",
+    imageUrl: ecom,
     link: "https://yansokchan.github.io/semicolon/home.html",
     github: "https://github.com/yansokchan/semicolon",
     public: true,
@@ -45,19 +47,11 @@ const projects = [
     description:
       "While learning JavaScript, I discovered that I could build simple games with it—so I created this project. It's a basic game developed using JavaScript, and I really enjoyed working on it during the early stages of my learning journey.",
     tags: ["HTML", "CSS", "Javascript"],
-    imageUrl:
-      "https://remptongames.com/wp-content/uploads/2024/08/rock-paper-scissors-1.png?w=1200",
+    imageUrl: rps,
     link: "https://yansokchan.github.io/RPS/rock-paper-scissors.html",
     github: "https://github.com/yansokchan/RPS",
     public: true,
   },
-];
-
-const features = [
-  "Password protection, No action in 3 minutes login again",
-  "Manage Employees,Customers,Products ,and Orders",
-  "CRUD operation",
-  "Tracking revenue per day, week and month",
 ];
 
 const ProjectDetail = () => {
@@ -226,19 +220,6 @@ const ProjectDetail = () => {
                 className="rounded-2xl shadow-lg max-w-xs md:max-w-md w-full object-cover "
               />
             </div>
-            {/* Key Features */}
-            {project.id === 2 && (
-              <div className="bg-gradient-to-br from-cosmic-cyan/10 to-cosmic-purple/10 border border-[#23243a] rounded-2xl p-8 shadow-lg w-full">
-                <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
-                  <span className="text-yellow-400">★</span> Key Features
-                </h2>
-                <ul className="list-disc pl-6 text-gray-200 space-y-2">
-                  {features.map((feature, i) => (
-                    <li key={i}>{feature}</li>
-                  ))}
-                </ul>
-              </div>
-            )}
           </div>
         </div>
       </div>

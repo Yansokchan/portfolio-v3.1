@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CodeXml, Github, Globe, User } from "lucide-react";
+import { ShootingStars } from "./ui/shooting-stars";
 import { CanvasRevealEffect } from "./ui/CanvasRevealEffect";
 import Astronaut from "./ui/Astronaut";
 import PlayButton from "./ui/PlayButton";
@@ -19,7 +20,7 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
       // Total approx 3s. Buffer to 3.5s for smoothness before zooming out.
       const exitTimer = setTimeout(() => {
         setShouldUnmount(true);
-      }, 2500);
+      }, 1500);
       return () => clearTimeout(exitTimer);
     }
   }, [isExiting]);
@@ -33,9 +34,9 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
   // 6. Astro Duration: 2s (Slower flight) -> Ends at 6.5s
   // 7. Button Delay: 7.0s (Astro end + 0.5s)
 
-  const moonDelay = 1.0;
-  const astronautDelay = 3.5;
-  const buttonDelay = 1.5;
+  const moonDelay = 0;
+  const astronautDelay = 2;
+  const buttonDelay = 2;
 
   const slideLeftVariant = {
     hidden: { x: -100, opacity: 0 },
@@ -99,6 +100,7 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
               ]}
               dotSize={2}
             />
+            <ShootingStars />
           </div>
 
           <motion.div

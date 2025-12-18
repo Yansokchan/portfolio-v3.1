@@ -5,18 +5,6 @@ import "aos/dist/aos.css";
 import { ContainerTextFlip } from "./ui/container-text-flip";
 import ProfileCard from "./ui/ProfileCard";
 
-const floatingAnimation = {
-  initial: { y: 0 },
-  animate: {
-    y: [-20, 20, -20],
-    transition: {
-      duration: 8,
-      repeat: Infinity,
-      ease: "easeInOut",
-    },
-  },
-};
-
 const Hero = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [imageHovered, setImageHovered] = useState(false);
@@ -50,8 +38,9 @@ const Hero = () => {
       <div className="flex flex-col lg:flex-row items-center justify-center min-h-screen w-full">
         {/* Left Side - Text Effect and Content */}
 
-        <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start justify-center gap-20">
+        <div className="w-full mt-10 lg:w-1/2 flex flex-col items-center lg:items-start justify-center gap-20">
           {/* GIF Image for Mobile */}
+
           <div className="lg:hidden flex flex-col items-center justify-center gap-5">
             <ProfileCard />
           </div>

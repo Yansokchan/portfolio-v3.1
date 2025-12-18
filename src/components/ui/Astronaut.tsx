@@ -48,11 +48,6 @@ const Astronaut = ({
           {/* Inner Image with CSS Infinite Float */}
           <img src={astronaut} alt="astronaut" className="image" />
         </motion.div>
-
-        {/* Shooting Stars */}
-        <div className="star star-1" />
-        <div className="star star-2" />
-        <div className="star star-3" />
       </div>
     </StyledWrapper>
   );
@@ -87,55 +82,6 @@ const StyledWrapper = styled.div`
     z-index: 2;
   }
 
-  /* Shooting Stars */
-  .star {
-    position: absolute;
-    rotate: -45deg;
-    width: 5em;
-    height: 1px;
-    background: linear-gradient(90deg, #ffffff, transparent);
-    animation: 4s shootingStar infinite;
-    z-index: 1;
-  }
-
-  .star-1 {
-    top: -15%;
-    left: 100%;
-    animation-delay: 2s;
-  }
-
-  .star-2 {
-    top: -20%;
-    left: 130%;
-    animation-delay: 5s;
-    width: 7em;
-  }
-
-  .star-3 {
-    top: -50%;
-    left: 150%;
-    animation-delay: 8s;
-    width: 4em;
-  }
-
-  @keyframes shootingStar {
-    0% {
-      transform: translateX(0) translateY(0);
-      opacity: 1;
-    }
-    50% {
-      transform: translateX(-55em) translateY(0);
-      opacity: 1;
-    }
-    70% {
-      transform: translateX(-70em) translateY(0);
-      opacity: 0;
-    }
-    100% {
-      transform: translateX(0) translateY(0);
-      opacity: 0;
-    }
-  }
   @keyframes move {
     0% {
       transform: translateX(0em) translateY(0em);

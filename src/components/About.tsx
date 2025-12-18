@@ -18,56 +18,6 @@ interface StatCardProps {
   icon: React.ElementType;
 }
 
-const StatCard = (props: StatCardProps) => {
-  return (
-    <div className="w-full">
-      <GlareCard className="365:px-5 420:pt-4 510:p-9 sm:p-3 sm:pt-[10px] md:pt-5 md:px-6 p-4 lg:pt-3">
-        <div className="h-full flex flex-col justify-between">
-          <div className="flex justify-between items-center">
-            <div
-              data-aos="fade-right"
-              data-aos-duration="800"
-              data-aos-delay="200"
-              className="xl:w-16 xl:h-16 sm:w-12 sm:h-12 420:w-16 420:h-16 320:w-12 320:h-12 w-10 h-10 rounded-full p-3 bg-gradient-to-r from-cosmic-cyan/30 to-cosmic-purple/30 flex items-center justify-center"
-            >
-              <props.icon className="420:w-10 420:h-10 320:w-8 320:h-8 w-6 h-6 text-cosmic-cyan" />
-            </div>
-            <span
-              data-aos="fade-left"
-              data-aos-duration="800"
-              data-aos-delay="200"
-              className="420:text-5xl sm:text-4xl 320:text-3xl font-bold text-gradient"
-            >
-              {props.number}
-            </span>
-          </div>
-
-          <div className="sm:mb-2 md:mb-1 sm:mt-2">
-            <p
-              data-aos="fade-up"
-              data-aos-duration="800"
-              data-aos-delay="200"
-              className="510:text-2xl 420:text-xl 320:text-[16px] sm:text-[18px] lg:text-[16px] text-xs text-cosmic-cyan uppercase tracking-wider mb-2 sm:-mb-2 lg:mb-0"
-            >
-              {props.title}
-            </p>
-            <div className="flex items-center justify-between">
-              <p
-                data-aos="fade-up"
-                data-aos-duration="800"
-                data-aos-delay="200"
-                className="510:text-xl 420:text-[16px] 320:text-[14px] sm:text-[14px] lg:text-[14px] text-xs text-gray-500"
-              >
-                {props.subtitle}
-              </p>
-            </div>
-          </div>
-        </div>
-      </GlareCard>
-    </div>
-  );
-};
-
 const About = () => {
   const monthsSinceStartOf2024 = (() => {
     const start = new Date("2023-10-01T00:00:00");
@@ -78,39 +28,20 @@ const About = () => {
     if (months < 0) months = 0;
     return months.toString();
   })();
-  const [items] = useState([
-    {
-      id: "card-1",
-      number: "8",
-      title: "TOTAL PROJECTS",
-      subtitle: "Innovative web solutions crafted",
-      icon: Code2,
-    },
-    {
-      id: "card-2",
-      number: `${monthsSinceStartOf2024} + `,
-      title: "MONTHS EXPERIENCE",
-      subtitle: "Frontend & Backend Development",
-      icon: Briefcase,
-    },
-    {
-      id: "card-3",
-      number: "1",
-      title: "CERTIFICATES",
-      subtitle: "Completed the Secondary School",
-      icon: GraduationCap,
-    },
-  ]);
 
   const timelineData = [
     {
       title: "2024 - Present",
       content: (
         <div>
-          <h4 className="text-2xl font-bold text-cosmic-cyan mb-2">
+          <h4
+            data-aos="fade-left"
+            className="text-2xl font-bold text-cosmic-cyan mb-2"
+          >
             Pre-Sales Network & Security Engineer
           </h4>
-          <p className="text-gray-300 mb-4">
+
+          <p data-aos="fade-left" className="text-gray-300 mb-4">
             Specializing in designing and presenting enterprise security
             solutions from leading vendors like Palo Alto Networks, Cisco, and
             Fortinet. Handling end-to-end network and security solutions
@@ -125,6 +56,8 @@ const About = () => {
               "Fortinet",
             ].map((skill) => (
               <span
+                data-aos="fade-up"
+                data-aos-delay="200"
                 key={skill}
                 className="px-3 py-1 rounded-full bg-cosmic-purple/20 text-cosmic-cyan text-sm"
               >
@@ -139,10 +72,13 @@ const About = () => {
       title: "Web Development",
       content: (
         <div>
-          <h4 className="text-2xl font-bold text-cosmic-cyan mb-2">
+          <h4
+            data-aos="fade-left"
+            className="text-2xl font-bold text-cosmic-cyan mb-2"
+          >
             Full Stack Passion
           </h4>
-          <p className="text-gray-300 mb-4">
+          <p data-aos="fade-left" className="text-gray-300 mb-4">
             Before I moved into network security, I enjoy building modern
             applications using React, Next.js, and various database
             technologies. Creating applications that not only look great but
@@ -158,6 +94,8 @@ const About = () => {
               "Supabase",
             ].map((skill) => (
               <span
+                data-aos="fade-up"
+                data-aos-delay="200"
                 key={skill}
                 className="px-3 py-1 rounded-full bg-cosmic-purple/20 text-cosmic-cyan text-sm"
               >
@@ -172,10 +110,13 @@ const About = () => {
       title: "2023 - Present",
       content: (
         <div>
-          <h4 className="text-2xl font-bold text-cosmic-cyan mb-2">
+          <h4
+            data-aos="fade-left"
+            className="text-2xl font-bold text-cosmic-cyan mb-2"
+          >
             Computer Science Student
           </h4>
-          <p className="text-gray-300 mb-4">
+          <p data-aos="fade-left" className="text-gray-300 mb-4">
             After completing secondary school, I moved to Phnom Penh to continue
             my university studies. I’m currently in my third year at the Royal
             University of Phnom Penh (RUPP) and am passionate about bridging the
@@ -286,7 +227,9 @@ const About = () => {
                 My Skills
               </h3>
 
-              <TechStackBeam />
+              <div data-aos="fade-left">
+                <TechStackBeam />
+              </div>
             </div>
 
             <div className="space-y-4">
@@ -313,7 +256,7 @@ const About = () => {
 
         {/* Timeline Section */}
         <div className="relative w-full mt-40 overflow-clip">
-          <div>
+          <div data-aos="fade-right">
             <ShinyText
               text="Changelog from my journey"
               disabled={false}

@@ -3,7 +3,10 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { Link } from "react-router-dom";
 import { ArrowRight, ExternalLink, ArrowDown, ArrowUp } from "lucide-react";
-
+import nextGen from "../assets/next-gen.webp";
+import devTracker from "../assets/devtracker.png";
+import ecom from "../assets/ecom.png";
+import rps from "../assets/rps.webp";
 const styles = `
 @keyframes ruler {
   from { width: 0%; }
@@ -53,10 +56,9 @@ const projects: Project[] = [
     id: 1,
     title: "Next-Gen",
     description:
-      "Management System for a company using Next.js, Tailwind CSS, Node.js, Supabase, and Cursor. Please use the password: Pa$$w0rd to login.",
+      "Management System for a company using React.js, Tailwind CSS, Node.js, Supabase, and Cursor. Please use the password: Pa$$w0rd to login.",
     tags: ["React.js", "Tailwind CSS", "Shadcn UI", "Supabase", "Cursor"],
-    imageUrl:
-      "https://www.peanutsquare.com/wp-content/uploads/2023/04/React.js-CRUD-application-jpg.webp",
+    imageUrl: nextGen,
     link: "https://next-gen-e4.vercel.app/",
   },
   {
@@ -65,8 +67,7 @@ const projects: Project[] = [
     description:
       "DevTracker PRO is a modern tracking tool that allows you to track your daily task with modern AI features.",
     tags: ["React.js", "Tailwind CSS", "Shadcn UI", "Supabase", "Cursor"],
-    imageUrl:
-      "https://images.pexels.com/photos/6963017/pexels-photo-6963017.jpeg?cs=srgb&dl=pexels-mikhail-nilov-6963017.jpg&fm=jpg",
+    imageUrl: devTracker,
     link: "https://sokchan-calculator.vercel.app/",
   },
   {
@@ -74,7 +75,7 @@ const projects: Project[] = [
     title: "E-Commerce Platform",
     description: "Static E-commerce solution with HTML, CSS and JAVASCRIPT.",
     tags: ["HTML", "CSS", "JavaScript", "AOS"],
-    imageUrl: "https://sokchan-info-v3.vercel.app/assets/ecom-Bd2l15qF.png",
+    imageUrl: ecom,
     link: "https://yansokchan.github.io/semicolon/home.html",
   },
   {
@@ -82,8 +83,7 @@ const projects: Project[] = [
     title: "Rock Paper Scissor",
     description: "Rock Paper Scissor game using HTML, CSS and JAVASCRIPT.",
     tags: ["HTML", "CSS", "Javascript"],
-    imageUrl:
-      "https://remptongames.com/wp-content/uploads/2024/08/rock-paper-scissors-1.png?w=1200",
+    imageUrl: rps,
     link: "https://yansokchan.github.io/RPS/rock-paper-scissors.html",
   },
 ];
