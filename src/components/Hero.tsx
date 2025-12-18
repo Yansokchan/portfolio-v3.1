@@ -45,7 +45,7 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="section min-h-screen !px-[25px] md:!px-8 -mt-52 lg:-mt-44 relative overflow-hidden scale-90"
+      className="section min-h-screen !px-[25px] md:!px-8 -mt-52 lg:-mt-44 relative overflow-hidden"
     >
       <div className="flex flex-col lg:flex-row items-center justify-center min-h-screen w-full">
         {/* Left Side - Text Effect and Content */}

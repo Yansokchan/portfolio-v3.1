@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import { Github, Linkedin, Instagram, Mail } from "lucide-react";
-import pf1 from "../../assets/pf1.jpeg";
+import pf1 from "../../assets/pfnobg.png";
 import CreditsButton from "../CreditsButton";
 
 const ProfileCard = () => {
   return (
     <StyledWrapper>
-      <div className="card scale-125">
+      <div className="card scale-110">
         <div className="profile-pic hover:border-white/50 transition-all duration-300 border-2 border-white">
           <img src={pf1} alt="Profile" />
         </div>
@@ -15,7 +15,8 @@ const ProfileCard = () => {
           <div className="content text-start">
             <span className="name">Sokchan Yan</span>
             <span className="about-me">
-              A third-year student in Computer Science at RUPP.
+              A third-year student in Computer Science at Royal University of
+              Phnom Penh.
             </span>
           </div>
           <div className="bottom-bottom">
@@ -160,16 +161,19 @@ const StyledWrapper = styled.div`
     top: 10px;
     left: 10px;
     border-radius: 50%;
-    z-index: 3;
-    border: 5px solid #fbb9b6;
+    background-image: radial-gradient(
+      circle farthest-corner at 6.3% 21.8%,
+      rgba(236, 6, 117, 1) 0%,
+      rgba(13, 32, 67, 1) 90%
+    );
+    z-index: 10;
+    border: 4px solid #fbb9b6;
     box-shadow: rgba(96, 75, 74, 0.1882352941) 0px 5px 5px 0px;
     transition: all 0.5s ease-in-out, z-index 0.5s ease-in-out 0.1s;
   }
 
   .card:hover .profile-pic img {
-    transform: scale(2.5);
-    -o-object-position: 0px 25px;
-    object-position: 0px 25px;
+    transform: scale(1.3);
     transition: all 0.5s ease-in-out 0.5s;
   }
 `;

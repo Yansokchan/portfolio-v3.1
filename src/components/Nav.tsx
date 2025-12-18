@@ -3,7 +3,7 @@ import { Button } from "./ui/button";
 
 const Nav = () => {
   return (
-    <header className="fixed inset-x-0 top-0 z-[100] scale-90">
+    <header className="fixed inset-x-0 top-0 z-[100]">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <nav
           aria-label="Primary"

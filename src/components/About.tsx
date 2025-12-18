@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import pf1 from "../assets/pf1.jpeg";
+import pf1 from "../assets/pf1.png";
 import { GlareCard } from "./ui/glare-card";
 import { Code2, GraduationCap, Briefcase } from "lucide-react";
 import { Timeline } from "./ui/timeline";
@@ -196,7 +196,7 @@ const About = () => {
   }, []);
 
   return (
-    <section id="about" className="section !px-[25px] md:!px-8 scale-90">
+    <section id="about" className="section !px-[25px] md:!px-8">
       <div className="max-w-7xl mx-auto relative z-[1]">
         <div className="text-center mb-16">
           <h2
@@ -307,31 +307,6 @@ const About = () => {
                 also deliver secure, reliable, and meaningful solutions to
                 real-world problems.
               </p>
-            </div>
-            <div className="flex items-center justify-start max-w-full h-full bg-cover bg-center bg-no-repeat rounded-md">
-              <div className="max-w-full bg-black/20 backdrop-blur-sm border border-white/50 rounded-3xl shadow-[inset_0_1px_0px_rgba(255,255,255,0.75),0_0_9px_rgba(0,0,0,0.2),0_3px_8px_rgba(0,0,0,0.15)] p-4 text-white relative before:absolute before:inset-0 before:rounded-3xl before:bg-gradient-to-br before:from-white/60 before:via-transparent before:to-transparent before:opacity-70 before:pointer-events-none after:absolute after:inset-0 after:rounded-3xl after:bg-gradient-to-tl after:from-white/30 before:via-transparent before:to-transparent before:opacity-50 after:pointer-events-none">
-                <div className="relative z-10">
-                  <div className="flex items-start gap-3">
-                    <img
-                      src="https://images.unsplash.com/photo-1539614474468-f423a2d2270c?w=400&h=400&fit=crop&crop=face&auto=format"
-                      alt="Friend avatar"
-                      className="w-10 h-10 rounded-full flex-shrink-0 ring-2 ring-white/20"
-                    />
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center justify-between mb-1">
-                        <h4 className="text-sm font-medium truncate">
-                          Sokchan Yan
-                        </h4>
-                        <span className="text-xs opacity-70">Today</span>
-                      </div>
-                      <p className="text-sm opacity-90 ">
-                        Hey! Leverage the AI as a professional tool, not a
-                        replacement.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>

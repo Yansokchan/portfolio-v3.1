@@ -323,7 +323,7 @@ const Contact = () => {
   return (
     <section
       id="contact"
-      className="section !px-[25px] md:!px-8 scale-90"
+      className="section !px-[25px] md:!px-8"
       ref={sectionRef}
     >
       <div className="max-w-7xl mx-auto">

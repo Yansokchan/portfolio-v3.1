@@ -8,7 +8,6 @@ import NotFound from "./pages/NotFound";
 import ProjectDetail from "./pages/ProjectDetail";
 import SplashScreen from "./components/SplashScreen";
 import { useState } from "react";
-import Ribbons from "./components/Ribbons";
 
 const queryClient = new QueryClient();
 

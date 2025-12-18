@@ -11,23 +11,31 @@ interface SplashScreenProps {
 
 const SplashScreen = ({ onComplete }: SplashScreenProps) => {
   const [isExiting, setIsExiting] = useState(false);
-
-  /* useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsExiting(true);
-    }, 3500); // Start exit animation at 3.5s
-
-    return () => clearTimeout(timer);
-  }, []); */
+  const [shouldUnmount, setShouldUnmount] = useState(false);
 
   useEffect(() => {
     if (isExiting) {
+      // Wait for internal exit sequence (Button -> Astro 2s -> Moon 1s)
+      // Total approx 3s. Buffer to 3.5s for smoothness before zooming out.
       const exitTimer = setTimeout(() => {
-        onComplete();
-      }, 1000); // Wait for exit animation to complete (1s)
+        setShouldUnmount(true);
+      }, 2500);
       return () => clearTimeout(exitTimer);
     }
-  }, [isExiting, onComplete]);
+  }, [isExiting]);
+
+  // Entrance Timings (cumulative):
+  // 1. Text starts: ~0.5s (staggered)
+  // 2. Text ends: ~2.5s
+  // 3. Moon Delay: 3.0s (Text end + 0.5s)
+  // 4. Moon Duration: 1s -> Ends at 4.0s
+  // 5. Astronaut Delay: 4.5s (Moon end + 0.5s)
+  // 6. Astro Duration: 2s (Slower flight) -> Ends at 6.5s
+  // 7. Button Delay: 7.0s (Astro end + 0.5s)
+
+  const moonDelay = 1.0;
+  const astronautDelay = 3.5;
+  const buttonDelay = 1.5;
 
   const slideLeftVariant = {
     hidden: { x: -100, opacity: 0 },
@@ -43,7 +51,7 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
     exit: {
       x: -100,
       opacity: 0,
-      transition: { duration: 0.5, ease: "easeIn" },
+      transition: { duration: 0.5, delay: 0 }, // Text exits after moon starts going up
     },
   };
 
@@ -61,13 +69,13 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
     exit: {
       y: 60,
       opacity: 0,
-      transition: { duration: 0.5, ease: "easeIn" },
+      transition: { duration: 0.5, delay: 0 }, // Text exits after moon starts going up
     },
   };
 
   return (
-    <AnimatePresence>
-      {!isExiting ? (
+    <AnimatePresence onExitComplete={onComplete}>
+      {!shouldUnmount && (
         <motion.div
           key="splash"
           initial={{ opacity: 0 }}
@@ -99,11 +107,14 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
             className="absolute top-10 right-0 z-20 transform -translate-x-1/2 md:top-10 md:right-10 lg:right-20"
           >
             <div className="scale-[0.8] md:scale-[0.9] lg:scale-100">
-              <Astronaut />
+              <Astronaut
+                moonDelay={moonDelay}
+                astronautDelay={astronautDelay}
+                isExiting={isExiting}
+              />
             </div>
           </motion.div>
 
-          {/* Centered content removed */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -123,7 +134,7 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
                     custom={i}
                     variants={slideLeftVariant}
                     initial="hidden"
-                    animate="visible"
+                    animate={isExiting ? "exit" : "visible"}
                   >
                     {word}
                   </motion.span>
@@ -132,13 +143,13 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
 
               {/* Line 2: Portfolio Website */}
               <div className="flex flex-wrap justify-center gap-x-3 gap-y-1 text-3xl md:text-5xl font-bold">
-                {["Portfolio", "Website"].map((word, i) => (
+                {["Space"].map((word, i) => (
                   <motion.span
                     key={word}
                     custom={i}
                     variants={slideUpVariant}
                     initial="hidden"
-                    animate="visible"
+                    animate={isExiting ? "exit" : "visible"}
                     className="bg-clip-text text-gradient"
                   >
                     {word}
@@ -149,9 +160,15 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
 
             {/* Play Button Section */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 2.5, duration: 0.8 }}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{
+                opacity: isExiting ? 0 : 1,
+                y: isExiting ? 30 : 0,
+              }}
+              transition={{
+                delay: isExiting ? 0 : buttonDelay, // Exit immediately
+                duration: 1,
+              }}
               className="flex flex-col items-center justify-center gap-4 mt-12"
             >
               <p className="text-white/80 text-sm text-center font-light tracking-wide">
@@ -166,7 +183,7 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
             </motion.div>
           </motion.div>
         </motion.div>
-      ) : null}
+      )}
     </AnimatePresence>
   );
 };
