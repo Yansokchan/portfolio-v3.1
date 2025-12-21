@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import Likes from "./ui/Likes";
 
 const Footer = () => {
   const year = new Date().getFullYear();
@@ -14,10 +15,6 @@ const Footer = () => {
             >
               Portfolio<span className="text-cosmic-purple">.</span>
             </a>
-          </div>
-
-          <div className="text-gray-400 text-sm">
-            © {year} All rights reserved.
           </div>
 
           <div className="flex space-x-4 mt-4 md:mt-0">
@@ -44,7 +41,7 @@ const Footer = () => {
 
             <motion.a
               target="_blank"
-              href="https://www.instagram.com/ouknhachan/?igsh=cXoyenZrd2hhdnI4"
+              href="https://www.instagram.com/lichantong/#"
               whileHover={{ y: -3 }}
               className="text-gray-400 hover:text-cosmic-cyan transition-colors"
             >
@@ -87,6 +84,17 @@ const Footer = () => {
                 <circle cx="4" cy="4" r="2" />
               </svg>
             </motion.a>
+          </div>
+        </div>
+        <div className="flex flex-col md:flex-row items-center justify-between  gap-4 mt-5">
+          <div className="text-gray-400 text-sm">
+            © {year} All rights reserved.
+          </div>
+          <div className="flex items-center gap-2">
+            <p className="text-gray-400 text-sm">
+              A like tells me you’ve arrived
+            </p>
+            <Likes />
           </div>
         </div>
       </div>

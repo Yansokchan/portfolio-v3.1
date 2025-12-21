@@ -35,10 +35,14 @@ const Hero = () => {
       id="home"
       className="section min-h-screen !px-[25px] md:!px-8 -mt-52 lg:-mt-44 relative overflow-hidden"
     >
-      <div className="flex flex-col lg:flex-row items-center justify-center min-h-screen w-full">
+      <div className="flex flex-col lg:flex-row items-center justify-center min-h-screen lg:gap-24 xl:gap-28">
         {/* Left Side - Text Effect and Content */}
 
-        <div className="w-full mt-10 lg:w-1/2 flex flex-col items-center lg:items-start justify-center gap-20">
+        <div className="hidden lg:flex lg:w-1/2 mb-5 pr-10 flex-col items-end justify-center p-4 gap-10">
+          <ProfileCard />
+        </div>
+
+        <div className="mt-14 lg:w-1/2 flex flex-col items-center lg:items-start justify-center gap-20">
           {/* GIF Image for Mobile */}
 
           <div className="lg:hidden flex flex-col items-center justify-center gap-5">
@@ -46,7 +50,7 @@ const Hero = () => {
           </div>
 
           {/* Content Container */}
-          <div className="max-w-lg ml-0 lg:mb-0 lg:ml-[50px] text-center lg:text-left">
+          <div className="max-w-lg ml-0 lg:mb-0 text-center lg:text-left w-full">
             <div data-aos="fade-up">
               <span className="text-xl text-cosmic-cyan font-medium">
                 Hello there, I'm
@@ -92,10 +96,6 @@ const Hero = () => {
               with cutting-edge solutions.
             </motion.p>
           </div>
-        </div>
-
-        <div className="hidden lg:flex w-full lg:w-1/2 flex-col items-center justify-center p-4 gap-10 relative">
-          <ProfileCard />
         </div>
       </div>
     </section>

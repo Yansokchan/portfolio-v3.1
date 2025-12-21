@@ -5,6 +5,7 @@ import pf1 from "../../assets/pfnobg.png";
 import CreditsButton from "../CreditsButton";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { motion } from "framer-motion";
 const ProfileCard = () => {
   useEffect(() => {
     AOS.init({
@@ -16,6 +17,13 @@ const ProfileCard = () => {
   }, []);
   return (
     <StyledWrapper>
+      <motion.div
+        className="absolute left-1/2 top-1/3 lg:left-1/3 lg:top-1/2  h-80 w-80 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-r from-cyan-500/30 to-purple-500/30 blur-[80px]"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 2 }}
+      />
+
       <div data-aos="zoom-out-down">
         <div className="card scale-110">
           <div className="profile-pic hover:border-white/50 transition-all duration-300 border-2 border-white">
@@ -31,13 +39,25 @@ const ProfileCard = () => {
             </div>
             <div className="bottom-bottom">
               <div className="social-links-container">
-                <a href="#" aria-label="Github">
+                <a
+                  target="_blank"
+                  href="https://github.com/Yansokchan"
+                  aria-label="Github"
+                >
                   <Github className="icon" />
                 </a>
-                <a href="#" aria-label="Linkedin">
+                <a
+                  target="_blank"
+                  href="https://www.linkedin.com/in/sokchan-yan-74277b335?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+                  aria-label="Linkedin"
+                >
                   <Linkedin className="icon" />
                 </a>
-                <a href="#" aria-label="Instagram">
+                <a
+                  target="_blank"
+                  href="https://www.instagram.com/lichantong/#"
+                  aria-label="Instagram"
+                >
                   <Instagram className="icon" />
                 </a>
               </div>

@@ -1,15 +1,33 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import pf1 from "../assets/pf1.png";
-import { GlareCard } from "./ui/glare-card";
-import { Code2, GraduationCap, Briefcase } from "lucide-react";
 import { Timeline } from "./ui/timeline";
-
 import ScrollVelocity from "./ui/ScrollVelocity";
 import ShinyText from "./ShinyText";
 import { TechStackBeam } from "./TechStackBeam";
 
+import { Bug, BugOff } from "lucide-react";
+import useScreenSize from "../hooks/use-screen-size";
+import BoxCarousel, {
+  type BoxCarouselRef,
+  type CarouselItem,
+} from "@/components/fancy/carousel/box-carousel";
+
+import Meno from "../assets/Certificates/Meno.jpg";
+import FortiNet1 from "../assets/Certificates/Fortinet Certified Fundamentals in Cybersecurity_page-0001.jpg";
+import FortiNet2 from "../assets/Certificates/Fortinet Certified Associate in Cybersecurity (1)_page-0001.jpg";
+import BBC1 from "../assets/Certificates/Black Belt AI - Ready Infrastructure Presales.png";
+import BBC2 from "../assets/Certificates/Black Belt AI Fundamentals PreSales.png";
+import BBC3 from "../assets/Certificates/Black Belt Cisco Future Proofed Workplaces Presales Stage 1 FY24.png";
+import BBC4 from "../assets/Certificates/Black Belt Cisco Future Proofed Workplaces Presales Stage 2 FY24.png";
+import BBC5 from "../assets/Certificates/Black Belt Cisco Spaces Presales Stage 1.png";
+import BBC6 from "../assets/Certificates/Black Belt Cisco Spaces Presales Stage 2.png";
+import BBC7 from "../assets/Certificates/Black Belt Cisco Spaces Presales Stage 3.png";
+import BBC8 from "../assets/Certificates/Black Belt Secure Network Management Presales.png";
+import CCNA from "../assets/Certificates/CCNA-_Introduction_to_Networks_certificate_sokchannotpro05-gmail-com_9b662dd6-68a3-4fc0-9176-bfaf70859377_page-0001.jpg";
+import IoT from "../assets/Certificates/Introduction_to_IoT_certificate_sokchannotpro05-gmail-com_dabed586-77e7-44e9-b987-7ce928620a06_page-0001.jpg";
+import CertiButton from "./ui/CertiButton";
 interface StatCardProps {
   id: string;
   number: string;
@@ -17,6 +35,95 @@ interface StatCardProps {
   subtitle: string;
   icon: React.ElementType;
 }
+
+const carouselItems: CarouselItem[] = [
+  {
+    id: "1",
+    type: "image",
+    src: CCNA,
+    alt: "CCNA",
+  },
+  {
+    id: "2",
+    type: "image",
+    src: IoT,
+    alt: "IoT",
+  },
+  {
+    id: "3",
+    type: "image",
+    src: FortiNet1,
+    alt: "FortiNet1",
+  },
+
+  {
+    id: "4",
+    type: "image",
+    src: FortiNet2,
+    alt: "FortiNet2",
+  },
+
+  {
+    id: "5",
+    type: "image",
+    src: Meno,
+    alt: "Meno",
+  },
+  {
+    id: "6",
+    type: "image",
+    src: BBC1,
+    alt: "BBC1",
+  },
+  {
+    id: "7",
+    type: "image",
+    src: BBC1,
+    alt: "BBC1",
+  },
+  {
+    id: "8",
+    type: "image",
+    src: BBC2,
+    alt: "BBC2",
+  },
+  {
+    id: "9",
+    type: "image",
+    src: BBC3,
+    alt: "BBC3",
+  },
+  {
+    id: "10",
+    type: "image",
+    src: BBC4,
+    alt: "BBC4",
+  },
+  {
+    id: "11",
+    type: "image",
+    src: BBC5,
+    alt: "BBC5",
+  },
+  {
+    id: "12",
+    type: "image",
+    src: BBC6,
+    alt: "BBC6",
+  },
+  {
+    id: "13",
+    type: "image",
+    src: BBC7,
+    alt: "BBC7",
+  },
+  {
+    id: "14",
+    type: "image",
+    src: BBC8,
+    alt: "BBC8",
+  },
+];
 
 const About = () => {
   const monthsSinceStartOf2024 = (() => {
@@ -127,14 +234,38 @@ const About = () => {
     },
   ];
 
-  useEffect(() => {
-    AOS.init({
-      duration: 800,
-      easing: "ease-out",
-      once: true,
-      offset: 100,
-    });
-  }, []);
+  const carouselRef = useRef<BoxCarouselRef>(null);
+  const [debug, setDebug] = useState(false);
+  const screenSize = useScreenSize();
+
+  // Responsive dimensions based on screen size
+  const getCarouselDimensions = () => {
+    if (screenSize.lessThan("sm")) {
+      return { width: 305, height: 210 };
+    }
+    if (screenSize.lessThan("md")) {
+      return { width: 420, height: 305 };
+    }
+    return { width: 450, height: 320 };
+  };
+
+  const { width, height } = getCarouselDimensions();
+
+  const handleNext = () => {
+    carouselRef.current?.next();
+  };
+
+  const handlePrev = () => {
+    carouselRef.current?.prev();
+  };
+
+  const handleIndexChange = (index: number) => {
+    console.log("Index changed:", index);
+  };
+
+  const toggleDebug = () => {
+    setDebug(!debug);
+  };
 
   return (
     <section id="about" className="section !px-[25px] md:!px-8">
@@ -180,7 +311,13 @@ const About = () => {
               </div>
             </div>
             <div className="mt-8">
-              <div data-aos="fade-up" data-aos-duration="800">
+              <div
+                data-aos="fade-up"
+                data-aos-duration="800"
+                className="flex flex-col "
+              >
+                {/* <CSSBoxHoverDemo /> */}
+
                 <ScrollVelocity
                   texts={["One Bro Many Dreams", "One Bro Many Dreams"]}
                   velocity={50}
@@ -270,6 +407,81 @@ const About = () => {
           </div>
 
           <Timeline data={timelineData} />
+        </div>
+        {/* Certifications Section */}
+        <div className="mt-40 flex flex-col md:flex-row justify-center items-center md:items-start gap-20 text-muted-foreground">
+          <div className="max-w-lg block md:hidden">
+            <div data-aos="fade-left">
+              {" "}
+              <ShinyText
+                data-aos="fade-left"
+                text="Certifications & Development"
+                disabled={false}
+                speed={5}
+                className="text-center text-3xl mb-4"
+              />{" "}
+            </div>
+
+            <p
+              data-aos="fade-up"
+              data-aos-delay="200"
+              className="mx-auto text-gray-300"
+            >
+              I have completed multiple professional certifications as part of
+              my continuous learning journey in networking and security.
+            </p>
+            <p
+              data-aos="fade-up"
+              data-aos-delay="300"
+              className="mx-auto text-gray-300 mt-4"
+            >
+              These achievements enhance my technical knowledge and presales
+              skills, allowing me to deliver effective and business-aligned
+              solutions.
+            </p>
+          </div>
+          <div>
+            <div data-aos="fade-right">
+              {" "}
+              <BoxCarousel
+                ref={carouselRef}
+                items={carouselItems}
+                width={width}
+                height={height}
+                direction="right"
+                onIndexChange={handleIndexChange}
+                debug={debug}
+                enableDrag
+                perspective={1000}
+                autoPlay
+                autoPlayInterval={5000}
+              />
+            </div>
+            <CertiButton onPrev={handlePrev} onNext={handleNext} />
+          </div>
+          <div className="max-w-lg hidden md:block">
+            <div data-aos="fade-left">
+              <ShinyText
+                text="Certifications & Development"
+                disabled={false}
+                speed={5}
+                className="text-center text-3xl mb-4"
+              />{" "}
+              <p data-aos="fade-left" className="mx-auto text-gray-300">
+                I have completed multiple professional certifications as part of
+                my continuous learning journey in networking and security.
+              </p>
+              <p
+                data-aos="fade-left"
+                data-aos-delay="300"
+                className="mx-auto text-gray-300 mt-4"
+              >
+                These achievements enhance my technical knowledge and presales
+                skills, allowing me to deliver effective and business-aligned
+                solutions.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>

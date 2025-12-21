@@ -68,7 +68,7 @@ const projects: Project[] = [
       "DevTracker PRO is a modern tracking tool that allows you to track your daily task with modern AI features.",
     tags: ["React.js", "Tailwind CSS", "Shadcn UI", "Supabase", "Cursor"],
     imageUrl: devTracker,
-    link: "https://sokchan-calculator.vercel.app/",
+    link: "https://devtrackerpro.vercel.app/",
   },
   {
     id: 3,

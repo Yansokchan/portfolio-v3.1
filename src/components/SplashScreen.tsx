@@ -44,7 +44,7 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
       x: 0,
       opacity: 1,
       transition: {
-        delay: i * 0.2 + 0.5,
+        delay: i * 0.2 + 1,
         duration: 0.9,
         ease: "easeOut",
       },
