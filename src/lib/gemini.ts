@@ -83,7 +83,7 @@ export async function sendMessageToGemini(
 
     // Use the new API format with gemini-2.0-flash-001
     const response = await genAI.models.generateContent({
-      model: "gemini-2.5-flash-lite",
+      model: "gemini-3-flash-preview",
       contents: fullPrompt,
       config: {
         systemInstruction: SYSTEM_PROMPT,

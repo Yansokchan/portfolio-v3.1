@@ -12,7 +12,8 @@ import {
   type ChatHistory,
 } from "@/lib/gemini";
 import Particles from "@/components/Particles";
-
+import { AuroraText } from "./ui/aurora-text";
+import astronaut from "../assets/astronaut.webp";
 interface Message {
   id: string;
   role: "user" | "assistant";
@@ -145,11 +146,12 @@ const AIChatbot: React.FC = () => {
       {/* Header */}
       <ExpandableChatHeader className="border-b border-white/10 relative z-10">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-cosmic-cyan to-cosmic-purple flex items-center justify-center">
-            <Bot className="h-5 w-5 text-white" />
-          </div>
+          <img className="w-10 rounded-full" src={astronaut} alt="astronaut" />
           <div>
-            <h3 className="font-semibold text-white">Ask About Sokchan</h3>
+            <AuroraText className="font-semibold text-white">
+              Ask About Sokchan
+            </AuroraText>
+
             <p className="text-xs text-gray-400">Powered by Gemini AI</p>
           </div>
         </div>
@@ -172,16 +174,18 @@ const AIChatbot: React.FC = () => {
               >
                 {/* Avatar */}
                 <div
-                  className={`w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center ${
-                    message.role === "user"
-                      ? "bg-cosmic-purple/50"
-                      : "bg-gradient-to-br from-cosmic-cyan/50 to-cosmic-purple/50"
+                  className={`w-8 h-8 mt-1 rounded-full flex-shrink-0 flex items-center justify-center ${
+                    message.role === "user" ? "bg-cosmic-purple/50" : ""
                   }`}
                 >
                   {message.role === "user" ? (
                     <User className="h-4 w-4 text-white" />
                   ) : (
-                    <Bot className="h-4 w-4 text-white" />
+                    <img
+                      className="w-8 rounded-full"
+                      src={astronaut}
+                      alt="astronaut"
+                    />
                   )}
                 </div>
 

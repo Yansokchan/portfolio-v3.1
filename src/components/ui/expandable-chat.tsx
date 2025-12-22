@@ -72,7 +72,7 @@ const ExpandableChat: React.FC<ExpandableChatProps> = ({
   return (
     <div
       className={cn(
-        `fixed ${chatConfig.positions[position]} z-50 flex flex-col items-end`,
+        `fixed ${chatConfig.positions[position]} z-50 flex flex-col items-end pointer-events-none`,
         className
       )}
       {...props}
@@ -92,7 +92,7 @@ const ExpandableChat: React.FC<ExpandableChatProps> = ({
         <Button
           variant="ghost"
           size="icon"
-          className="absolute top-2 right-2 z-50 bg-black/50 hover:bg-black/70 text-white"
+          className="absolute top-5 right-2 z-50 bg-black/50 hover:bg-black/70 text-white"
           onClick={toggleChat}
         >
           <X className="h-4 w-4" />
@@ -105,7 +105,7 @@ const ExpandableChat: React.FC<ExpandableChatProps> = ({
           className={`transition-all duration-300 ease-out ${
             isAtBottom
               ? "opacity-0 scale-0 pointer-events-none"
-              : "opacity-100 scale-100"
+              : "opacity-100 scale-100 pointer-events-auto"
           }`}
         >
           <ExpandableChatToggle
