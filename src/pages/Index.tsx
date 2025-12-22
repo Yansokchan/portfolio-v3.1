@@ -10,6 +10,7 @@ import Footer from "@/components/Footer";
 import ParticleBackground from "@/components/ParticleBackground";
 import { CanvasRevealEffect } from "@/components/ui/CanvasRevealEffect";
 import { ShootingStars } from "@/components/ui/shooting-stars";
+import AIChatbot from "@/components/AIChatbot";
 
 const Index = () => {
   return (
@@ -33,6 +34,9 @@ const Index = () => {
         <Contact />
         <Footer />
       </div>
+
+      {/* AI Chatbot */}
+      <AIChatbot />
     </div>
   );
 };

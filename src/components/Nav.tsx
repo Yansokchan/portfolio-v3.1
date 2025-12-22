@@ -147,6 +147,7 @@ const Nav = () => {
           {/* Right: CTA */}
           <div data-aos="fade-left" className="hidden md:flex items-center">
             <a
+              onClick={() => handleNavClick("#contact")}
               href="#contact"
               className="inline-flex items-center gap-1 text-gradient text-xl font-medium"
             >
