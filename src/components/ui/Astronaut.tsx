@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import astronaut from "../../assets/astronaut.png";
+import astronaut from "../../assets/astronaut.webp";
 
 interface AstronautProps {
   moonDelay?: number;

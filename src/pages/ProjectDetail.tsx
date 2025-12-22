@@ -2,9 +2,9 @@ import { useParams, useNavigate } from "react-router-dom";
 import { ArrowLeft, ExternalLink, Github as GithubIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Spotlight } from "../components/ui/spotlight-new";
-import devTracker from "../assets/devtracker.png";
+import devTracker from "../assets/devtracker.webp";
 import nextGen from "../assets/next-gen.webp";
-import ecom from "../assets/ecom.png";
+import ecom from "../assets/ecom.webp";
 import rps from "../assets/rps.webp";
 // You may want to move this to a shared location
 const projects = [

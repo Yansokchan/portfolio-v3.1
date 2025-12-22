@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import pf1 from "../assets/pf1.png";
+import pf1 from "../assets/pf1.webp";
 import { Timeline } from "./ui/timeline";
 import ScrollVelocity from "./ui/ScrollVelocity";
 import ShinyText from "./ShinyText";
@@ -14,19 +14,20 @@ import BoxCarousel, {
   type CarouselItem,
 } from "@/components/fancy/carousel/box-carousel";
 
-import Meno from "../assets/Certificates/Meno.jpg";
-import FortiNet1 from "../assets/Certificates/Fortinet Certified Fundamentals in Cybersecurity_page-0001.jpg";
-import FortiNet2 from "../assets/Certificates/Fortinet Certified Associate in Cybersecurity (1)_page-0001.jpg";
-import BBC1 from "../assets/Certificates/Black Belt AI - Ready Infrastructure Presales.png";
-import BBC2 from "../assets/Certificates/Black Belt AI Fundamentals PreSales.png";
-import BBC3 from "../assets/Certificates/Black Belt Cisco Future Proofed Workplaces Presales Stage 1 FY24.png";
-import BBC4 from "../assets/Certificates/Black Belt Cisco Future Proofed Workplaces Presales Stage 2 FY24.png";
-import BBC5 from "../assets/Certificates/Black Belt Cisco Spaces Presales Stage 1.png";
-import BBC6 from "../assets/Certificates/Black Belt Cisco Spaces Presales Stage 2.png";
-import BBC7 from "../assets/Certificates/Black Belt Cisco Spaces Presales Stage 3.png";
-import BBC8 from "../assets/Certificates/Black Belt Secure Network Management Presales.png";
-import CCNA from "../assets/Certificates/CCNA-_Introduction_to_Networks_certificate_sokchannotpro05-gmail-com_9b662dd6-68a3-4fc0-9176-bfaf70859377_page-0001.jpg";
-import IoT from "../assets/Certificates/Introduction_to_IoT_certificate_sokchannotpro05-gmail-com_dabed586-77e7-44e9-b987-7ce928620a06_page-0001.jpg";
+import Meno from "../assets/Certificates/Meno.webp";
+import FortiNet1 from "../assets/Certificates/Fortinet Certified Fundamentals in Cybersecurity_page-0001.webp";
+import FortiNet2 from "../assets/Certificates/Fortinet Certified Associate in Cybersecurity (1)_page-0001.webp";
+import BBC1 from "../assets/Certificates/Black Belt AI - Ready Infrastructure Presales.webp";
+import BBC2 from "../assets/Certificates/Black Belt AI Fundamentals PreSales.webp";
+import BBC3 from "../assets/Certificates/Black Belt Cisco Future Proofed Workplaces Presales Stage 1 FY24.webp";
+import BBC4 from "../assets/Certificates/Black Belt Cisco Future Proofed Workplaces Presales Stage 2 FY24.webp";
+import BBC5 from "../assets/Certificates/Black Belt Cisco Spaces Presales Stage 1.webp";
+import BBC6 from "../assets/Certificates/Black Belt Cisco Spaces Presales Stage 2.webp";
+import BBC7 from "../assets/Certificates/Black Belt Cisco Spaces Presales Stage 3.webp";
+import BBC8 from "../assets/Certificates/Black Belt Secure Network Management Presales.webp";
+import CCNA from "../assets/Certificates/CCNA-_Introduction_to_Networks_certificate_sokchannotpro05-gmail-com_9b662dd6-68a3-4fc0-9176-bfaf70859377_page-0001.webp";
+import IoT from "../assets/Certificates/Introduction_to_IoT_certificate_sokchannotpro05-gmail-com_dabed586-77e7-44e9-b987-7ce928620a06_page-0001.webp";
+import Trend from "../assets/Certificates/Positron Sokchan Yan_page-0001.webp";
 import CertiButton from "./ui/CertiButton";
 interface StatCardProps {
   id: string;
@@ -122,6 +123,12 @@ const carouselItems: CarouselItem[] = [
     type: "image",
     src: BBC8,
     alt: "BBC8",
+  },
+  {
+    id: "16",
+    type: "image",
+    src: Trend,
+    alt: "Trend",
   },
 ];
 
@@ -401,7 +408,7 @@ const About = () => {
               className="text-center text-3xl mb-4"
             />{" "}
             <p className="mx-auto text-gray-300">
-              I’ve been working in Pre-Sales for over one year. Below is a
+              I’ve been working in Pre-Sales for over a year. Below is a
               timeline of my journey.
             </p>
           </div>

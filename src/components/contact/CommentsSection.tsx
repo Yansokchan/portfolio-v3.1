@@ -4,7 +4,7 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/lib/supabaseClient";
 import { FaComment } from "react-icons/fa";
 import { TiPinOutline } from "react-icons/ti";
-import pf from "@/assets/pf1.png";
+import pf from "@/assets/pf1.webp";
 import CommentItem, { type Comment } from "./CommentItem";
 import { formatTimeAgo } from "@/lib/utils";
 import styles from "@/styles/Contact.module.css";

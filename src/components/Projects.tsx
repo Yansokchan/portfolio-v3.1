@@ -4,8 +4,8 @@ import "aos/dist/aos.css";
 import { Link } from "react-router-dom";
 import { ArrowRight, ExternalLink, ArrowDown, ArrowUp } from "lucide-react";
 import nextGen from "../assets/next-gen.webp";
-import devTracker from "../assets/devtracker.png";
-import ecom from "../assets/ecom.png";
+import devTracker from "../assets/devtracker.webp";
+import ecom from "../assets/ecom.webp";
 import rps from "../assets/rps.webp";
 const styles = `
 @keyframes ruler {

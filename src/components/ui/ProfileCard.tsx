@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Github, Linkedin, Instagram, Mail } from "lucide-react";
-import pf1 from "../../assets/pfnobg.png";
+import pf1 from "../../assets/pfnobg.webp";
 import CreditsButton from "../CreditsButton";
 import AOS from "aos";
 import "aos/dist/aos.css";

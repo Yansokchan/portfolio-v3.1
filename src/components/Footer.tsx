@@ -8,7 +8,7 @@ const Footer = () => {
     <footer className="py-10 relative z-10">
       <div className="max-w-7xl mx-auto px-6 md:px-8">
         <div className="flex flex-col md:flex-row justify-between items-center">
-          <div className="mb-4 md:mb-0">
+          <div>
             <a
               href="#"
               className="text-xl font-bold text-cosmic-cyan text-glow"

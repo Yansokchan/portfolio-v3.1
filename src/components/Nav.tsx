@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { AuroraText } from "./ui/aurora-text";
 
 const Nav = () => {
   const [activeTab, setActiveTab] = useState("home");
@@ -97,11 +98,10 @@ const Nav = () => {
         >
           {/* Left: availability pill */}
           <div data-aos="fade-right" className="hidden md:flex items-center">
-            <a
-              href="#"
-              className="text-[22px] font-bold text-cosmic-cyan text-glow"
-            >
-              SOKCHAN YAN<span className="text-cosmic-purple">.</span>
+            <a href="#" className="text-[22px] font-bold">
+              {" "}
+              <AuroraText>SOKCHAN</AuroraText>
+              <span className="text-white text-glow"> YAN.</span>
             </a>
           </div>
 
@@ -148,9 +148,9 @@ const Nav = () => {
           <div data-aos="fade-left" className="hidden md:flex items-center">
             <a
               href="#contact"
-              className="inline-flex items-center gap-1 text-gradient text-xl"
+              className="inline-flex items-center gap-1 text-gradient text-xl font-medium"
             >
-              Get in Touch
+              <AuroraText>Get in Touch</AuroraText>
             </a>
           </div>
         </nav>

@@ -160,8 +160,17 @@ export default {
               "0 0 10px rgba(77, 238, 234, 0.6), 0 0 20px rgba(77, 238, 234, 0.6)",
           },
         },
+        aurora: {
+          "0%, 100%": {
+            backgroundPosition: "0% 50%",
+          },
+          "50%": {
+            backgroundPosition: "100% 50%",
+          },
+        },
       },
       animation: {
+        aurora: "aurora 8s ease-in-out infinite",
         shine: "shine 5s linear infinite",
         "fall-from-top":
           "fall-from-top 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards",
