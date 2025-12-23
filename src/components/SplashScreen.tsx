@@ -246,7 +246,7 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
                 delay: isExiting ? 0 : buttonDelay, // Exit immediately
                 duration: 0.5,
               }}
-              className="flex flex-col items-center justify-center gap-4 mt-5"
+              className="flex flex-col items-center justify-center gap-4 mt-10"
             >
               <div className="relative z-40">
                 <PlayButton onClick={() => setIsExiting(true)} />

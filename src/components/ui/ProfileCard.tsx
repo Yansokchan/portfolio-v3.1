@@ -61,7 +61,21 @@ const ProfileCard = () => {
                   <Instagram className="icon" />
                 </a>
               </div>
-              <a className="button scale-75" href="#contact">
+              <a
+                href="#contact"
+                className="button scale-75 cursor-pointer"
+                onClick={(e) => {
+                  e.preventDefault();
+                  const event = new CustomEvent("nav-click", {
+                    detail: "#contact",
+                  });
+                  window.dispatchEvent(event);
+                  window.scrollTo({
+                    top: document.getElementById("contact")?.offsetTop,
+                    behavior: "smooth",
+                  });
+                }}
+              >
                 <CreditsButton text="Contact" />
               </a>
             </div>

@@ -42,8 +42,20 @@ const Nav = () => {
       }
     };
 
+    const handleCustomNavClick = (event: CustomEvent) => {
+      handleNavClick(event.detail);
+    };
+
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("nav-click", handleCustomNavClick as EventListener);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener(
+        "nav-click",
+        handleCustomNavClick as EventListener
+      );
+    };
   }, [isManual]);
 
   const handleNavClick = (link: string) => {
