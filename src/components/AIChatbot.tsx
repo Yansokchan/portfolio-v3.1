@@ -14,6 +14,7 @@ import {
 import Particles from "@/components/Particles";
 import { AuroraText } from "./ui/aurora-text";
 import astronaut from "../assets/astronaut.webp";
+import ReactMarkdown from "react-markdown";
 interface Message {
   id: string;
   role: "user" | "assistant";
@@ -197,9 +198,40 @@ const AIChatbot: React.FC = () => {
                       : "bg-white/10 text-gray-200 border border-white/10"
                   }`}
                 >
-                  <p className="text-sm whitespace-pre-wrap">
-                    {message.content}
-                  </p>
+                  <div className="text-sm markdown-content">
+                    <ReactMarkdown
+                      components={{
+                        a: ({ node, ...props }) => (
+                          <a
+                            {...props}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-cosmic-cyan underline hover:text-cosmic-purple transition-colors"
+                          />
+                        ),
+                        p: ({ node, ...props }) => (
+                          <p {...props} className="mb-2 last:mb-0" />
+                        ),
+                        ul: ({ node, ...props }) => (
+                          <ul
+                            {...props}
+                            className="list-disc list-inside mb-2"
+                          />
+                        ),
+                        ol: ({ node, ...props }) => (
+                          <ol
+                            {...props}
+                            className="list-decimal list-inside mb-2"
+                          />
+                        ),
+                        li: ({ node, ...props }) => (
+                          <li {...props} className="mb-1" />
+                        ),
+                      }}
+                    >
+                      {message.content}
+                    </ReactMarkdown>
+                  </div>
                 </div>
               </div>
             ))}
