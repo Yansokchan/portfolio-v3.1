@@ -145,7 +145,7 @@ const AIChatbot: React.FC = () => {
               Ask About Sokchan
             </AuroraText>
 
-            <p className="text-xs text-gray-400">Powered by OpenRouter AI</p>
+            <p className="text-xs text-gray-400">Powered by Xiaomi AI</p>
           </div>
         </div>
       </ExpandableChatHeader>
