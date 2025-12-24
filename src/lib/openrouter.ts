@@ -1,5 +1,4 @@
-// Gemini API service module - Using official @google/genai SDK
-import { GoogleGenAI } from "@google/genai";
+import { OpenRouter } from "@openrouter/sdk";
 
 // System prompt with Sokchan's profile information
 const SYSTEM_PROMPT = `You are an AI assistant for Sokchan Yan's portfolio website. You should answer questions about Sokchan in a friendly, professional, and helpful manner. Here is Sokchan's profile information:
@@ -37,79 +36,75 @@ When answering questions:
 2. If asked about something not in the profile, politely say you don't have that information
 3. Encourage visitors to reach out via the contact form for more details
 4. Keep responses concise but informative
-5. You can suggest they check specific sections of the portfolio for more details`;
+5. You can suggest they check specific sections of the portfolio for more details
+6. IMPORTANT: Always format links as Markdown, especially for social media (e.g., [Facebook](https://facebook.com/example)). Do not output raw URLs.`;
 
-interface ChatMessage {
-  role: "user" | "model";
-  parts: { text: string }[];
+export interface ChatMessage {
+  role: "user" | "assistant" | "system";
+  content: string;
 }
 
-export interface ChatHistory {
-  messages: ChatMessage[];
-}
+// Initialize the OpenRouter client
+let client: OpenRouter | null = null;
 
-// Initialize the Gemini client
-let ai: GoogleGenAI | null = null;
-
-function getAI(): GoogleGenAI {
-  if (!ai) {
-    const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+function getClient(): OpenRouter {
+  if (!client) {
+    const apiKey = import.meta.env.VITE_OPENROUTER_API_KEY;
     if (!apiKey) {
       throw new Error(
-        "Gemini API key not found. Please add VITE_GEMINI_API_KEY to your .env file."
+        "OpenRouter API key not found. Please add VITE_OPENROUTER_API_KEY to your .env file."
       );
     }
-    ai = new GoogleGenAI({ apiKey });
+    client = new OpenRouter({ apiKey });
   }
-  return ai;
+  return client;
 }
 
-export async function sendMessageToGemini(
-  userMessage: string,
-  chatHistory: ChatHistory
+export async function sendMessageToOpenRouter(
+  messages: ChatMessage[]
 ): Promise<string> {
   try {
-    const genAI = getAI();
+    const openrouter = getClient();
 
-    // Build conversation context
-    const conversationContext = chatHistory.messages
-      .map(
-        (msg) =>
-          `${msg.role === "user" ? "User" : "Assistant"}: ${msg.parts[0].text}`
-      )
-      .join("\n");
+    // Prepend system prompt to the messages
+    const fullMessages = [
+      { role: "system" as const, content: SYSTEM_PROMPT },
+      ...messages,
+    ];
 
-    const fullPrompt = conversationContext
-      ? `${conversationContext}\nUser: ${userMessage}`
-      : userMessage;
+    const model = "xiaomi/mimo-v2-flash:free";
 
-    // Use the new API format with gemini-2.0-flash-001
-    const response = await genAI.models.generateContent({
-      model: "gemini-3-flash-preview",
-      contents: fullPrompt,
-      config: {
-        systemInstruction: SYSTEM_PROMPT,
-        temperature: 0.7,
-        topK: 40,
-        topP: 0.95,
-        maxOutputTokens: 1024,
+    // Use the streaming interface as requested, but we'll collect it all for now
+    // since the current UI expects a full promise resolution.
+    // If we wanted real streaming UI we'd need to refactor the hook/component more deeply.
+    const stream = await openrouter.chat.send({
+      model: model,
+      messages: fullMessages,
+      stream: true,
+      streamOptions: {
+        includeUsage: true,
       },
     });
 
-    const text = response.text;
-
-    if (!text) {
-      throw new Error("Empty response from Gemini API");
+    let response = "";
+    for await (const chunk of stream) {
+      const content = chunk.choices[0]?.delta?.content;
+      if (content) {
+        response += content;
+      }
+      // Usage info is ignored for now as we just return text
     }
 
-    return text;
+    if (!response) {
+      throw new Error("Empty response from OpenRouter API");
+    }
+
+    return response;
   } catch (error) {
-    console.error("Gemini API error:", error);
+    console.error("OpenRouter API error:", error);
     if (error instanceof Error) {
       throw error;
     }
-    throw new Error("Failed to communicate with Gemini API");
+    throw new Error("Failed to communicate with OpenRouter API");
   }
 }
-
-export type { ChatMessage as GeminiMessage };

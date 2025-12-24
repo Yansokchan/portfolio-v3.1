@@ -6,15 +6,13 @@ import {
   ExpandableChatBody,
   ExpandableChatFooter,
 } from "@/components/ui/expandable-chat";
-import {
-  sendMessageToGemini,
-  type GeminiMessage,
-  type ChatHistory,
-} from "@/lib/gemini";
+import { sendMessageToOpenRouter } from "@/lib/openrouter";
 import Particles from "@/components/Particles";
 import { AuroraText } from "./ui/aurora-text";
 import astronaut from "../assets/astronaut.webp";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+
 interface Message {
   id: string;
   role: "user" | "assistant";
@@ -42,9 +40,6 @@ const AIChatbot: React.FC = () => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Chat history for Gemini API context
-  const [chatHistory, setChatHistory] = useState<ChatHistory>({ messages: [] });
-
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -69,10 +64,16 @@ const AIChatbot: React.FC = () => {
     setError(null);
 
     try {
-      const response = await sendMessageToGemini(
-        userMessage.content,
-        chatHistory
-      );
+      // Prepare history for API
+      // We exclude any error messages or temporary states if we had them,
+      // but here we just map the main messages state.
+      // We also include the current user message which was just added to local state.
+      const history = [...messages, userMessage].map((msg) => ({
+        role: msg.role,
+        content: msg.content,
+      }));
+
+      const response = await sendMessageToOpenRouter(history);
 
       const assistantMessage: Message = {
         id: `assistant-${Date.now()}`,
@@ -82,15 +83,6 @@ const AIChatbot: React.FC = () => {
       };
 
       setMessages((prev) => [...prev, assistantMessage]);
-
-      // Update chat history for context
-      setChatHistory((prev) => ({
-        messages: [
-          ...prev.messages,
-          { role: "user", parts: [{ text: userMessage.content }] },
-          { role: "model", parts: [{ text: response }] },
-        ] as GeminiMessage[],
-      }));
     } catch (err) {
       const errorMessage =
         err instanceof Error
@@ -153,7 +145,7 @@ const AIChatbot: React.FC = () => {
               Ask About Sokchan
             </AuroraText>
 
-            <p className="text-xs text-gray-400">Powered by Gemini AI</p>
+            <p className="text-xs text-gray-400">Powered by Xiaomi AI</p>
           </div>
         </div>
       </ExpandableChatHeader>
@@ -200,6 +192,7 @@ const AIChatbot: React.FC = () => {
                 >
                   <div className="text-sm markdown-content">
                     <ReactMarkdown
+                      remarkPlugins={[remarkGfm]}
                       components={{
                         a: ({ node, ...props }) => (
                           <a
@@ -239,9 +232,11 @@ const AIChatbot: React.FC = () => {
             {/* Loading indicator */}
             {isLoading && (
               <div className="flex gap-3">
-                <div className="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center bg-gradient-to-br from-cosmic-cyan/50 to-cosmic-purple/50">
-                  <Bot className="h-4 w-4 text-white" />
-                </div>
+                <img
+                  className="w-8 rounded-full"
+                  src={astronaut}
+                  alt="astronaut"
+                />
                 <div className="bg-white/10 backdrop-blur-sm rounded-2xl px-4 py-3 border border-white/10">
                   <div className="flex items-center gap-2">
                     <Loader2 className="h-4 w-4 text-cosmic-cyan animate-spin" />

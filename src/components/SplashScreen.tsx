@@ -37,7 +37,7 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
 
   const moonDelay = 0;
   const astronautDelay = 2;
-  const buttonDelay = 4.2;
+  const buttonDelay = 3.2;
 
   const slideLeftVariant = {
     hidden: { x: -100, opacity: 0 },
@@ -196,7 +196,7 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
                   className="text-sm text-white/80"
                   type="words"
                   inView
-                  delay={2000}
+                  delay={1500}
                   text="Thank you for visiting my portfolio website!"
                   motionVariants={{
                     initial: {
@@ -220,7 +220,7 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
                   className="text-sm text-white/80"
                   type="chars"
                   inView
-                  delay={3000}
+                  delay={2000}
                   text="Are you ready to see me?"
                   motionVariants={{
                     initial: {
