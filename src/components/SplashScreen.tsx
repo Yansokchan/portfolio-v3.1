@@ -186,7 +186,7 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
             </div>
 
             {/* Play Button Section */}
-            <div className="flex flex-col items-center justify-center gap-2 mt-12">
+            {/* <div className="flex flex-col items-center justify-center gap-2 mt-12">
               <motion.span
                 variants={slideLeftVariant}
                 initial="hidden"
@@ -195,20 +195,8 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
                 <SplittingText
                   className="text-sm text-white/80"
                   type="words"
-                  inView
                   delay={1500}
                   text="Thank you for visiting my portfolio website!"
-                  motionVariants={{
-                    initial: {
-                      y: 50,
-                      scale: 0.5,
-                      opacity: 0,
-                      x: 50,
-                      rotate: 90,
-                    },
-                    animate: { y: 0, scale: 1, opacity: 1, x: 0, rotate: 0 },
-                    transition: { duration: 0.5, ease: "easeOut" },
-                  }}
                 />
               </motion.span>
               <motion.span
@@ -222,20 +210,9 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
                   inView
                   delay={2000}
                   text="Are you ready to see me?"
-                  motionVariants={{
-                    initial: {
-                      y: 50,
-                      scale: 0.5,
-                      opacity: 0,
-                      x: 50,
-                      rotate: 90,
-                    },
-                    animate: { y: 0, scale: 1, opacity: 1, x: 0, rotate: 0 },
-                    transition: { duration: 0.5, ease: "easeOut" },
-                  }}
                 />
               </motion.span>
-            </div>
+            </div> */}
 
             <motion.div
               initial={{ scale: 0 }}

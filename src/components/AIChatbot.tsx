@@ -12,6 +12,7 @@ import { AuroraText } from "./ui/aurora-text";
 import astronaut from "../assets/astronaut.webp";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import ShinyText from "./ShinyText";
 
 interface Message {
   id: string;
@@ -240,7 +241,12 @@ const AIChatbot: React.FC = () => {
                 <div className="bg-white/10 backdrop-blur-sm rounded-2xl px-4 py-3 border border-white/10">
                   <div className="flex items-center gap-2">
                     <Loader2 className="h-4 w-4 text-cosmic-cyan animate-spin" />
-                    <span className="text-sm text-gray-400">Thinking...</span>
+                    <ShinyText
+                      text="Thinking..."
+                      disabled={false}
+                      speed={1}
+                      className="text-sm text-gray-400"
+                    />
                   </div>
                 </div>
               </div>

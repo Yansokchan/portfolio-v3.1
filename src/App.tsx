@@ -7,12 +7,14 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import ProjectDetail from "./pages/ProjectDetail";
 import SplashScreen from "./components/SplashScreen";
+import { isBot } from "@/lib/seo";
 import { useState } from "react";
 
 const queryClient = new QueryClient();
 
 const App = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  // If it's a bot, skip loading (splash screen)
+  const [isLoading, setIsLoading] = useState(!isBot());
 
   return (
     <QueryClientProvider client={queryClient}>
