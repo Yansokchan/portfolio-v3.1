@@ -13,6 +13,7 @@ import astronaut from "../assets/astronaut.webp";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import ShinyText from "./ShinyText";
+import { supabase } from "@/lib/supabaseClient";
 
 interface Message {
   id: string;
@@ -63,6 +64,19 @@ const AIChatbot: React.FC = () => {
     setInputValue("");
     setIsLoading(true);
     setError(null);
+
+    // Save query to Supabase (non-blocking)
+    supabase
+      .from("chat_saved")
+      .insert([
+        {
+          user_message: inputValue.trim(),
+          client_timestamp: new Date().toLocaleString(),
+        },
+      ])
+      .then(({ error }) => {
+        if (error) console.error("Error saving chat query:", error);
+      });
 
     try {
       // Prepare history for API
