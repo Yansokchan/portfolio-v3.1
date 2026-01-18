@@ -66,7 +66,7 @@ const CommentsSection = () => {
   };
 
   const handleCommentChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
     setCommentData((prev) => ({ ...prev, [name]: value }));
@@ -135,12 +135,9 @@ const CommentsSection = () => {
       triggerConfettiSideCannons();
 
       toast({
-        title: "Comment Posted! ✨",
+        title: `Thanks for sharing your thoughts, ${commentData.name} ✨`,
         description: (
           <div className="flex flex-col gap-1 relative z-10">
-            <p className="font-medium">
-              Thanks for sharing your thoughts, {commentData.name}!
-            </p>
             <p className="text-sm text-gray-200">
               Your comment is now live on the page.
             </p>

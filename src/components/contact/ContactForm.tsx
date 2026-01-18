@@ -22,7 +22,7 @@ const ContactForm = ({
   });
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -52,13 +52,9 @@ const ContactForm = ({
       if (result.success) {
         triggerConfettiSideCannons();
         toast({
-          title: "Message Sent Successfully! 🚀",
+          title: `Thank you for reaching out, ${formData.name}`,
           description: (
             <div className="flex flex-col gap-1 relative z-10">
-              <p className="font-medium">
-                Thank you for reaching out,{" "}
-                <span className="text-white font-bold">{formData.name}!</span>
-              </p>
               <p className="text-sm text-gray-200">
                 I'll get back to you as soon as possible.
               </p>

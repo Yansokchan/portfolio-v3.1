@@ -5,11 +5,28 @@ import { Spotlight } from "../components/ui/spotlight-new";
 import devTracker from "../assets/devtracker.webp";
 import nextGen from "../assets/next-gen.webp";
 import ecom from "../assets/ecom.webp";
+import ecom2 from "../assets/ecom2.webp";
 import rps from "../assets/rps.webp";
 // You may want to move this to a shared location
 const projects = [
   {
     id: 1,
+    title: "Modern E-Commerce Platform",
+    description:
+      "This is a modern e-commerce platform built with Next.js, Tailwind CSS, and Supabase. It includes features such as user authentication, product catalog, shopping cart, and payment processing. The platform also has a Telegram bot that allows users to place orders and track their shipments.",
+    tags: [
+      "Next.js",
+      "Tailwind CSS",
+      "Supabase",
+      "Telegram Bot",
+      "Bakong Payment",
+    ],
+    imageUrl: ecom2,
+    link: "https://socheath-store.vercel.app",
+    public: false,
+  },
+  {
+    id: 2,
     title: "Next-Gen",
     description:
       "This is the first full-stack project I built—a management system developed while I was learning React.js. It allows users to manage employees, customers, products, and orders. The system also includes a dashboard that tracks revenue by day, week, and month. You can log in using the password: Pa$$w0rd.",
@@ -20,7 +37,7 @@ const projects = [
     public: false,
   },
   {
-    id: 2,
+    id: 3,
     title: "DevTracker PRO",
     description:
       "DevTracker PRO is a modern tracking tool that allows you to track your daily task with modern AI features.",
@@ -31,7 +48,7 @@ const projects = [
     public: false,
   },
   {
-    id: 3,
+    id: 4,
     title: "E-Commerce Platform",
     description:
       "As one of my first projects while learning HTML, CSS, and JavaScript, I built this simple e-commerce platform to apply my skills and understand the basics of web development.",
@@ -39,17 +56,6 @@ const projects = [
     imageUrl: ecom,
     link: "https://yansokchan.github.io/semicolon/home.html",
     github: "https://github.com/yansokchan/semicolon",
-    public: true,
-  },
-  {
-    id: 4,
-    title: "Rock Paper Scissor",
-    description:
-      "While learning JavaScript, I discovered that I could build simple games with it—so I created this project. It's a basic game developed using JavaScript, and I really enjoyed working on it during the early stages of my learning journey.",
-    tags: ["HTML", "CSS", "Javascript"],
-    imageUrl: rps,
-    link: "https://yansokchan.github.io/RPS/rock-paper-scissors.html",
-    github: "https://github.com/yansokchan/RPS",
     public: true,
   },
 ];

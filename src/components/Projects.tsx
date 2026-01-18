@@ -6,7 +6,7 @@ import { ArrowRight, ExternalLink, ArrowDown, ArrowUp } from "lucide-react";
 import nextGen from "../assets/next-gen.webp";
 import devTracker from "../assets/devtracker.webp";
 import ecom from "../assets/ecom.webp";
-import rps from "../assets/rps.webp";
+import ecom2 from "../assets/ecom2.webp";
 const styles = `
 @keyframes ruler {
   from { width: 0%; }
@@ -54,6 +54,21 @@ interface Project {
 const projects: Project[] = [
   {
     id: 1,
+    title: "Modern E-Commerce Platform",
+    description:
+      "Modern E-Commerce Platform with Next.js, Tailwind CSS, Telegram Bot, Bakong Payment and Supabase.",
+    tags: [
+      "Next.js",
+      "Tailwind CSS",
+      "Supabase",
+      "Telegram Bot",
+      "Bakong Payment",
+    ],
+    imageUrl: ecom2,
+    link: "https://socheath-store.vercel.app",
+  },
+  {
+    id: 2,
     title: "Next-Gen",
     description:
       "Management System for a company using React.js, Tailwind CSS, Node.js, Supabase, and Cursor. Please use the password: Pa$$w0rd to login.",
@@ -62,7 +77,7 @@ const projects: Project[] = [
     link: "https://next-gen-e4.vercel.app/",
   },
   {
-    id: 2,
+    id: 3,
     title: "DevTracker PRO",
     description:
       "DevTracker PRO is a modern tracking tool that allows you to track your daily task with modern AI features.",
@@ -71,20 +86,12 @@ const projects: Project[] = [
     link: "https://devtrackerpro.vercel.app/",
   },
   {
-    id: 3,
+    id: 4,
     title: "E-Commerce Platform",
     description: "Static E-commerce solution with HTML, CSS and JAVASCRIPT.",
     tags: ["HTML", "CSS", "JavaScript", "AOS"],
     imageUrl: ecom,
     link: "https://yansokchan.github.io/semicolon/home.html",
-  },
-  {
-    id: 4,
-    title: "Rock Paper Scissor",
-    description: "Rock Paper Scissor game using HTML, CSS and JAVASCRIPT.",
-    tags: ["HTML", "CSS", "Javascript"],
-    imageUrl: rps,
-    link: "https://yansokchan.github.io/RPS/rock-paper-scissors.html",
   },
 ];
 
