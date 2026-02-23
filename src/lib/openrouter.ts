@@ -52,7 +52,7 @@ function getClient(): OpenRouter {
     const apiKey = import.meta.env.VITE_OPENROUTER_API_KEY;
     if (!apiKey) {
       throw new Error(
-        "OpenRouter API key not found. Please add VITE_OPENROUTER_API_KEY to your .env file."
+        "OpenRouter API key not found. Please add VITE_OPENROUTER_API_KEY to your .env file.",
       );
     }
     client = new OpenRouter({ apiKey });
@@ -61,7 +61,7 @@ function getClient(): OpenRouter {
 }
 
 export async function sendMessageToOpenRouter(
-  messages: ChatMessage[]
+  messages: ChatMessage[],
 ): Promise<string> {
   try {
     const openrouter = getClient();
@@ -72,7 +72,7 @@ export async function sendMessageToOpenRouter(
       ...messages,
     ];
 
-    const model = "xiaomi/mimo-v2-flash:free";
+    const model = "arcee-ai/trinity-mini:free";
 
     // Use the streaming interface as requested, but we'll collect it all for now
     // since the current UI expects a full promise resolution.
