@@ -1,4 +1,5 @@
 import { OpenRouter } from "@openrouter/sdk";
+import { supabase } from "./supabaseClient";
 
 // System prompt with Sokchan's profile information
 const SYSTEM_PROMPT = `You are an AI assistant for Sokchan Yan's portfolio website. You should answer questions about Sokchan in a friendly, professional, and helpful manner. Here is Sokchan's profile information:
@@ -60,6 +61,35 @@ function getClient(): OpenRouter {
   return client;
 }
 
+/**
+ * Fetches the current AI model name from the Supabase 'ai_model' table.
+ * Falls back to a default model if the fetch fails or the table is empty.
+ */
+async function fetchCurrentModel(): Promise<string> {
+  const DEFAULT_MODEL = "arcee-ai/trinity-large-preview:free";
+  try {
+    const { data, error } = await supabase
+      .from("ai_model")
+      .select("model_name")
+      .order("id", { ascending: false })
+      .limit(1)
+      .single();
+
+    if (error) {
+      console.warn(
+        "Error fetching model from Supabase, using default:",
+        error.message,
+      );
+      return DEFAULT_MODEL;
+    }
+
+    return data?.model_name || DEFAULT_MODEL;
+  } catch (err) {
+    console.error("Unexpected error fetching AI model:", err);
+    return DEFAULT_MODEL;
+  }
+}
+
 export async function sendMessageToOpenRouter(
   messages: ChatMessage[],
 ): Promise<string> {
@@ -72,7 +102,9 @@ export async function sendMessageToOpenRouter(
       ...messages,
     ];
 
-    const model = "arcee-ai/trinity-mini:free";
+    // Fetch model information from Supabase table
+    const model = await fetchCurrentModel();
+    console.log(`Using model: ${model}`);
 
     // Use the streaming interface as requested, but we'll collect it all for now
     // since the current UI expects a full promise resolution.
